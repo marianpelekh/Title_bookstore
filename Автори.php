@@ -14,6 +14,11 @@
     <link rel="icon" type="image/x-icon" href="favicon1.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
+<!-- <style>
+    body {
+        background-image: url(https://images.pexels.com/photos/3527796/pexels-photo-3527796.jpeg?cs=srgb&dl=pexels-didsss-3527796.jpg&fm=jpg);
+    }
+</style> -->
 <header>
     <a id="SearchToggle"><img src="search.png" id="search" width="20px"></a>
     <h1><a id="Title" href="КнигарняTitle.php">Title</a></h1>

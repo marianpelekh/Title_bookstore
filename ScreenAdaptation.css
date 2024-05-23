@@ -474,10 +474,14 @@
   #BooksItself {
     margin-right: auto;
     margin-left: auto;
-    width: 90vw;
+    width: 100vw;
+    height: auto;
     gap: 20px;
     overflow-x: auto;
     white-space: nowrap;
+  }
+  #SeriesGradient {
+    display:none;
   }
   #BooksItself .book-container {
     grid-template-rows: 30px 135px 30px 135px 90px;

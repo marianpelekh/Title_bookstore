@@ -104,9 +104,9 @@
 .CommentsTitle {
     background-color: var(--main-color);
     font-family: Orelega;
-    text-shadow: none;
-    font-size: 22px;
-    font-weight: lighter;
+    text-shadow: none !important;
+    font-size: 20px;
+    font-weight: 100 !important;
     text-align: center;
     grid-row: 9;
     grid-column-start: 1;

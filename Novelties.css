@@ -8,7 +8,12 @@
     align-items: center;
     justify-content: center;
     height: 70px;
+    color: var(--page-color);
     background-color: var(--main-color);
+    background-image: url(purple-waves.png);
+    background-position:top;
+    background-size: cover;
+    filter: brightness(1.5), contrast(0.9);
     font-size: 20px;
 }
 #Novelties {
