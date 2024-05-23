@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Title Main.css">
+    <style>
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1, h3, h5 {
+            z-index: 1;
+            text-align: center;
+            margin: 10px;
+        }
+        .round1 {
+            z-index: -1;
+            width: 30vw;
+            height: 30vw;
+            background-color: var(--dark-green);
+            border-radius: 50%;
+            position: absolute;
+            left: -30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .round2 {
+            z-index: -3;
+            width: 50vw;
+            height: 50vw;
+            background-color: var(--third);
+            border-radius: 50%;
+            position: absolute;
+            top: -30%;
+            left: -30%;
+        }
+        .square1 {
+            z-index: -2;
+            width: 100%;
+            height: 20vh;
+            background-color: var(--main-color);
+            position: absolute;
+            box-shadow: 0px 2px 5px var(--shadow);
+        }
+        .square2 {
+            z-index: -2;
+            width: 100vh;
+            height: 5vh;
+            background-color: var(--a-hover);
+            position: absolute;
+            right: -260px;
+            transform: rotate(90deg);
+            box-shadow: 0px -2px 5px var(--shadow);
+        }
+        .round1 h1 {
+            color: var(--white);
+            font-size: 70px;
+            opacity: 0.5;
+        }
+        /* Адаптивність для смартфонів */
+        @media only screen and (max-width: 600px) {
+            .round1 {
+                width: 60vw;
+                height: 60vw;
+                left: -15%;
+            }
+            .round2 {
+                width: 80vw;
+                height: 80vw;
+                top: -20%;
+                left: -20%;
+            }
+            .square1, .square2 {
+                display: none;
+            }
+        }
+        #kittenImage {
+            border: 2px solid var(--a-color);
+            border-radius: 10px;
+            height: 100px;
+        }
+        #buttonImage {
+            width: 30px;
+            height: 30px;
+        }
+        button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 33px;
+            width: 100px;
+            border: 2px solid var(--a-color);
+            border-radius: 10px;
+            background-color: var(--main-color);
+            cursor: pointer;
+            padding-top: 0px;
+            font-family: Comfortaa;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+        button:hover {
+            background-color: var(--mid-color);
+            box-shadow: 2px 2px 0px var(--shadow);
+        }
+    </style>
+    <title>404 Error</title>
+</head>
+<body>
+    <button type="button" id="backButton" href=""><img id="buttonImage" src="left-arrow.png"></button>
+    <h5>Код помилки: 404</h5>
+    <h1>Перепрошуємо, та сторінка не існує :(</h1>
+    <h3>Розробники якнайбільш оперативно це виправлять. Дякуємо за розуміння!</h3>
+    <h3>Вибачте за незручності, ми стараємося</h3>
+    <img id="kittenImage" src="sad-hamster-hamster.png">
+    <div class="round1"><h1>404</h1></div>
+    <div class="round2"></div>
+    <div class="square1"></div>
+    <div class="square2"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let backButton = document.getElementById('backButton');
+    
+            backButton.addEventListener('click', function(){
+                window.history.back();
+            });
+    
+            backButton.addEventListener('mouseover', function(){
+                backButton.textContent = 'Повернутися назад';
+            });
+    
+            backButton.addEventListener('mouseout', function(){
+                backButton.textContent = '';
+                backButton.innerHTML = '<img id="buttonImage" src="left-arrow.png">';
+            });
+        });
+    </script>
+    
+</body>
+</html>

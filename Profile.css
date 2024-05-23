@@ -1,0 +1,296 @@
+
+#cabinetSection {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: auto, auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+}
+
+#LoginForm {
+    grid-row: 1;
+    display: flex;
+    width: 40vw;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+#loginInputs {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    justify-content: space-around;
+}
+#LoginForm input:not([type="submit"]) {
+    margin: 10px;
+    background-color: var(--white);
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    min-height: 25px;
+    width: 250px;
+    text-align: center;
+    color: var(--a-color);
+    font-family: Comfortaa, sans-serif;
+}
+
+#LoginForm input[name="enter"] {
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    background-color: var(--main-color);
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    font-size: 14px;
+    height: 40px;
+    width: 250px;
+    transition: all 0.3s ease;
+}
+
+#LoginForm input[name="enter"]:hover {
+    background-color: var(--mid-color);
+    box-shadow: 10px 0px 0px var(--soft-shadow), -10px 0px 0px var(--soft-shadow);
+}
+
+#regProposition {
+    font-size: 12px;
+}
+#regProposition input {
+    margin: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    color: var(--a-color);
+    font-size: 12px;
+    height: 30px;
+    width: 150px;
+    transition: all 0.5s ease;
+}
+#regProposition input:hover {
+    background-color: var(--mid-color);
+    box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow), 0px -1px 0px var(--a-color), 0px 1px 0px var(--a-color), 1px 0px 0px var(--a-color), -1px 0px 0px var(--a-color);
+}
+
+#regError {
+    color: red;
+    grid-row: 2;
+    grid-column: 1;
+    text-align: center;
+}
+
+
+#userProfileInfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+}
+#userPict {
+    grid-row: 1;
+    grid-column: 1;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid var(--a-color);
+    position: absolute;
+    left: 25vw;
+    top: 200px;
+    z-index: 10;
+}
+#userPictRect {
+    grid-row: 1;
+    grid-column: 1;
+    position: absolute;
+    left: 23vw;
+    top: 170px;
+    z-index: 9;
+    filter: brightness(1.05);
+}
+#userInfo {
+    grid-row: 1;
+    grid-column: 2;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+#userInfoBtns {
+    display: flex;
+    flex-direction: row;
+}
+#userInfoBtns input {
+    width: 200px;
+    margin: 10px;
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    background-color: var(--main-color);
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    font-size: 14px;
+    height: 30px;
+    transition: all 0.3s ease;
+}
+#userInfoBtns input:hover {
+    background-color: var(--mid-color);
+    box-shadow: 10px 0px 0px var(--soft-shadow), -10px 0px 0px var(--soft-shadow);
+}
+
+
+
+#regForm {
+    grid-row: 1;
+    display: flex;
+    width: 40vw;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+#regForm p {
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    gap: 15px;
+}
+#regForm input:not([type="submit"]):not([type="button"]) {
+    background-color: var(--white);
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    height: 25px;
+    min-width: 200px;
+    width: 200px;
+    text-align: center;
+    color: var(--a-color);
+    font-family: Comfortaa, sans-serif;
+}
+
+#regForm input[type="submit"] {
+    margin: 10px;
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    background-color: var(--main-color);
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    font-size: 14px;
+    min-height: 40px;
+    width: 250px;
+    transition: all 0.3s ease;
+}
+#regForm input[type="submit"]:hover {
+    background-color: var(--mid-color);
+    box-shadow: 10px 0px 0px var(--soft-shadow), -10px 0px 0px var(--soft-shadow);
+}
+#regForm input[type='button'] {
+    margin: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    color: var(--a-color);
+    font-size: 12px;
+    min-height: 30px;
+    transition: all 0.5s ease;
+}
+#regForm input[type='button']:hover {
+    background-color: var(--mid-color);
+    box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow), 0px -1px 0px var(--a-color), 0px 1px 0px var(--a-color), 1px 0px 0px var(--a-color), -1px 0px 0px var(--a-color);
+}
+#userExists, #emailExists {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: justify;
+    color: red;
+}
+#titleForRecs {
+    margin-top: 100px;
+    text-align: center;
+}
+#UserFeatures {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    width: 60vw;
+    padding-bottom: 30px;
+}
+#changePassForm {
+    width: min-content;
+}
+#exitForm {
+    width: min-content;
+}
+
+#addFormDiv, #EditFormDiv, #DeleteFormDiv {
+    margin: 10px;
+    width: 50vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 2px solid var(--a-color);
+    border-radius: 10px;
+    background-color: var(--mid-color);
+}
+#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select {
+    margin: 10px;
+    background-color: var(--white);
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    min-height: 25px;
+    width: 34vw;
+    text-align: left;
+    color: var(--a-color);
+    font-family: Comfortaa, sans-serif;
+}
+#addFormDiv input[type="submit"], #EditFormDiv input[type="submit"], #DeleteFormDiv input[type="submit"] {
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    background-color: var(--main-color);
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    font-size: 14px;
+    height: 30px;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+#addFormDiv input[type="submit"]:hover, #EditFormDiv input[type="submit"]:hover, #DeleteFormDiv input[type="submit"]:hover {
+    background-color: var(--page-color);
+    box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow);
+}
+.isSeriesDiv p {
+    width: max-content;
+    text-align: right;
+    display: flex;
+    align-items: center;
+}
+.isSeriesDiv input {
+    background-color: var(--white);
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    min-height: 25px;
+    width: 25px !important;
+    color: var(--a-color);
+    font-family: Comfortaa, sans-serif;
+}
+.isSeriesDiv {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+h4 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}

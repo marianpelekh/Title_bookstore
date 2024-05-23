@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../../../Users/pk/VS Code"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"fstream": "cpp",
+			"iosfwd": "cpp",
+			"string": "cpp",
+			"iostream": "cpp"
+		}
+	}
+}

@@ -1,0 +1,100 @@
+.spacer {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: auto;
+    text-align: center;
+    height: 200px;
+    min-height: 200px;
+}
+.totalElement {
+    font-family: Orelega;
+    grid-column: 4;
+    grid-row: 1;
+    margin-bottom: 100px;
+}
+.totalTitle {
+    font-family: Comfortaa;
+    grid-column: 1;
+    grid-row: 1;
+}
+.deleteButton {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--page-color);
+    border-radius: 6px;
+    cursor: pointer;
+    grid-row: 1;
+    grid-column: 3;
+    margin-left: auto;
+    margin-right: 10px;
+}
+.CartCover {
+    width: 100px;
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.bookElement {
+    display: grid;
+    width: 480px;
+    height: 200px;
+    margin: 10px;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(2, 100px);
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 1;
+}
+.CartTitle {
+    grid-row: 1;
+    grid-column: 2;
+    text-align: left;
+    margin: 10px;
+    font-size: 20px;
+}
+.CartAuthor {
+    grid-row: 2;
+    grid-column: 2;
+    text-align: left;
+    margin: 10px;    
+}
+.CartPrice {
+    grid-row: 2;
+    grid-column: 3;
+    text-align: right;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: Orelega;
+}
+.Quantity {
+    grid-row: 1;
+    grid-column: 3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60px;
+    height: 20px;
+    flex: 1;
+    align-self: flex-end;
+    justify-self: flex-end;
+    /* border-radius: 5px;
+    border: 2px solid var(--a-color);
+    text-align: center;
+    font-weight: bold;
+    background-color: var(--page-color);
+    
+    margin-right: 10px; */
+}
+.DecreaseQuantity, .IncreaseQuantity {
+    font-size: large;
+    font-family: Comfortaa, sans-serif;
+    color: var(--a-color);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

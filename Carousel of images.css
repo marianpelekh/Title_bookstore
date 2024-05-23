@@ -1,0 +1,47 @@
+@import url(Title\ Main.css);
+.carousel {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.carousel-img {
+    grid-row: 1;
+    grid-column: 1;
+    min-width: 100%;
+    max-height: 100%;
+    transition: transform 0.5s ease-in-out;
+    margin: 0px;
+}
+.dot-container {
+    grid-column: 1;
+    grid-row: 3;
+    height: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 20px);
+    grid-template-rows: 10px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.dots {
+    background-color: gainsboro;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.active {
+    background-color: var(--a-color);
+    border-radius: 30%;
+}

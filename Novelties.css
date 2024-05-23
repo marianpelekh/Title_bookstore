@@ -1,0 +1,201 @@
+#NoveltiesTitle {
+    margin-bottom: 20px;
+    z-index: -1 !important;
+    width: 100%;
+    grid-row: 1;
+    grid-column: 1 / span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    background-color: var(--main-color);
+    font-size: 20px;
+}
+#Novelties {
+    background-color: var(--a-color);
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    max-width: 98vw;
+    height: max-content;
+    padding: 2vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center; 
+    gap: 30px;
+}
+
+
+section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: center; 
+    gap: 30px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0.5px 0 1px rgba(255, 255, 255, 0.23) inset, 0 1px 0 0 rgba(255, 255, 255, 0.66) inset, 0 4px 16px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+  }
+  
+  .info {
+    display: grid;
+    grid-template-columns: repeat(1, 50%);
+    grid-template-rows: repeat(fit-content, auto);
+    justify-content: center;
+    align-items: center;
+    max-width: 50vw;
+    width: 50%;
+    max-height: 100%;
+    text-align: justify;
+  }
+  
+  #BuyButton {
+    height: 50px;
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    margin-top: 40px;
+    font-size: 1.1rem;
+    text-wrap: nowrap;
+    font-weight: 700;
+    border-radius: 4px;
+    outline: none;
+    text-decoration: none;
+    color: var(--a-color);
+    background-color: var(--white);
+    box-shadow: 0 6px 30px var(--soft-shadow);
+    border: 1px solid var(--gray);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    grid-column: 1;
+    grid-row: 4;
+  }
+  
+  #BuyButton:hover {
+      background-color: var(--a-hover);
+  }
+  
+  #BookTitle {
+    color: var(--page-color);
+    font-size: 2rem;
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+  }
+  #BookAuthor {
+    text-align: center;
+    color: var(--main-color);
+    font-size: 1.1rem;
+    grid-column: 1;
+    grid-row: 2;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  #BookDesc {
+    color: var(--page-color);
+    grid-column: 1;
+    grid-row: 3;
+    overflow: hidden;
+    max-height: 250px;
+    position: relative;
+}
+
+  /* SWIPER */
+  .swiperContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 450px;
+  }
+  .swiper {
+    width: 300px;
+    height: 100%;
+}
+.swiper-wrapper {
+    height: 100%;
+  }
+  .swiper-slide {
+    width: 100%;
+    height: 50%;
+    position: relative;
+    box-shadow: 0 0px 15px var(--soft-shadow);
+    border-radius: 10px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .swiper-slide span {
+    position: absolute;
+    bottom: 0;
+    right: auto;
+    left: auto;
+    color: var(--white);
+    padding: 7px 18px;
+    margin: 10px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: inherit;
+    background: var(--soft-shadow);
+    box-shadow: inset 2px -2px 20px var(--soft-shadow), inset -3px 3px 3px var(--shadow);
+    backdrop-filter: blur(74px);
+    -webkit-backdrop-filter: blur(74px);
+  }
+  
+  .swiper-slide h2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0 0 20px 20px;
+  }
+  
+  .relatedInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50rem;
+    width: 120%;
+  }
+
+  @media (max-width: 1000px) {
+    .content {
+       flex-direction: column;
+    }
+    
+    .btn {
+      margin: 40px auto 10px;
+    }
+  }

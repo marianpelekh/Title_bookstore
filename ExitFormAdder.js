@@ -1,0 +1,10 @@
+let exitForm = document.createElement('form');
+exitForm.method = 'POST';
+exitForm.id = 'exitForm';
+let exitBtn = document.createElement('input');
+exitBtn.type = 'submit';
+exitBtn.name = 'exit';
+exitBtn.value = 'Вихід';
+exitForm.appendChild(exitBtn);
+let userInfoBtns = document.getElementById('userInfoBtns');
+userInfoBtns.appendChild(exitForm);
