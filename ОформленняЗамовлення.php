@@ -175,6 +175,7 @@
                 tTotalEl.textContent = totalElement.textContent;
                 let totalPrice = document.getElementById('totalPrice');
                 totalPrice.appendChild(tTotalEl);
+                UpdateStoredBooks();
             }
 
             function transferToBook() {

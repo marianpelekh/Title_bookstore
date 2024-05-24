@@ -2,10 +2,34 @@
 session_start();
 require('connect_db.php');
 
-$data = json_decode(file_get_contents("php://input"), true);
+// Отримати JSON-дані з потоку вхідних даних
+$data = json_decode(file_get_contents('php://input'), true);
 
-$storedBooks = json_encode($data);
+if (isset($data['books']) && !empty($data['books'])) {
+    $books = $data['books'];
+    if (json_last_error() === JSON_ERROR_NONE) {
+        $booksJson = json_encode($books, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
+        $userId = $_SESSION['id'];
 
-$insertQuery = "UPDATE users SET StoredBooks = '$storedBooks' WHERE userId = $_SESSION[id]";
-mysqli_query($conn, $insertQuery);
+        $updateBooks = "UPDATE users SET StoredBooks = ? WHERE userId = ?";
+        $stmt = $conn->prepare($updateBooks);
+        $stmt->bind_param('si', $booksJson, $userId);
+        
+        if ($stmt->execute()) {
+            echo "Books updated successfully.";
+        } else {
+            echo "Error updating books: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        echo "Invalid JSON data.";
+    }
+} else if (isset($data['books'])) {
+    echo "Books data received but it's empty.";
+} else {
+    echo "No books data received.";
+    echo "What is received: " . isset($data['books']);
+}
+
+$conn->close();
 ?>

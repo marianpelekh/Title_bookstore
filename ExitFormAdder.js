@@ -1,5 +1,6 @@
 let exitForm = document.createElement('form');
 exitForm.method = 'POST';
+exitForm.onsubmit = "sendLocalStorageData(); return false;";
 exitForm.id = 'exitForm';
 let exitBtn = document.createElement('input');
 exitBtn.type = 'submit';

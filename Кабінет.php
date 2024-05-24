@@ -83,7 +83,7 @@
                     header('Location: Кабінет.php');
                 }
             } else {
-                echo "<p id='regError'>Невірний логін або пароль</p>";
+                echo "<p id='regError'>Неправильний логін або пароль</p>";
             }
             $_SESSION['login'] = $_POST['login'];
             
@@ -98,7 +98,7 @@
         $res = mysqli_query($conn, $sql);
         $result = mysqli_fetch_array($res);
         echo '<div id="userProfileInfo">';
-        echo '<img id="userPict" src="' . $result['image'] . '" alt=" Зображення профілю ">';
+        echo '<a id="changeUserPic"><img id="userPict" src="' . $result['image'] . '" alt=" Зображення профілю "></a>';
         echo '<svg id="userPictRect" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">';
         echo '<rect width="200" height="200" rx="6" fill="#E1D5FF"/>';
         echo '</svg>';
@@ -118,16 +118,29 @@
         }
         echo '<script src="ExitFormAdder.js"></script>';
         if(isset($_POST['exit'])) {
-            echo '<script>window.localStorage.removeItem("books");</script>';
+            echo '<script src="UpdateStoredBooks.js"></script>';
             session_destroy();
             header('Location: Кабінет.php');
             exit;
         }
         if (!empty($result['StoredBooks'])) {
-            echo "<script>window.localStorage.setItem('books', " . $result['StoredBooks'] . ");</script>";
+            $storedBooks = json_encode(json_decode($result['StoredBooks'], true), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
+            $tableStoredBooks = $result['StoredBooks'];
+            echo "<script>
+                    const booksData = $storedBooks;
+                    const tableBooksData = $tableStoredBooks;
+                    console.log('Books Data:', booksData);
+                    console.log('Table Books Data: ', tableBooksData);
+                    window.localStorage.setItem('books', JSON.stringify(booksData));
+                  </script>";
         } else {
-            echo "<script>window.localStorage.setItem('books', '[]');</script>";
+            echo "<script>
+                    console.error('No stored books');
+                    window.localStorage.setItem('books', JSON.stringify([]));
+                  </script>";
         }
+                
+        
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -325,8 +338,16 @@
         }
     }
 ?>
+<div id="backdropShadow">
+<form id="UploadImageForm" action="UploadPictures.php" method="post" enctype="multipart/form-data">
+    <h3>Завантажити зображення</h3><br>
+    <label for="file">Виберіть фото:</label>
+    <input type="file" name="file" id="file">
+    <input type="submit" value="Завантажити">
+    <a id="closeUploadForm"><img id="closeUploadFormImage" src="close.png" width="25"></a>
+</form></div>
 </section>
-
+<script src="CloseUploadForm.js"></script>
 <script src="Search.js"></script>
 </body>
 <footer>
