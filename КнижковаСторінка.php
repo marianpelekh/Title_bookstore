@@ -202,9 +202,6 @@ if ($result) {
 
                 ?>';
                 SeriesContainer.appendChild(seriesBooks);
-                let grad = document.createElement('div');
-                grad.id = 'SeriesGradient';
-                SeriesContainer.appendChild(grad);
             }
         </script>
         <script>
@@ -239,6 +236,7 @@ if ($result) {
                 totalElement.classList.add('totalElement');
                 totalElement.textContent = total.toFixed(2) + ' грн';
                 spacer.appendChild(totalElement);
+                UpdateStoredBooks();
             }
 
             function transferToBook() {
@@ -272,6 +270,7 @@ if ($result) {
                             }                
                             localStorage.setItem('books', JSON.stringify(storedBooks));
                             updateTotal();
+                            UpdateStoredBooks();
                         })
                     });
                 });
@@ -461,19 +460,6 @@ if ($result) {
                     }
                 });
                 localStorage.setItem('books', JSON.stringify(storedBooks));
-                
-                let storedB = JSON.parse(localStorage.getItem('books'));
-
-                let xhr = new XMLHttpRequest();
-                xhr.open('POST', 'update_stored_books.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log(xhr.responseText);
-                    }
-                };
-                xhr.send(JSON.stringify(storedB));
-
 
                 let purchaseButton = document.getElementById('Purchase');
                 purchaseButton.addEventListener('click', handlePurchaseClick);
@@ -497,7 +483,18 @@ if ($result) {
                 handleDeleteClick();
                 changeQuantityNew(bookElement);
             }
-
+            function UpdateStoredBooks() {
+                let storedB = JSON.parse(localStorage.getItem("books"));
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update_stored_books.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                    }
+                };
+                xhr.send(JSON.stringify({books: storedB}));
+            }
             document.addEventListener('DOMContentLoaded', function () {
                 // Отримати посилання на елементи
                 const menuToggle = document.getElementById('menuToggle');
@@ -597,7 +594,6 @@ if ($result) {
                 priceText.textContent = newPrice.toFixed(2) + ' грн';
                     
                 console.log("New price of " + bookElement.id + " has been set.");
-                    
                 updateTotal();
             }
         </script>
