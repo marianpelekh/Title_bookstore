@@ -1,8 +1,8 @@
-Bookstore Website
+# Bookstore Website
 
 This is a PHP-based website for an online bookstore. It allows users to browse books, add them to a shopping cart, and make purchases. The website uses phpMyAdmin for database management and requires XAMPP for local development.
 
-Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
@@ -11,6 +11,7 @@ Table of Contents
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
@@ -30,25 +31,25 @@ Table of Contents
 
 ## Installation
 
-1. Download and Install XAMPP:
+1. **Download and Install XAMPP:**
    - Download XAMPP from [here](https://www.apachefriends.org/index.html).
    - Install XAMPP by following the instructions on the website.
 
-2. Clone the Repository:
+2. **Clone the Repository:**
    - Clone this repository to your local machine using:
-     ```
+     ```bash
      git clone https://github.com/yourusername/bookstore.git
      ```
    - Move the cloned repository to the `htdocs` directory of your XAMPP installation:
-     ```
+     ```bash
      mv bookstore /path/to/xampp/htdocs/
      ```
 
-3. Start XAMPP:
+3. **Start XAMPP:**
    - Open XAMPP Control Panel.
    - Start the Apache and MySQL modules.
 
-4. Setup the Database:
+4. **Setup the Database:**
    - Open phpMyAdmin by going to `http://localhost/phpmyadmin`.
    - Create a new database named `bookstore`.
    - Import the provided SQL file to set up the necessary tables:
@@ -56,7 +57,7 @@ Table of Contents
      bookstore/database/bookstore.sql
      ```
 
-5. Configure the Application:
+5. **Configure the Application:**
    - Open the `connect_db.php` file in the project directory.
    - Update the database connection settings:
      ```php
@@ -68,32 +69,32 @@ Table of Contents
 
 ## Configuration
 
-1. Database Configuration:
+1. **Database Configuration:**
    - Ensure the database details in `connect_db.php` are correct.
    - Make sure the MySQL server is running.
 
-2. Apache Configuration (optional):
+2. **Apache Configuration (optional):**
    - If you need to access the website from other devices, configure your firewall to allow connections on port 80 (HTTP) or 443 (HTTPS).
    - Ensure your local network allows communication on these ports.
 
 ## Usage
 
-1. Access the Website:
+1. **Access the Website:**
    - Open your web browser.
    - Navigate to `http://localhost/bookstore`.
 
-2. Admin Panel:
+2. **Admin Panel:**
    - Access the admin panel to manage books and users by logging in as an admin.
    - The default admin credentials can be set in the database or via registration.
 
 ## Troubleshooting
 
-- Can't Connect to Database:
+- **Can't Connect to Database:**
   - Ensure MySQL is running.
   - Verify database credentials in `connect_db.php`.
   - Check if the `bookstore` database exists in phpMyAdmin.
 
-- Website Not Loading:
+- **Website Not Loading:**
   - Make sure Apache is running.
   - Check for any syntax errors in the PHP files.
   - Ensure the project directory is in the `htdocs` folder.
@@ -107,3 +108,6 @@ Table of Contents
 5. Push to the branch (`git push origin feature-branch`).
 6. Open a pull request.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
