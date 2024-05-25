@@ -35,40 +35,40 @@ if (!in_array($imageFileType, $allowed_types)) {
     die("Вибачте, дозволені лише формати JPG, JPEG, PNG, JFIF та GIF.");
 }
 
-// Додавання автоінкрементального значення до імені файлу, якщо файл вже існує
-$counter = 1;
-while (file_exists($target_file)) {
-    $target_file = $target_dir . $file_name . '_' . $counter . '.' . $imageFileType;
-    $counter++;
-}
-
-// Відносний шлях для збереження у базу даних
-$relative_path = "./UserPictures/" . basename($target_file);
-
-// Завантаження файлу
-if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-    // echo "Файл " . basename($target_file) . " було завантажено.";
-    header('Location: Кабінет.php');
-
-    // Використовуємо підготовлений вираз для безпеки
-    $query = "UPDATE users SET image = ? WHERE userId = ?";
-    $stmt = mysqli_prepare($conn, $query);
-
-    if (!$stmt) {
-        die("Помилка підготовки SQL запиту: " . mysqli_error($conn));
-    }
-
-    mysqli_stmt_bind_param($stmt, "si", $relative_path, $_SESSION["id"]);
-    mysqli_stmt_execute($stmt);
-
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "Зображення успішно оновлено.";
-    } else {
-        echo "Помилка оновлення зображення у базі даних.";
-    }
-
-    mysqli_stmt_close($stmt);
+// Перевірка, чи існує файл
+if (file_exists($target_file)) {
+    // Файл існує, встановлюємо посилання на нього
+    $relative_path = "./UserPictures/" . basename($target_file);
 } else {
-    echo "Вибачте, виникла помилка під час завантаження вашого файлу.";
+    // Файл не існує, завантажуємо його
+    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+        $relative_path = "./UserPictures/" . basename($target_file);
+    } else {
+        die("Вибачте, виникла помилка під час завантаження вашого файлу.");
+    }
 }
+
+// Оновлення бази даних
+$query = "UPDATE users SET image = ? WHERE userId = ?";
+$stmt = mysqli_prepare($conn, $query);
+
+if (!$stmt) {
+    die("Помилка підготовки SQL запиту: " . mysqli_error($conn));
+}
+
+mysqli_stmt_bind_param($stmt, "si", $relative_path, $_SESSION["id"]);
+mysqli_stmt_execute($stmt);
+
+if (mysqli_stmt_affected_rows($stmt) > 0) {
+    echo "Зображення успішно оновлено.";
+} else {
+    echo "Помилка оновлення зображення у базі даних.";
+}
+
+mysqli_stmt_close($stmt);
+
+header('Location: Кабінет.php');
+exit();
+
+$conn->close();
 ?>
