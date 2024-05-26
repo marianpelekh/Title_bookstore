@@ -194,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let asideOpen = sessionStorage.getItem('asideOpen');
         if (asideOpen !== 'true') {
             openAside();
+            console.log('Open aside');
+            CloseCart('true');
         } else {
             closeAside();
         }
