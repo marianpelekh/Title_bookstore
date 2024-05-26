@@ -17,11 +17,11 @@
 </head>
 <header>
     <a id="SearchToggle"><img src="search.png" id="search" width="20px"></a>
-    <h1><a id="Title" href="КнигарняTitle.php">Title</a></h1>
+    <h1><a id="Title" href="index.php">Title</a></h1>
     <nav>
         <a id="Catalog" href="Каталог.php">Каталог</a>
         <a id="Authors" href="Автори.php">Автори</a>
-        <h1><a id="TitleNav" href="КнигарняTitle.php">Title</a></h1>
+        <h1><a id="TitleNav" href="index.php">Title</a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
         <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>

@@ -3,7 +3,7 @@ include('connect_db.php');
 session_start();
 $id = urldecode($_GET['id']);  // отримуємо ідентифікатор книги з URL
 
-$query = "SELECT * FROM books WHERE CONCAT(Name, ' ', Author)='$id'";
+$query = "SELECT * FROM books WHERE CONCAT(Name, ' ', Author)='" . mysqli_real_escape_string($conn, $id) . "'";
 $result = mysqli_query($conn, $query);
 
 if ($result) {
@@ -64,11 +64,11 @@ if ($result) {
 </head>
 <header>
     <a id="SearchToggle"><img src="search.png" id="search" width="20px"></a>
-    <h1><a id="Title" href="КнигарняTitle.php">Title</a></h1>
+    <h1><a id="Title" href="index.php">Title</a></h1>
     <nav>
         <a id="Catalog" href="Каталог.php">Каталог</a>
         <a id="Authors" href="Автори.php">Автори</a>
-        <h1><a id="TitleNav" href="КнигарняTitle.php"><?php echo $row['ShortName']; ?></a></h1>
+        <h1><a id="TitleNav" href="index.php"><?php echo $row['ShortName']; ?></a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
         <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
@@ -100,7 +100,7 @@ if ($result) {
     <section>
 
         <ul class="breadcrumb">
-            <li><a href="КнигарняTitle.php">TITLE</a></li>
+            <li><a href="index.php">TITLE</a></li>
             <li><a href="Каталог.php">Каталог</a></li>
             <li><a href="#"><?php echo $row['Name'] ?></a></li>
         </ul>
@@ -173,7 +173,7 @@ if ($result) {
 
             if (IsSeries) {
                 let seriesTitle = document.createElement('h3');
-                seriesTitle.textContent = 'Усі книги серії "<?php echo htmlspecialchars($row['SeriesName']); ?>":';
+                seriesTitle.textContent = 'Усі книги серії "<?php echo mysqli_real_escape_string($conn, $row['SeriesName']); ?>":';
                 SeriesContainer.appendChild(seriesTitle);
 
                 let seriesBooks = document.createElement('div');
@@ -413,7 +413,7 @@ if ($result) {
             }
             InCartBtn.addEventListener('click', function(event) {
                 event.preventDefault();
-                let bookTitle = '<?php echo $row["Name"]; ?>';
+                let bookTitle = '<?php echo mysqli_real_escape_string($conn, $row['Name']); ?>';
                 let bookAuthor = '<?php echo $row["Author"]; ?>';
                 let bookCover = '<?php echo $row["Cover"]; ?>';
                 let bookPrice = '<?php echo $row["Price"]; ?>';

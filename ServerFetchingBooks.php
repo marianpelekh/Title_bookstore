@@ -1,13 +1,5 @@
 <?php
-    $servername = 'localhost';
-    $username = 'marianpelekh';
-    $password = 'mH04122005Op';
-    $dbname = 'books';
-    
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Помилка підключення до бази даних: " . $conn->connect_error);
-    }
+    include('connect_db.php');
     
     $searchValue = $_GET['searchValue'];
     $query = "SELECT * FROM books WHERE name LIKE '%$searchValue%' OR author LIKE '%$searchValue%' OR SeriesName LIKE '%$searchValue%'";       

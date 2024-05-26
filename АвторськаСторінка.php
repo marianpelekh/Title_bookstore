@@ -46,11 +46,11 @@ mysqli_stmt_close($stmt); // Close the statement after using it
 </head>
 <header>
     <a id="SearchToggle"><img src="search.png" id="search" width="20px"></a>
-    <h1><a id="Title" href="КнигарняTitle.php">Title</a></h1>
+    <h1><a id="Title" href="index.php">Title</a></h1>
     <nav>
         <a id="Catalog" href="Каталог.php">Каталог</a>
         <a id="Authors" href="Автори.php">Автори</a>
-        <h1><a id="TitleNav" href="КнигарняTitle.php"><?php echo $title ?></a></h1>
+        <h1><a id="TitleNav" href="index.php"><?php echo $title ?></a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
         <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
@@ -85,7 +85,7 @@ mysqli_stmt_close($stmt); // Close the statement after using it
     </div>
     <section>
         <ul class="breadcrumb">
-            <li><a href="КнигарняTitle.php">TITLE</a></li>
+            <li><a href="index.php">TITLE</a></li>
             <li><a href="Автори.php">Автори</a></li>
             <li><a href="#"><?php echo $row['AuthorName'] ?></a></li>
         </ul>

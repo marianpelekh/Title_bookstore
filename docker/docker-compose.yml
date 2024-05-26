@@ -1,0 +1,46 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mH04122005Op
+      MYSQL_DATABASE: books
+      MYSQL_USER: marianpelekh
+      MYSQL_PASSWORD: mH04122005Op
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../mariadb:/var/lib/mysql
+    networks:
+      - internal
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: marianpelekh
+      PMA_PASSWORD: mH04122005Op
+    networks:
+      - internal
+  apache:
+    image: php:apache
+    restart: always
+    container_name: apache-app
+    ports:
+      - "8080:80"
+    volumes:
+      - ../:/var/www/html/
+    networks:
+      - internal
+    command: >
+      sh -c "docker-php-ext-install mysqli &&
+             apache2-foreground"
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  db_data:
