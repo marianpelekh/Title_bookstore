@@ -1,4 +1,4 @@
-ErrorDocument 404 /title.book.ua/404page.html
+ErrorDocument 404 /404page.html
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

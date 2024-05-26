@@ -1,3 +1,8 @@
+<?php 
+    ob_start();
+    require('connect_db.php');
+    session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,8 +56,6 @@
 <body>
     <section id="cabinetSection">
 <?php
-    require('connect_db.php');
-    session_start();
     $sql = "SELECT * FROM users WHERE userId='". $_SESSION['id'] . "'";
     $res = mysqli_query($conn, $sql);
     $result = mysqli_fetch_array($res);
@@ -146,3 +149,6 @@
     </span>
 </footer>
 </html>
+<?php
+    ob_end_flush();
+?>

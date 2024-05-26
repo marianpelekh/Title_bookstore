@@ -1,3 +1,8 @@
+<?php 
+ob_start();
+require('connect_db.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сторінка користувача</title>
     <link rel="stylesheet" href="Title Main.css">
+    <link rel="stylesheet" href="Main page.css">
     <link rel="stylesheet" href="Profile.css">
     <link rel="stylesheet" href="Carousel of images.css">
     <link rel="stylesheet" href="Book page.css">
@@ -51,8 +57,6 @@
 <body>
     <section id="cabinetSection">
     <?php
-    require('connect_db.php');
-    session_start();
     if(empty($_SESSION['id'])){
         echo '<script src="LogFormDissabler.js"></script>';
         echo '<form method="POST" id="regForm">';
@@ -90,7 +94,8 @@
             } else if ($userLogin == "admin") {
                 echo "<p id='regError'>ПОМИЛКА: Користувач не може мати логін 'admin'</p>";
             } else {
-                $sql = "INSERT INTO `users`(`Login`, `Password`, `Email`, `FirstName`, `LastName`, `MiddleName`, `image`) VALUES ('$userLogin','$userPass','$email','$firstName','$lastName','$middleName','user.png')";
+                $sql = "INSERT INTO `users`(`Login`, `Password`, `Email`, `FirstName`, `LastName`, `MiddleName`, `image`, `StoredBooks`, `FeaturedGenres`) 
+                        VALUES ('$userLogin','$userPass','$email','$firstName','$lastName','$middleName','user.png', '[]', '')";
                 mysqli_query($conn, $sql);
                 $_SESSION['id'] = mysqli_insert_id($conn);
                 header('Location: Кабінет.php');
@@ -126,3 +131,6 @@
     </span>
 </footer>
 </html>
+<?php 
+ob_end_flush();
+?>

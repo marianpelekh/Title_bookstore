@@ -1,9 +1,9 @@
 <?php
-
+ob_start();
 use Joomla\CMS\Service\Provider\Console;
 
 use const Avifinfo\UNDEFINED;
-
+include('connect_db.php');
  session_start(); ?>
 <!DOCTYPE html>
 <html lang="UTF-8">
@@ -28,7 +28,7 @@ use const Avifinfo\UNDEFINED;
         <a id="Catalog" href="Каталог.php">Каталог</a>
         <a id="Authors" href="Автори.php">Автори</a>
         <h1><a id="TitleNav" href="index.php">Title</a></h1>
-        <a id="New" href="Новинки">Новинки</a>
+        <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
         <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
@@ -99,7 +99,7 @@ use const Avifinfo\UNDEFINED;
     <div id="NewsTitle">Новинки</div>
 
     <?php
-        include('connect_db.php');
+
     
         $query = "SELECT * FROM books";
         $result = mysqli_query($conn, $query);
@@ -216,7 +216,7 @@ use const Avifinfo\UNDEFINED;
                         VALUES ('$userId', '$userName', '$userPic', '$commentText')";
             
             mysqli_query($conn, $comms_sql);
-            echo "<script>console.log('QUERY DONE');</script>";
+            header('Location: index.php');
         } else if (isset($_POST['postComm']) && !isset($_SESSION['id'])) {
             echo "<h4>Неавторизовані користувачі не можуть залишати відгуки U_U</h4>";
         }
@@ -285,3 +285,6 @@ use const Avifinfo\UNDEFINED;
 
 </footer>
 </html>
+<?php 
+ob_end_flush();
+?>

@@ -1,3 +1,8 @@
+<?php
+ob_start();
+require('connect_db.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,8 +57,6 @@
 <body>
     <section id="cabinetSection">
     <?php
-    require('connect_db.php');
-    session_start();
     if(empty($_SESSION['id'])){
         echo '<form method="POST" id="LoginForm">';
         echo '<h3>Авторизація</h3>';
@@ -373,3 +376,6 @@
     </span>
 </footer>
 </html>
+<?php
+ob_end_flush();
+?>

@@ -525,7 +525,11 @@
     justify-content: center;
   }
   #userPict {
-    position: static;
+    position: absolute;
+    width: calc(100vw / 200px);
+    height: calc(100vw / 200px);
+    left: calc(50vw - 100px);
+    top: calc(25vw);
   }
   #userPictRect {
     position: static;

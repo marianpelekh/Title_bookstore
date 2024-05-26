@@ -1,9 +1,10 @@
 <?php
+ob_start();
 session_start();
 include('connect_db.php');
 
 // Папка для збереження завантажених файлів
-$target_dir = "C:/xampp/htdocs/Title_bookstore/UserPictures/";
+$target_dir = "./UserPictures/";
 
 // Переконайтеся, що папка існує
 if (!is_dir($target_dir)) {
@@ -71,4 +72,5 @@ header('Location: Кабінет.php');
 exit();
 
 $conn->close();
+ob_end_flush();
 ?>
