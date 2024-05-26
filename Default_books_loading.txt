@@ -1,0 +1,30 @@
+<?php
+        include('connect_db.php');
+
+        // Запит для вибору всіх книг з таблиці books
+        $query = "SELECT * FROM books ORDER BY `DateExact` DESC";
+        $result = mysqli_query($conn, $query);
+
+        // Вивід книг та їх жанрів
+        echo '<div id="AllBooks">';
+        while ($row = mysqli_fetch_array($result)) {
+            // Запит для отримання англійських назв видавництв
+            $publ_query = "SELECT PublNameEng FROM publishings WHERE PublName = '" . $row['Publishing'] . "'";
+            $publ_result = mysqli_query($conn, $publ_query);
+            $publ_row = mysqli_fetch_array($publ_result);
+
+            // Вивід кожної книги
+            echo '<div class="book-container" data-genre="' . $row["Genre"] . '" data-publishing="' . $publ_row['PublNameEng'] . '">';
+            echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">';
+            echo '<img class="cover" src="' . $row['Cover'] . '">';
+            echo '</a>';
+            echo '<div class="description">';
+            echo '<div class="book-name">' . $row['Name'] . '</div>';
+            echo '<div class="book-author">' . $row['Author'] . '</div>';
+            echo '<div class="price">' . $row['Price'] . '</div>';
+            echo '</div>';
+            echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '"> Придбати </a>';
+            echo '</div>';
+        }
+        echo '</div>';
+    ?>

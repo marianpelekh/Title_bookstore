@@ -357,6 +357,9 @@
     width: 100%;
     margin: 0px;
   }
+  #loading {
+    grid-column: 1;
+  }
   #LoaderLightOne {
     bottom: -100px;
     left: -30px;

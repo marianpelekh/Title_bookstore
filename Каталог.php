@@ -1,3 +1,8 @@
+<?php
+    ob_start();
+    include('connect_db.php');
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
@@ -58,37 +63,90 @@
             <h2 style="text-align: center; height: 20px;">Корзина</h2>
         </div>
     <div id="AllBooksTitle">Книги у книгарні Title</div>
+    <div id="AllBooks"></div>
+    <div id="loading" style="display: show;">Завантажити ще</div>
+    <script>
+    let offset = 0;
+    const limit = 8;
+    let loading = false;
+    let previousPublFilter = localStorage.getItem('storedPublFilter');
+    let previousGenreFilter = localStorage.getItem('storedGenreFilter');
+    let previousPriceFilter = JSON.parse(localStorage.getItem('storedPriceFilter'));
 
-    <?php
-        include('connect_db.php');
+    function loadBooks() {
+        let storedPublishingFilter = localStorage.getItem('storedPublFilter');
+        let storedGenreFilter = localStorage.getItem('storedGenreFilter');
+        let storedPriceFilter = JSON.parse(localStorage.getItem('storedPriceFilter'));
 
-        // Запит для вибору всіх книг з таблиці books
-        $query = "SELECT * FROM books ORDER BY `DateExact` DESC";
-        $result = mysqli_query($conn, $query);
-
-        // Вивід книг та їх жанрів
-        echo '<div id="AllBooks">';
-        while ($row = mysqli_fetch_array($result)) {
-            // Запит для отримання англійських назв видавництв
-            $publ_query = "SELECT PublNameEng FROM publishings WHERE PublName = '" . $row['Publishing'] . "'";
-            $publ_result = mysqli_query($conn, $publ_query);
-            $publ_row = mysqli_fetch_array($publ_result);
-
-            // Вивід кожної книги
-            echo '<div class="book-container" data-genre="' . $row["Genre"] . '" data-publishing="' . $publ_row['PublNameEng'] . '">';
-            echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">';
-            echo '<img class="cover" src="' . $row['Cover'] . '">';
-            echo '</a>';
-            echo '<div class="description">';
-            echo '<div class="book-name">' . $row['Name'] . '</div>';
-            echo '<div class="book-author">' . $row['Author'] . '</div>';
-            echo '<div class="price">' . $row['Price'] . '</div>';
-            echo '</div>';
-            echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '"> Придбати </a>';
-            echo '</div>';
+        if (storedGenreFilter !== previousGenreFilter || storedPublishingFilter !== previousPublFilter || JSON.stringify(storedPriceFilter) !== JSON.stringify(previousPriceFilter)) {
+            previousPublFilter = storedPublishingFilter;
+            previousGenreFilter = storedGenreFilter;
+            previousPriceFilter = storedPriceFilter;
+            offset = 0; // Reset offset for new filter
+            $('#AllBooks').empty(); // Clear the book list
         }
-        echo '</div>';
-    ?>
+
+        let minFilterPrice = storedPriceFilter ? storedPriceFilter.minPriceValue : 0;
+        let maxFilterPrice = storedPriceFilter ? storedPriceFilter.maxPriceValue : <?php echo max(preg_replace("/[^0-9.]/", "", mysqli_fetch_array(mysqli_query($conn, 'SELECT max(`Price`) FROM books'))))?>;
+
+        console.log(minFilterPrice, maxFilterPrice, storedGenreFilter, storedPublishingFilter);
+        if (loading) return;
+        loading = true;
+        $('#loading').hide();
+
+        $.ajax({
+            url: 'lazy_loading_catalog.php',
+            method: 'GET',
+            data: { 
+                offset: offset,
+                minPriceValue: minFilterPrice,
+                maxPriceValue: maxFilterPrice,
+                storedPublFilter: storedPublishingFilter,
+                storedGenreFilter: storedGenreFilter
+            },
+            success: function(data) {
+                const books = JSON.parse(data);
+                console.log(books);
+                if (books.length > 0) {
+                    books.forEach(book => {
+                        $('#AllBooks').append(`
+                            <div class="book-container" data-genre="${book.Genre}" data-publishing="${book.PublishingEng}">
+                                <a href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author)}">
+                                    <img class="cover" src="${book.Cover}" alt="${book.Name}">
+                                </a>
+                                <div class="description">
+                                    <div class="book-name">${book.Name}</div>
+                                    <div class="book-author">${book.Author}</div>
+                                    <div class="price">${book.Price}</div>
+                                </div>
+                                <a class="buy" href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author)}"> Придбати </a>
+                            </div>
+                        `);
+                    });
+                    offset += limit;
+                    $('#loading').show();
+                } else {
+                    $('#loading').hide();
+                }
+                loading = false;
+            }
+        });
+    }
+
+    // Оновлення при зміні фільтрів у localStorage
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'storedPublFilter' || event.key === 'storedGenreFilter' || event.key === 'storedPriceFilter') {
+            loadBooks();
+        }
+    });
+
+    $('#loading').on('click', function() {
+        loadBooks();
+    });
+
+    loadBooks();
+</script>
+
 
 
     <aside>
@@ -212,7 +270,7 @@
                 let filter = document.createElement('div');
                 filter.id = filterId;
                 filter.innerText = filterText;
-                
+                localStorage.setItem('storedPriceFilter', JSON.stringify({minPriceValue: parseFloat(minPriceValue), maxPriceValue: parseFloat(maxPriceValue)}));
                 applFilCont.appendChild(filter);
                 priceFilterDel(filter);
             }
@@ -293,3 +351,6 @@
     </span>
 </footer>
 </html>
+<?php
+    ob_end_flush();
+?>
