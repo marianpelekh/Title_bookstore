@@ -164,6 +164,8 @@
     margin-right: 40px; /* Add some space between the avatar and the text */
     display: flex; /* Make this a flex container */
     align-items: center; /* Center items vertically */
+    object-fit: cover;
+    object-position: center;
 }
 .undercomms {
     grid-row: 11;
@@ -178,7 +180,7 @@
     margin-right: auto;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
 }
 .undercomms p, .undercomms a {
@@ -191,6 +193,11 @@
 .undercomms a {
     margin: auto;
 }
+.CommentsBlock h4 {
+    text-align: center;
+    margin: 0px auto;
+    color: darkred;
+}
 #CommentForm {
     flex-grow: 1;
     height: 100%;
@@ -201,9 +208,32 @@
     justify-content: center;
     align-items: center;
 }
-#CommentsForm input[type='text'] {
+#CommentForm textarea {
     background-color: var(--white);
-    border-radius: 5px;
+    border-radius: 10px;
+    border: 2px solid var(--a-color);
+    box-shadow: 3px 5px 0px var(--main-color), 5px 3px 0px var(--mid-color);
+    font-size: 20px;
+    font-family: Comfortaa, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 640px;
+    height: 130px;
+    margin: 30px;
+}
+#CommentForm button {
+    background-color: var(--main-color);
+    height: 130px;
+    width: 50px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+#CommentForm button img {
+    width: 30px;
+    height: 30px;
+}
+#CommentForm button:hover {
+    box-shadow: 0px 5px 0px var(--main-color), 0px -5px 0px var(--a-hover);
+    cursor: pointer;
+    background-color: var(--mid-color);
 }
 
 #foot-title {

@@ -1,7 +1,8 @@
 <?php
+ob_start();
 include('connect_db.php');
 session_start();
-$id = urldecode($_GET['id']);  // отримуємо ідентифікатор книги з URL
+$id = urldecode($_GET['id']);
 
 $query = "SELECT * FROM books WHERE CONCAT(Name, ' ', Author)='" . mysqli_real_escape_string($conn, $id) . "'";
 $result = mysqli_query($conn, $query);
@@ -53,6 +54,7 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="Title Main.css">
+    <link rel="stylesheet" href="Main page.css">
     <link rel="stylesheet" href="Carousel of images.css">
     <link rel="stylesheet" href="Book page.css">
     <link rel="stylesheet" href="books.css">
@@ -179,7 +181,7 @@ if ($result) {
                 let seriesBooks = document.createElement('div');
                 seriesBooks.id = "BooksItself";
                 seriesBooks.innerHTML = '<?php
-                    $thisBookSeriesName = $row['SeriesName'];
+                    $thisBookSeriesName = mysqli_real_escape_string($conn, $row['SeriesName']);
                     $query = "SELECT * FROM books ORDER BY NumberInSeries";
                     $result = mysqli_query($conn, $query);
                     $books = array();
@@ -192,8 +194,8 @@ if ($result) {
                             echo '<img class="cover" src="' . $singleRow['Cover'] . '">';
                             echo '</a>';
                             echo '<div class="description">';
-                            echo '<div class="book-name">' . $singleRow['ShortName'] . '</div>';
-                            echo '<div class="book-author">' . $singleRow['Author'] . '</div>';
+                            echo '<div class="book-name">' . mysqli_real_escape_string($conn, $singleRow['ShortName']) . '</div>';
+                            echo '<div class="book-author">' . mysqli_real_escape_string($conn, $singleRow['Author']) . '</div>';
                             echo '<div class="price">' . $singleRow['Price'] . '</div>';
                             echo '</div>';
                             echo '</div>';
@@ -204,6 +206,112 @@ if ($result) {
                 SeriesContainer.appendChild(seriesBooks);
             }
         </script>
+            <div id="BookCommentSection">
+                <h3>Відгуки користувачів</h3>
+                <div id="BookCommentsBlock">
+                    <div id="BookComments">
+                        <?php 
+                            $current_book_id = $row['number'];
+                            $bc_query = "
+                                SELECT c.userName, c.userPic, c.commentText 
+                                FROM comments c 
+                                JOIN BooksComments bc ON c.commentId = bc.CommentID 
+                                WHERE bc.BookID = '$current_book_id'
+                                ORDER BY c.commentId DESC
+                                LIMIT 10";
+                            $bc_result = mysqli_query($conn, $bc_query);
+
+                            if (mysqli_num_rows($bc_result) > 0) {
+                                while ($bc_row = mysqli_fetch_array($bc_result)) {
+                                    $userPic = htmlspecialchars($bc_row['userPic'], ENT_QUOTES, 'UTF-8');
+                                    $userName = htmlspecialchars($bc_row['userName'], ENT_QUOTES, 'UTF-8');
+                                    $commentText = htmlspecialchars($bc_row['commentText'], ENT_QUOTES, 'UTF-8');
+                                    
+                                    echo "<div class='Comment'>";
+                                    echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
+                                    echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
+                                    echo "</div>";
+                                }
+                            } else {
+                                echo "Немає відгуків для відображення.";
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="undercomms" id="BookUndercomms">
+                    <p class="MakeBookComment" id="MakeComment">Залишити відгук про книгу</p>
+                </div>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                let makecommsBtn = document.getElementById('MakeComment');
+                let undercomms = document.getElementsByClassName('undercomms')[0];
+
+                makecommsBtn.addEventListener('click', function() {
+                    if (document.getElementById("CommentForm") === undefined || document.getElementById("CommentForm") === null) {
+                        let commForm = document.createElement('form');
+                        commForm.setAttribute('action', '');
+                        commForm.setAttribute('method', 'POST');
+                        commForm.id = "CommentForm";
+
+                        let commInput = document.createElement('textarea'); // Замість input використовуйте textarea
+                        commInput.setAttribute('name', 'commText');
+                        commForm.appendChild(commInput);
+
+                        let submitBtn = document.createElement('button');
+                        submitBtn.setAttribute('type', 'submit');
+                        submitBtn.setAttribute('name', 'postComm');
+                        
+                        let subImage = document.createElement('img');
+                        subImage.src = 'post_comment.png';
+                        subImage.alt = 'Submit';
+                        submitBtn.appendChild(subImage);
+
+                        commForm.appendChild(submitBtn);
+
+                        undercomms.appendChild(commForm);
+                        undercomms.removeChild(makecommsBtn);
+                    }
+                });
+                document.addEventListener('submit', function(event) {
+                    if (event.target.id === 'CommentForm') {
+                        let submitBtn = document.getElementById('submitBtn');
+                        submitBtn.disabled = true; // Disable the submit button
+                    }
+                });
+            });
+
+            </script>
+            <?php
+            if (isset($_POST['postComm']) && isset($_SESSION['id'])) {
+                if (strlen($_POST['commText']) > 0) {
+                    $userId = $_SESSION["id"];
+
+                    $userInfoQuery = "SELECT FirstName, LastName, `image` FROM users WHERE userId = '$userId'";
+                    $userInfoResult = mysqli_query($conn, $userInfoQuery);
+                    $userInfoRow = mysqli_fetch_assoc($userInfoResult);
+
+                    $firstName = mysqli_real_escape_string($conn, $userInfoRow['FirstName']);
+                    $lastName = mysqli_real_escape_string($conn, $userInfoRow['LastName']);
+                    $userName = $firstName . ' ' . $lastName;
+                    $userPic = mysqli_real_escape_string($conn, $userInfoRow['image']);
+
+                    $commentText = mysqli_real_escape_string($conn, $_POST["commText"]);
+
+                    $comms_sql = "INSERT INTO `comments` (`userId`, `userName`, `userPic`, `commentText`) 
+                                VALUES ('$userId', '$userName', '$userPic', '$commentText')";
+                    if (mysqli_query($conn, $comms_sql)) {
+                        $commentId = mysqli_insert_id($conn);
+
+                        $link_comm_sql = "INSERT INTO BooksComments(BookID, CommentID) VALUES ('$current_book_id', '$commentId')";
+                        mysqli_query($conn, $link_comm_sql);
+                    }
+                    header("Location: КнижковаСторінка.php?id=" . urlencode($row['Name'] . ' ' . $row['Author']));
+                } else {
+                    echo "Коментар не може бути порожнім.";
+                }
+            }
+            ?>
         <script>
             const cartIcon = document.getElementById('Cart');
             const InCartBtn = document.getElementById('InCart');
@@ -597,6 +705,7 @@ if ($result) {
                 updateTotal();
             }
         </script>
+        <script src="Comments.js"></script>
     <script src="Description.js"></script>
     <script src="Search.js"></script>
 </body>
@@ -624,3 +733,6 @@ if ($result) {
 </footer>
 
 </html>
+<?php 
+    ob_end_flush();
+?>

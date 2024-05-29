@@ -10,27 +10,64 @@ $maxPriceValue = isset($_GET['maxPriceValue']) ? floatval($_GET['maxPriceValue']
 $storedPublFilter = isset($_GET['storedPublishingFilter']) ? $_GET['storedPublishingFilter'] : null;
 $storedGenreFilter = isset($_GET['storedGenreFilter']) ? $_GET['storedGenreFilter'] : null;
 
-$query = "SELECT * FROM books";
+// Зміна значення limit залежно від ширини екрану
+if (isset($_GET['screenWidth']) && intval($_GET['screenWidth']) > 1828) {
+    $limit = 10;
+}
 
-// Додаємо умови фільтрації до запиту
 $whereConditions = array();
 if (!is_null($minPriceValue) && !is_null($maxPriceValue)) {
-    $whereConditions[] = "CAST(REPLACE(Price, ' грн', '') AS UNSIGNED) >= $minPriceValue AND CAST(REPLACE(Price, ' грн', '') AS UNSIGNED) <= $maxPriceValue";
+    $whereConditions[] = "CAST(REPLACE(Price, ' грн', '') AS UNSIGNED) BETWEEN $minPriceValue AND $maxPriceValue";
 }
-if (!is_null($storedPublFilter)) {
-    $whereConditions[] = "Publishing = '$storedPublFilter'";
+
+$publName = null;
+if (!empty($storedPublFilter)) {
+    $storedPublFilter = mysqli_real_escape_string($conn, $storedPublFilter); // Sanitize input
+    $publ_query = "SELECT PublName FROM publishings WHERE PublNameEng = '$storedPublFilter'";
+    $publ_result = mysqli_query($conn, $publ_query);
+
+    if ($publ_result && mysqli_num_rows($publ_result) > 0) {
+        $publ_row = mysqli_fetch_assoc($publ_result);
+        $publName = mysqli_real_escape_string($conn, $publ_row['PublName']);
+        $whereConditions[] = "Publishing = '$publName'";
+    }
 }
-if (!is_null($storedGenreFilter)) {
+
+$groupByGenre = false;
+$groupByPublishing = false;
+
+if (!is_null($storedGenreFilter) && $storedGenreFilter !== '') {
+    $storedGenreFilter = mysqli_real_escape_string($conn, $storedGenreFilter);
     $whereConditions[] = "Genre = '$storedGenreFilter'";
+    $groupByGenre = true;
 }
 
+if (!is_null($publName)) {
+    $groupByPublishing = true;
+}
+
+$whereClause = '';
 if (!empty($whereConditions)) {
-    $query .= " WHERE " . implode(" AND ", $whereConditions);
+    $whereClause = " WHERE " . implode(" AND ", $whereConditions);
 }
 
-$query .= " ORDER BY `DateExact` DESC LIMIT $limit OFFSET $offset";
+$groupByClause = '';
+if ($groupByGenre && $groupByPublishing) {
+    $groupByClause = "ORDER BY Genre = '$storedGenreFilter' DESC, Publishing = '$publName' DESC, DateExact DESC";
+} elseif ($groupByGenre) {
+    $groupByClause = "ORDER BY Genre = '$storedGenreFilter' DESC, DateExact DESC";
+} elseif ($groupByPublishing) {
+    $groupByClause = "ORDER BY Publishing = '$publName' DESC, DateExact DESC";
+} else {
+    $groupByClause = "ORDER BY DateExact DESC";
+}
+
+// Головний запит з фільтрацією і групуванням
+$query = "SELECT * FROM books $whereClause $groupByClause LIMIT $limit OFFSET $offset";
+
+
 // Друк сформованого запиту для діагностики
-error_log($query);
+error_log("SQL Query: " . $query);
 
 $result = mysqli_query($conn, $query);
 
@@ -38,6 +75,7 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Помилка виконання запиту: " . mysqli_error($conn));
 }
+
 $books = array();
 while ($row = mysqli_fetch_array($result)) {
     $publ_query = "SELECT PublNameEng FROM publishings WHERE PublName = '" . mysqli_real_escape_string($conn, $row['Publishing']) . "'";
@@ -55,5 +93,4 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 echo json_encode($books);
-
 ?>

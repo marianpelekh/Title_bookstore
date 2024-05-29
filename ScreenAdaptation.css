@@ -5,10 +5,12 @@
         cursor: pointer;
     }
     header {
+      position: relative;
       grid-template-columns: repeat(3, auto);
       grid-template-rows: repeat(1, auto);
       text-align: center;
-      max-width: 100%;
+      max-width: 100vw;
+      width: 100vw;
       min-height: 50px;
     }
     header #Title {
@@ -22,6 +24,10 @@
     }
     nav, #MainCabinet{
       display: none; /* Сховати меню на початку */
+      width: 100%;
+      height: 0px;
+      transition: all 0.2s ease;
+      grid-area: initial;
     }
     nav.active-menu {
       border-bottom: 2px solid var(--a-color);
@@ -29,6 +35,7 @@
       border-bottom-left-radius: 10px;
       position: absolute;
       top: 50px;
+      left: 0px;
       width: 100%;
       height: auto;
       display: grid; /* Відображати меню, коли чекбокс вибраний */
@@ -205,10 +212,11 @@
       margin: 5px;
       margin-left: auto;
       margin-right: auto;
-      max-width: 90%;
+      max-width: 90vw;
     }
     #AuthorsContent {
-      grid-template-columns: repeat(1, auto);
+      margin: 0px;
+      grid-template-columns: repeat(1, 100vw);
       grid-template-rows: repeat(fit-content, auto);
     }
     #AuthorsPicture {
@@ -222,6 +230,7 @@
     #AuthorsBooks {
       grid-row: 4;
       grid-column: 1;
+      width: 100%;
       margin-top: 50px;
       flex-direction: row;
       gap: 20px;
@@ -238,6 +247,8 @@
       grid-row: 2; /* Place below the first row */
       grid-column: 2;
       padding: 10px;
+      width: 80vw;
+      margin: 0px auto;
       text-align: justify;
       line-height: 1.5;
       hyphens: auto; /* Enable automatic hyphenation */
@@ -255,11 +266,14 @@
       margin-left: auto;
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 138.75px 22.5px 138.75px 67.5px;
+      /* grid-template-rows: 138.75px 22.5px 138.75px 67.5px; */
+      grid-template-rows: 120px 22.5px 120px 65px;
       text-align: center;
       line-height: 1.5;
-      width: 182px;
-      height: 402px;
+      /* width: 182px;
+      height: 402px; */
+      width: 160px;
+      height: 360px;
       border-top: 3px solid var(--darker-white);
       border-radius: 7.5px;
       background-color: var(--white);
@@ -270,18 +284,24 @@
       margin-top: 20px;
       opacity: 100%;
       z-index: 4;
-      width: 167px;
-      height: 260px;
+      /* width: 167px;
+      height: 260px; */
+      width: 140px;
+      height: 220px;
       grid-column: 1;
       grid-row-start: 1;
       grid-row-end: 4;
       transition: opacity 0.5s ease;
   }
+  .buy {
+    display: none !important;
+    font-size: small; /* про всяк випадок */
+  }
   .book-name {
     overflow: hidden;
     white-space: nowrap; /* Prevent text from wrapping */
     text-overflow: ellipsis; /* Add ellipsis for overflow */
-    min-height: 20px;
+    min-height: 15px;
     margin-bottom: 5px;
     font-size: smaller;
     box-shadow: inset 0px -5px 5px var(--main-color);
@@ -305,8 +325,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 167px;
-      height: 65px;
+      /* width: 167px;
+      height: 65px; */
+      width: 145px;
+      height: 60px;
       font-size: 12px;
       background-color: var(--main-color);
       border-top: 1.5px solid var(--black);
@@ -356,6 +378,7 @@
     grid-column: 1;
     width: 100%;
     margin: 0px;
+    gap: 1rem;
   }
   #loading {
     grid-column: 1;
@@ -488,17 +511,17 @@
     display:none;
   }
   #BooksItself .book-container {
-    grid-template-rows: 30px 135px 30px 135px 90px;
-    height: 430px;
+    grid-template-rows: 30px 265px 65px;
+    height: 400px;
   }
   #BooksItself .book-container .NumInSeries {
     grid-row: 1;
   }
   #BooksItself .book-container .cover {
-    grid-row: 2 / span 4;
+    grid-row: 2;
   }
   #BooksItself .book-container .description {
-    grid-row: 5;
+    grid-row: 3;
   }
   #totalPrice {
     display: flex;
@@ -524,8 +547,9 @@
   #userProfileInfo {
     grid-template-columns: repeat(1, 70%);
     grid-template-rows: repeat(2, auto);
-    max-width: 90vw;
+    max-width: 100vw;
     justify-content: center;
+    margin: 0px auto;
   }
   #userPict {
     position: absolute;
@@ -538,8 +562,8 @@
     position: static;
     width: 90%;
     height: 90%;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -20px;
+    margin-top: -20px;
   }
   #userInfo {
     grid-row: 2;
@@ -555,6 +579,9 @@
     margin-left: auto;
     margin-right: auto;
   }
+  #UserFeatures {
+    width: 100vw;
+  }
   #UserFeatures .book-container {
     margin: 10px;
   }
@@ -569,5 +596,31 @@
   }
   #regForm p {
     margin-left: auto;
+  }
+
+  #BookCommentSection {
+    z-index: 50;
+    min-width: 95vw;
+    max-width: 100vw;
+    grid-template-columns: 100%;
+  }
+  #BookCommentsBlock {
+    z-index: 49;
+    width: 80vw;
+    margin: 0px auto;
+    max-height: 70vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+  #BookComments {
+    z-index: 48;
+  }
+  #BookCommentsBlock .Comment {
+    z-index: 49;
+    height: 100%;
+    margin: 20px auto;
   }
 }

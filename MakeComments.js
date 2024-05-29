@@ -9,21 +9,28 @@ document.addEventListener("DOMContentLoaded", function() {
             commForm.setAttribute('action', '');
             commForm.setAttribute('method', 'POST');
             commForm.id = "CommentForm";
-            let commInput = document.createElement('input');
-            commInput.setAttribute('type', 'text');
+
+            let commInput = document.createElement('textarea'); // Замість input використовуйте textarea
             commInput.setAttribute('name', 'commText');
             commForm.appendChild(commInput);
 
-            let submitBtn = document.createElement('input');
+            let submitBtn = document.createElement('button');
             submitBtn.setAttribute('type', 'submit');
             submitBtn.setAttribute('name', 'postComm');
-            submitBtn.setAttribute('value', 'Submit');
+            
+            let subImage = document.createElement('img');
+            subImage.src = 'post_comment.png';
+            subImage.alt = 'Submit';
+            submitBtn.appendChild(subImage);
+
             commForm.appendChild(submitBtn);
 
             undercomms.appendChild(commForm);
+            undercomms.removeChild(makecommsBtn);
         }
         if (sendProposition != undefined) {
             undercomms.removeChild(sendProposition);
         }
     });
 });
+

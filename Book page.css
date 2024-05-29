@@ -322,3 +322,48 @@ footer h2:hover {
   z-index: 10;
   background: linear-gradient(to right, transparent, var(--page-color));
 }
+
+#BookCommentSection {
+  min-width: 70vw;
+  max-width: 90vw;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: 50%;
+  grid-template-rows: auto auto auto;
+  justify-content: center;
+  align-items: flex-start;
+}
+#BookCommentSection h3 {
+  grid-row: 1;
+  grid-column: 1;
+  text-align: center;
+  width: 100%;
+}
+#BookCommentsBlock {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 2px solid var(--a-color);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: inset 0px 0px 20px var(--main-color);
+}
+#BookComments {
+  display: flex;
+  flex-direction: column;
+}
+#BookComments .Comment {
+  min-width: 40vw;
+}
+.CommUserName {
+  text-align: left !important;
+}
+#BookUndercomms {
+  grid-row: 3;
+  grid-column: 1;
+}
+#BookCommentSection #BookUndercomms textarea {
+  width: 70% !important;
+}

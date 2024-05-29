@@ -40,7 +40,7 @@
     </div>
     <div id="searchContainer">
         <div id="searchPlusClose">
-            <input type="text" id="searchField" placeholder="Введіть назву книги або автора...">
+            <input type="text" id="searchField" placeholder="Введіть назву книги, серії або автора...">
             <img src="close.png" id="closeSearch" alt="X">
         </div>
 
@@ -62,37 +62,44 @@
         <div id="CartWindow">
             <h2 style="text-align: center; height: 20px;">Корзина</h2>
         </div>
-    <div id="AllBooksTitle">Книги у книгарні Title</div>
+    <div id="AllBooksTitle">Книги</div>
     <div id="AllBooks"></div>
     <div id="loading" style="display: show;">Завантажити ще</div>
     <script>
     let offset = 0;
-    const limit = 8;
+    let limit = 8;
+
     let loading = false;
     let previousPublFilter = localStorage.getItem('storedPublFilter');
     let previousGenreFilter = localStorage.getItem('storedGenreFilter');
     let previousPriceFilter = JSON.parse(localStorage.getItem('storedPriceFilter'));
 
     function loadBooks() {
+        if (window.innerWidth >= 1828) {
+            limit = 10;
+        } else {
+            limit = 8;
+        }
+
         let storedPublishingFilter = localStorage.getItem('storedPublFilter');
         let storedGenreFilter = localStorage.getItem('storedGenreFilter');
         let storedPriceFilter = JSON.parse(localStorage.getItem('storedPriceFilter'));
 
         if (storedGenreFilter !== previousGenreFilter || storedPublishingFilter !== previousPublFilter || JSON.stringify(storedPriceFilter) !== JSON.stringify(previousPriceFilter)) {
+            console.log(previousGenreFilter, storedGenreFilter, previousPublFilter, storedPublishingFilter);
             previousPublFilter = storedPublishingFilter;
             previousGenreFilter = storedGenreFilter;
             previousPriceFilter = storedPriceFilter;
-            offset = 0; // Reset offset for new filter
-            $('#AllBooks').empty(); // Clear the book list
+            offset = 0;
+            $('#AllBooks').empty();
         }
-
         let minFilterPrice = storedPriceFilter ? storedPriceFilter.minPriceValue : 0;
         let maxFilterPrice = storedPriceFilter ? storedPriceFilter.maxPriceValue : <?php echo max(preg_replace("/[^0-9.]/", "", mysqli_fetch_array(mysqli_query($conn, 'SELECT max(`Price`) FROM books'))))?>;
+        console.log(minFilterPrice, maxFilterPrice, previousGenreFilter, storedGenreFilter, previousPublFilter, storedPublishingFilter);
 
-        console.log(minFilterPrice, maxFilterPrice, storedGenreFilter, storedPublishingFilter);
         if (loading) return;
         loading = true;
-        $('#loading').hide();
+        // $('#loading').hide();
 
         $.ajax({
             url: 'lazy_loading_catalog.php',
@@ -101,7 +108,7 @@
                 offset: offset,
                 minPriceValue: minFilterPrice,
                 maxPriceValue: maxFilterPrice,
-                storedPublFilter: storedPublishingFilter,
+                storedPublishingFilter: storedPublishingFilter,
                 storedGenreFilter: storedGenreFilter
             },
             success: function(data) {
@@ -125,15 +132,12 @@
                     });
                     offset += limit;
                     $('#loading').show();
-                } else {
-                    $('#loading').hide();
                 }
                 loading = false;
             }
         });
     }
-
-    // Оновлення при зміні фільтрів у localStorage
+    //Оновлення при зміні у localStorage
     window.addEventListener('storage', function(event) {
         if (event.key === 'storedPublFilter' || event.key === 'storedGenreFilter' || event.key === 'storedPriceFilter') {
             loadBooks();

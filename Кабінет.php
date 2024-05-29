@@ -235,65 +235,71 @@ session_start();
             echo "</form>";
             echo "</div>";
 
-            //Оновлення книги в БД після редагування
-            if(isset($_POST['editBtn'])) {
-                $edited_shortName = $_POST['ShortNameEdit'];
-                $edited_fullName = $_POST['FullNameEdit'];
-                $edited_book_code = $_POST['bookCodeEdit'];
-                $edited_book_code = $_POST['BookCodeEdit'];
-                $edited_author = $_POST['AuthorEdit'];
-                $edited_publishing = $_POST['PublishingEdit'];
-                $edited_price = $_POST['PriceEdit'];
-                $edited_coverURL = $_POST['CoverURLEdit'];
-                $edited_rearCoverURL = $_POST['RearCoverURLEdit'];
-                $edited_pageNumber = $_POST['PageNumberEdit'];
-                $edited_language = $_POST['LanguageEdit'];
-                $edited_publishingYear = $_POST['PublishingYearEdit'];
-                $edited_exactPublishingDate = $_POST['ExactPublishingDateEdit'];
-                $edited_annotation = $_POST['AnnotationEdit'];
-                $edited_genre = $_POST['GenreEdit'];
-                $edited_isSeries = $_POST['IsSeriesEdit'];
-                $edited_seriesName = $_POST['SeriesNameEdit'];
-                $edited_inSeriesNumber = $_POST['InSeriesNumberEdit'];
+            // Оновлення книги в БД після редагування
+            if (isset($_POST['editBtn'])) {
+                $edited_shortName = mysqli_real_escape_string($conn, $_POST['ShortNameEdit']);
+                $edited_fullName = mysqli_real_escape_string($conn, $_POST['FullNameEdit']);
+                $edited_book_code = mysqli_real_escape_string($conn, $_POST['bookCodeEdit']);
+                $edited_author = mysqli_real_escape_string($conn, $_POST['AuthorEdit']);
+                $edited_publishing = mysqli_real_escape_string($conn, $_POST['PublishingEdit']);
+                $edited_price = mysqli_real_escape_string($conn, $_POST['PriceEdit']);
+                $edited_coverURL = mysqli_real_escape_string($conn, $_POST['CoverURLEdit']);
+                $edited_rearCoverURL = mysqli_real_escape_string($conn, $_POST['RearCoverURLEdit']);
+                $edited_pageNumber = mysqli_real_escape_string($conn, $_POST['PageNumberEdit']);
+                $edited_language = mysqli_real_escape_string($conn, $_POST['LanguageEdit']);
+                $edited_publishingYear = mysqli_real_escape_string($conn, $_POST['PublishingYearEdit']);
+                $edited_exactPublishingDate = mysqli_real_escape_string($conn, $_POST['ExactPublishingDateEdit']);
+                $edited_annotation = mysqli_real_escape_string($conn, $_POST['AnnotationEdit']);
+                $edited_genre = mysqli_real_escape_string($conn, $_POST['GenreEdit']);
+                $edited_isSeries = mysqli_real_escape_string($conn, $_POST['IsSeriesEdit']);
+                $edited_seriesName = mysqli_real_escape_string($conn, $_POST['SeriesNameEdit']);
+                $edited_inSeriesNumber = mysqli_real_escape_string($conn, $_POST['InSeriesNumberEdit']);
                 
                 $update_sql = "UPDATE books SET ShortName='$edited_shortName', Name='$edited_fullName', number='$edited_book_code', Author='$edited_author', Publishing='$edited_publishing', Price='$edited_price', Cover='$edited_coverURL', BackCover='$edited_rearCoverURL', PageNumbers='$edited_pageNumber', Language='$edited_language', YearOfPubl='$edited_publishingYear', DateExact='$edited_exactPublishingDate', Description='$edited_annotation', Genre='$edited_genre', IsSeries='$edited_isSeries', SeriesName='$edited_seriesName', NumberInSeries='$edited_inSeriesNumber' WHERE number='$edited_book_code'";
                 
                 mysqli_query($conn, $update_sql);
             }
 
-
-            //Видалення книги з БД
-            if(isset($_POST['deleteBtn'])) {
-                $deleted_book_code = $_POST['bookCodeDelete'];
+            // Видалення книги з БД
+            if (isset($_POST['deleteBtn'])) {
+                $deleted_book_code = mysqli_real_escape_string($conn, $_POST['bookCodeDelete']);
                 $delete_sql = "DELETE FROM books WHERE number='$deleted_book_code'";
                 mysqli_query($conn, $delete_sql);
             }
-            //Додавання книги в БД
-            if(isset($_POST['addBtn'])) {
-                $shortName = $_POST['ShortName'];
-                $bookCode = $_POST['BookCode'];
-                $fullName = $_POST['FullName'];
-                $author = $_POST['Author'];
-                $publishing = $_POST['Publishing'];
-                $price = $_POST['Price'];
-                $coverURL = $_POST['CoverURL'];
-                $rearCoverURL = $_POST['RearCoverURL'];
-                $pageNumber = $_POST['PageNumber'];
-                $language = $_POST['Language'];
-                $publishingYear = $_POST['PublishingYear'];
-                $exactPublishingDate = $_POST['ExactPublishingDate'];
-                $annotation = $_POST['Annotation'];
-                $genre = $_POST['Genre'];
-                $isSeries = $_POST['IsSeries'];
-                $seriesName = $_POST['SeriesName'];
-                $inSeriesNumber = $_POST['InSeriesNumber'];
+
+            // Додавання книги в БД
+            if (isset($_POST['addBtn'])) {
+                $shortName = mysqli_real_escape_string($conn, $_POST['ShortName']);
+                $bookCode = mysqli_real_escape_string($conn, $_POST['BookCode']);
+                $fullName = mysqli_real_escape_string($conn, $_POST['FullName']);
+                $author = mysqli_real_escape_string($conn, $_POST['Author']);
+                $publishing = mysqli_real_escape_string($conn, $_POST['Publishing']);
+                $price = mysqli_real_escape_string($conn, $_POST['Price']);
+                $coverURL = mysqli_real_escape_string($conn, $_POST['CoverURL']);
+                $rearCoverURL = mysqli_real_escape_string($conn, $_POST['RearCoverURL']);
+                $pageNumber = mysqli_real_escape_string($conn, $_POST['PageNumber']);
+                $language = mysqli_real_escape_string($conn, $_POST['Language']);
+                $publishingYear = mysqli_real_escape_string($conn, $_POST['PublishingYear']);
+                $exactPublishingDate = mysqli_real_escape_string($conn, $_POST['ExactPublishingDate']);
+                $annotation = mysqli_real_escape_string($conn, $_POST['Annotation']);
+                $genre = mysqli_real_escape_string($conn, $_POST['Genre']);
+                $isSeries = mysqli_real_escape_string($conn, $_POST['IsSeries']);
+                $seriesName = mysqli_real_escape_string($conn, $_POST['SeriesName']);
+                $inSeriesNumber = mysqli_real_escape_string($conn, $_POST['InSeriesNumber']);
+                
                 if ($isSeries == true) {
                     $isSeries = 1;
                 } else {
                     $isSeries = 0;
                 }
-                $adding_sql = "INSERT INTO books (ShortName, number, Name, Author, Publishing, Price, Cover, BackCover, PageNumbers, Language, YearOfPubl, dateExact, Description, Genre, IsSeries, SeriesName, NumberInSeries) VALUES ('$shortName', '$bookCode', '$fullName', '$author', '$publishing', '$price', '$coverURL', '$rearCoverURL', '$pageNumber', '$language', '$publishingYear', '$exactPublishingDate', '$annotation', '$genre', '$isSeries', '$seriesName', '$inSeriesNumber')";
-                mysqli_query($conn, $adding_sql);
+                
+                $adding_sql = "INSERT INTO books (ShortName, number, Name, Author, Publishing, Price, Cover, BackCover, PageNumbers, Language, YearOfPubl, DateExact, Description, Genre, IsSeries, SeriesName, NumberInSeries) VALUES ('$shortName', '$bookCode', '$fullName', '$author', '$publishing', '$price', '$coverURL', '$rearCoverURL', '$pageNumber', '$language', '$publishingYear', '$exactPublishingDate', '$annotation', '$genre', '$isSeries', '$seriesName', '$inSeriesNumber')";
+                
+                if (mysqli_query($conn, $adding_sql)) {
+                    echo "Результат: Книгу додано успішно :)";
+                } else {
+                    echo "Результат: Сталася якась помилка :(";
+                }
             }
         } else {
             echo '<label id="titleForRecs" for="UserFeatures"><h2>Рекомендації для вас</h2>';

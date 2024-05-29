@@ -30,7 +30,7 @@ services:
     restart: always
     container_name: apache-app
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ../:/var/www/html/
     networks:

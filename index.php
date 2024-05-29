@@ -172,26 +172,31 @@ include('connect_db.php');
     <h3>Відгуки та пропозиції</h3>
 </div>
 <div class="CommentsBlock">
-    <?php 
-        $sql_comment = "SELECT * FROM comments ORDER BY commentId DESC";
-        $result = mysqli_query($conn, $sql_comment);
-        if (mysqli_num_rows($result) > 0) {
-            for ($i = 0; $i < 4; $i++) { 
-                if ($row = mysqli_fetch_array($result)) {
-                    $userPic = htmlspecialchars($row['userPic'], ENT_QUOTES, 'UTF-8');
-                    $userName = htmlspecialchars($row['userName'], ENT_QUOTES, 'UTF-8');
-                    $commentText = htmlspecialchars($row['commentText'], ENT_QUOTES, 'UTF-8');
-                    
-                    echo "<div class='Comment'>";
-                    echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
-                    echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
-                    echo "</div>";
-                }
-            }
-        } else {
-            echo "Немає коментарів для відображення.";
+<?php 
+    $sql_comment = "
+        SELECT * 
+        FROM comments c 
+        WHERE c.commentId NOT IN (SELECT bc.CommentID FROM BooksComments bc) 
+        ORDER BY c.commentId DESC 
+        LIMIT 4";
+        
+    $result = mysqli_query($conn, $sql_comment);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $userPic = htmlspecialchars($row['userPic'], ENT_QUOTES, 'UTF-8');
+            $userName = htmlspecialchars($row['userName'], ENT_QUOTES, 'UTF-8');
+            $commentText = htmlspecialchars($row['commentText'], ENT_QUOTES, 'UTF-8');
+            
+            echo "<div class='Comment'>";
+            echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
+            echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
+            echo "</div>";
         }
-    ?>
+    } else {
+        echo "Немає коментарів для відображення.";
+    }
+?>
+
     <div class="undercomms">
         <p id="MakeComment">Залишити відгук</p>
         <a href="mailto:title@contact.com" id="SendProposition">Надати пропозицію</a>
