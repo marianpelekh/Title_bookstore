@@ -124,7 +124,7 @@
                                 <div class="description">
                                     <div class="book-name">${book.Name}</div>
                                     <div class="book-author">${book.Author}</div>
-                                    <div class="price">${book.Price}</div>
+                                    <div class="price">${book.Price} грн</div>
                                 </div>
                                 <a class="buy" href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author)}"> Придбати </a>
                             </div>

@@ -94,7 +94,7 @@
         echo '<div id="BookTitle">' . $row['ShortName'] . '</div>';
         echo '<div id="BookAuthor">' . $row['Author'] . '</div>';
         echo '<div id="BookDesc">' . $row['Description'] . '</div>';
-        echo '<a id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">' . $row['Price'] . '</a>';
+        echo '<a id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">' . $row['Price'] . ' грн</a>';
         echo '</div>';
     }
     

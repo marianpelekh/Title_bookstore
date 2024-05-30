@@ -116,7 +116,7 @@ include('connect_db.php');
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $row['Name'] . '</div>';
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
-                echo '<div class="price">' . $row['Price'] . '</div>';
+                echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
                 echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '"> Придбати </a>';
                 echo '</div>';
@@ -169,7 +169,7 @@ include('connect_db.php');
         </p>    
 </div>
 <div class="CommentsTitle">
-    <h3>Відгуки та пропозиції</h3>
+    <h2>Відгуки та пропозиції</h2>
 </div>
 <div class="CommentsBlock">
 <?php 

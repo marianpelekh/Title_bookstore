@@ -103,14 +103,15 @@
 
 .CommentsTitle {
     background-color: var(--main-color);
-    font-family: Orelega;
-    text-shadow: none !important;
-    font-size: 20px;
-    font-weight: 100 !important;
-    text-align: center;
     grid-row: 9;
     grid-column-start: 1;
     grid-column-end: 3;
+}
+.CommentsTitle h2 {
+    text-align: center;
+    font-family: Orelega;
+    font-weight: 100;
+    font-size: 25px;
 }
 .CommentsBlock {
     grid-row: 10;

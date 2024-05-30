@@ -114,7 +114,7 @@ mysqli_stmt_close($stmt); // Close the statement after using it
                             echo '<div class="description">';
                             echo '<div class="book-name">' . $bookRow['Name'] . '</div>';
                             echo '<div class="book-author">' . $bookRow['Author'] . '</div>';
-                            echo '<div class="price">' . $bookRow['Price'] . '</div>';
+                            echo '<div class="price">' . $bookRow['Price'] . ' грн</div>';
                             echo '</div>';
                             echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author']) . '"> Придбати </a>';
                             echo '</div>';

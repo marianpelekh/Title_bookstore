@@ -148,6 +148,22 @@ session_start();
         echo '</div>';
         echo '</div>';
         if (isset($_SESSION["login"]) && $_SESSION["login"] != null && $_SESSION['login'] == "admin") {
+            echo "<div id='addDiscountFormDiv'>
+                  <form action='add_discounts.php' method='POST'>
+                  <h4>Додати знижку на книгу</h4>
+                  <select id='DiscountBookId' name='discountBookId'>";
+            echo "<option value='' disabled selected>Виберіть книгу для додавання знижки</option>";
+            $select_books_sql = "SELECT * FROM books";
+            $result = mysqli_query($conn, $select_books_sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<option value='" . $row['number'] . "'>" . $row['Name'] . "</option>";
+            }
+            echo "</select>
+                  <input type='text' name='discountValue' placeholder='Відсоток знижки'>
+                  <div id='expirationInput'>Дата закінчення знижки: <input type='date' name='expirationDate'></div>
+                  <input type='submit' value='Додати знижку' name='setDiscount'>";
+
+
             echo "<div id='addFormDiv'>";
             echo "<form action='' method='POST'>";
             echo "<h4>Форма для додавання книг</h4>
@@ -171,10 +187,6 @@ session_start();
                   <input type='number' name='InSeriesNumber' placeholder='Номер в серії'>
                   <input type='submit' value='Додати книгу' name='addBtn'>
                   <form></div>";
-            // Вибірка всіх книг з БД для редагування та видалення
-            $select_books_sql = "SELECT * FROM books";
-            $result = mysqli_query($conn, $select_books_sql);
-
             echo "<div id='EditFormDiv'>";
             //Вибір книги для редагування
             echo "<form action='' method='POST'>";

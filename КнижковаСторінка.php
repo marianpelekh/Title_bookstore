@@ -137,7 +137,7 @@ if ($result) {
             <p>Кількість сторінок: <?php echo $row['PageNumbers'] ?></p>
             <p>Мова видання: <?php echo $row['Language'] ?></p>
             <p>Рік видання: <?php echo $row['YearOfPubl'] ?></p>
-            <h2 id="price"><?php echo $row['Price'] ?></h2>
+            <h2 id="price"><?php echo $row['Price'].' грн' ?></h2>
             <button type="button" id="InCart" data-product-id="<?php echo $row['number']; ?>"><a>Додати в корзину</a><span id="InCartBG"></span></button>
 
         </span>
@@ -196,7 +196,7 @@ if ($result) {
                             echo '<div class="description">';
                             echo '<div class="book-name">' . mysqli_real_escape_string($conn, $singleRow['ShortName']) . '</div>';
                             echo '<div class="book-author">' . mysqli_real_escape_string($conn, $singleRow['Author']) . '</div>';
-                            echo '<div class="price">' . $singleRow['Price'] . '</div>';
+                            echo '<div class="price">' . $singleRow['Price'] . ' грн</div>';
                             echo '</div>';
                             echo '</div>';
                         }
@@ -525,6 +525,8 @@ if ($result) {
                 let bookAuthor = '<?php echo $row["Author"]; ?>';
                 let bookCover = '<?php echo $row["Cover"]; ?>';
                 let bookPrice = '<?php echo $row["Price"]; ?>';
+                bookPrice = parseFloat(bookPrice);
+                bookPrice = bookPrice.toFixed(2);
                 let bookCode = '<?php echo $row['number']; ?>';
                 ToggleCartOpening('false');
                 console.log('1');
@@ -550,7 +552,7 @@ if ($result) {
                 let quantityContainer = '<div class="Quantity"><button class="DecreaseQuantity">-</button><span class="quantityItself" quantity-of="' + bookCode + '">1</span><button class="IncreaseQuantity">+</button>';
                 let bookElement = document.createElement('div');
                 bookElement.classList.add('bookElement');
-                bookElement.innerHTML = '<img class="CartCover" src="' + bookCover + '" alt="Обкладинка" class="CartCover">' + '<h4 class="CartTitle">' + bookTitle + '</h4><p class="CartAuthor">' + bookAuthor + '</p><h4 class="CartPrice" price-of="' + bookCode + '">' + bookPrice + '</h4>' + quantityContainer;
+                bookElement.innerHTML = '<img class="CartCover" src="' + bookCover + '" alt="Обкладинка" class="CartCover">' + '<h4 class="CartTitle">' + bookTitle + '</h4><p class="CartAuthor">' + bookAuthor + '</p><h4 class="CartPrice" price-of="' + bookCode + '">' + bookPrice + ' грн</h4>' + quantityContainer;
                 bookElement.appendChild(deleteBtn);
                 bookElement.id = bookCode;
                 let clearPrice = bookPrice.replace(/[^0-9\.]/g, '');
