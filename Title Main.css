@@ -18,6 +18,7 @@
     --main-color: #e1d5ff;
     /*d3c2fe*/
     --mid-color: rgb(238, 219, 247);
+    --darker-mid-color: rgb(207, 176, 221);
     --page-color: #f9f1ff;
     /*f1dcff*/
     --a-color: #471B4B;
@@ -32,6 +33,7 @@
     --shadow: rgba(0, 0, 0, 0.418);
     --cookie-text-bg: #471b4b16;
     --cookie-yes: #b188b5;
+    --red: #aa3737;
 }
 
 html {
@@ -486,7 +488,7 @@ footer h2:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 15000;
     animation: wrapper 0.1s ease;
 }
 @keyframes wrapper {

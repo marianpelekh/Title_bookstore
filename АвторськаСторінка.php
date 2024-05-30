@@ -108,7 +108,7 @@ mysqli_stmt_close($stmt); // Close the statement after using it
                         // Check if the author's name is present in the book's name or vice versa
                         if (stripos($bookName, $bookAuthorLastName) !== false || stripos($bookAuthor, $authorName) !== false) {
                             echo '<div class="book-container">';
-                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author']) . '">';
+                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author'] . ' ' . $bookRow['number']) . '">';
                             echo '<img class="cover" src="' . $bookRow['Cover'] . '">';
                             echo '</a>';
                             echo '<div class="description">';
@@ -116,7 +116,6 @@ mysqli_stmt_close($stmt); // Close the statement after using it
                             echo '<div class="book-author">' . $bookRow['Author'] . '</div>';
                             echo '<div class="price">' . $bookRow['Price'] . ' грн</div>';
                             echo '</div>';
-                            echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author']) . '"> Придбати </a>';
                             echo '</div>';
                         }
                     }

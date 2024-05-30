@@ -28,18 +28,4 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         },
     });
-    let PriceBtns = document.querySelectorAll('#BuyButton');
-
-    PriceBtns.forEach(function (PriceBtn) {
-        let previousText = PriceBtn.textContent;
-    
-        PriceBtn.addEventListener('mouseover', function(){
-            PriceBtn.textContent = "Придбати";
-        });
-    
-        PriceBtn.addEventListener('mouseout', function(){
-            PriceBtn.textContent = previousText;
-        });
-    });
-    
 });

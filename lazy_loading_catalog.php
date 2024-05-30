@@ -88,6 +88,7 @@ while ($row = mysqli_fetch_array($result)) {
         'Cover' => $row['Cover'],
         'Price' => $row['Price'],
         'Genre' => $row['Genre'],
+        'Id' => $row['number'],
         'PublishingEng' => $publ_row['PublNameEng']
     );
 }

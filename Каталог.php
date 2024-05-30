@@ -65,7 +65,7 @@
     <div id="AllBooksTitle">Книги</div>
     <div id="AllBooks"></div>
     <div id="loading" style="display: show;">Завантажити ще</div>
-    <script>
+    <script type="module">
     let offset = 0;
     let limit = 8;
 
@@ -118,7 +118,7 @@
                     books.forEach(book => {
                         $('#AllBooks').append(`
                             <div class="book-container" data-genre="${book.Genre}" data-publishing="${book.PublishingEng}">
-                                <a href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author)}">
+                                <a href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.Id)}">
                                     <img class="cover" src="${book.Cover}" alt="${book.Name}">
                                 </a>
                                 <div class="description">
@@ -126,7 +126,7 @@
                                     <div class="book-author">${book.Author}</div>
                                     <div class="price">${book.Price} грн</div>
                                 </div>
-                                <a class="buy" href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author)}"> Придбати </a>
+                                <a class="buy" href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.Id)}"> Придбати </a>
                             </div>
                         `);
                     });
@@ -134,8 +134,34 @@
                     $('#loading').show();
                 }
                 loading = false;
+                let booksDiscountBlocks = document.getElementsByClassName('book-container');
+                for (let i = 0; i < booksDiscountBlocks.length; i++) {
+                    let links = booksDiscountBlocks[i].getElementsByTagName('a');
+                    let bookPrice = booksDiscountBlocks[i].getElementsByClassName('price')[0];
+                    for (let j = 0; j < links.length; j++) {
+                        if (!links[j].classList.contains('buy')) {
+                            let href = links[j].getAttribute('href');
+                            let url = new URL(href, window.location.origin);
+                            let id = url.searchParams.get('id');
+                            let idParts = id.split(' ');
+                            let bookId = idParts[idParts.length - 1];
+                            console.log('Book discount ID:', bookId);
+                            $.ajax({
+                                url: 'load_discounts.php',
+                                method: 'GET',
+                                data: {
+                                    bookId: bookId
+                                },
+                                success: function(data) {
+                                    bookPrice.innerHTML = data;
+                                }
+                            })
+                        }
+                    }
+                }
             }
         });
+        
     }
     //Оновлення при зміні у localStorage
     window.addEventListener('storage', function(event) {
@@ -303,6 +329,7 @@
     <script src="CartBooks.js"></script>    
     <script src="Books.js" defer></script>
     <script src="CatalogueFiltration.js" defer></script>
+    <script src="SetDiscounts.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
                 // Отримати посилання на елементи

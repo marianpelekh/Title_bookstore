@@ -4,7 +4,7 @@ include('connect_db.php');
 session_start();
 $id = urldecode($_GET['id']);
 
-$query = "SELECT * FROM books WHERE CONCAT(Name, ' ', Author)='" . mysqli_real_escape_string($conn, $id) . "'";
+$query = "SELECT * FROM books WHERE CONCAT(`Name`, ' ', `Author`, ' ', `number`)='" . mysqli_real_escape_string($conn, $id) . "'";
 $result = mysqli_query($conn, $query);
 
 if ($result) {
@@ -190,7 +190,7 @@ if ($result) {
                         if ($singleRow['IsSeries'] != 0 && $singleRow['SeriesName'] == $thisBookSeriesName){
                             echo '<div class="book-container">';
                             echo '<div class="NumInSeries">' . 'Книга ' . $singleRow['NumberInSeries'] . '</div>';
-                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($singleRow['Name'] . ' ' . $singleRow['Author']) . '">';
+                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($singleRow['Name'] . ' ' . $singleRow['Author'] . ' ' . $singleRow['number']) . '">';
                             echo '<img class="cover" src="' . $singleRow['Cover'] . '">';
                             echo '</a>';
                             echo '<div class="description">';
@@ -282,6 +282,7 @@ if ($result) {
             });
 
             </script>
+            <script src="SetDiscounts.js" defer></script>
             <?php
             if (isset($_POST['postComm']) && isset($_SESSION['id'])) {
                 if (strlen($_POST['commText']) > 0) {
@@ -306,13 +307,14 @@ if ($result) {
                         $link_comm_sql = "INSERT INTO BooksComments(BookID, CommentID) VALUES ('$current_book_id', '$commentId')";
                         mysqli_query($conn, $link_comm_sql);
                     }
-                    header("Location: КнижковаСторінка.php?id=" . urlencode($row['Name'] . ' ' . $row['Author']));
+                    header("Location: КнижковаСторінка.php?id=" . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']));
                 } else {
                     echo "Коментар не може бути порожнім.";
                 }
             }
             ?>
         <script>
+            
             const cartIcon = document.getElementById('Cart');
             const InCartBtn = document.getElementById('InCart');
             const cartWin = document.getElementById('CartWindow');
@@ -353,10 +355,11 @@ if ($result) {
                     const covers = bookElement.querySelectorAll('.CartCover');
                     let bookTitle = bookElement.querySelector('.CartTitle').textContent;
                     let bookAuthor = bookElement.querySelector('.CartAuthor').textContent;
+                    let bookCode = bookElement.id;
 
                     covers.forEach(cover => {
                         cover.addEventListener('click', function () {
-                            const encodedString = encodeURIComponent(bookTitle + ' ' + bookAuthor);
+                            const encodedString = encodeURIComponent(bookTitle + ' ' + bookAuthor + ' ' + bookCode);
                             const url = 'КнижковаСторінка.php?id=' + encodedString.replace(/%20/g, '+');
                             console.log(url);
                             window.location.href = url;
@@ -628,6 +631,19 @@ if ($result) {
                     }   
                     });
                 });
+
+                let bookId = '<?php echo $row['number']; ?>';
+                let bookPrice = document.getElementById('price');
+                $.ajax({
+                    url: 'load_discounts.php',
+                    method: 'GET',
+                    data: {
+                        bookId: bookId
+                    },
+                    success: function(data) {
+                        bookPrice.innerHTML = data;
+                    }
+                })
             });
             function changeQuantity() {
                 const bookElements = document.querySelectorAll('.bookElement');

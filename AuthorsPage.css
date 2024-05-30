@@ -62,16 +62,21 @@
     grid-row: 1 / span 2;
     grid-column: 1;
     position: relative;
+    max-height: 200vh;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 #AuthorBooksTitle {
     margin-top: 330px;
     grid-column: 1;
     grid-row: 1 / span 2;
     text-align: center;
-    margin-bottom: 0px;
 }
 .book-container {
+    display: block;
+    padding-bottom: 10px;
     width: 270px;
+    height: 550px;
     margin-left: auto;
     margin-right: auto;
 }

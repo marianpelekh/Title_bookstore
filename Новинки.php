@@ -57,77 +57,79 @@
         <?php
             include('connect_db.php');
 
-            $novelties = []; // Create an array to store novelties
+            $novelties = [];
 
-    $query = "SELECT * FROM books";
-    $result = mysqli_query($conn, $query);
+            $query = "SELECT * FROM books";
+            $result = mysqli_query($conn, $query);
 
-    while ($row = mysqli_fetch_array($result)) {
-        $date1 = new DateTime($row['DateExact']);
-        $date2 = new DateTime();
-        $interval = $date1->diff($date2);
-        if ($interval->y == 0 && $interval->m < 2){
-            $novelties[] = $row; // Store the fetched data in the array
-        }
-    }
+            while ($row = mysqli_fetch_array($result)) {
+                $date1 = new DateTime($row['DateExact']);
+                $date2 = new DateTime();
+                $interval = $date1->diff($date2);
+                if ($interval->y == 0 && $interval->m < 2){
+                    $novelties[] = $row;
+                }
+            }
 
-    echo '<div id="Novelties">';
-    echo '<div class="content">';
-    echo '<div class="swiperContent">';
-    echo '<div class="swiper">';
-    echo '<div class="swiper-wrapper">';
-    
-    foreach ($novelties as $row) {
-        echo '<div class="swiper-slide" style="display: flex; justify-content: center; align-items: center; max-height: 500px;" related-book="' . $row['number'] . '">';
-        echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">';
-        echo '<img class="cover" width="250rem" src="' . $row['Cover'] . '">';
-        echo '</a>';
-        echo '</div>';
-    }
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    
-    echo '<div class="info">';
-    foreach ($novelties as $row) {
-        echo '<div class="relatedInfo" related-book="' . $row['number'] . '">';
-        echo '<div id="BookTitle">' . $row['ShortName'] . '</div>';
-        echo '<div id="BookAuthor">' . $row['Author'] . '</div>';
-        echo '<div id="BookDesc">' . $row['Description'] . '</div>';
-        echo '<a id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">' . $row['Price'] . ' грн</a>';
-        echo '</div>';
-    }
-    
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-?>
+            echo '<div id="Novelties">';
+            echo '<div class="content">';
+            echo '<div class="swiperContent">';
+            echo '<div class="swiper">';
+            echo '<div class="swiper-wrapper">';
+            
+            foreach ($novelties as $row) {
+                echo '<div class="swiper-slide" style="display: flex; justify-content: center; align-items: center; max-height: 500px;" related-book="' . $row['number'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
+                echo '<img class="cover" width="250rem" src="' . $row['Cover'] . '">';
+                echo '</a>';
+                echo '</div>';
+            }
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            
+            echo '<div class="info">';
+            foreach ($novelties as $row) {
+                echo '<div class="relatedInfo" related-book="' . $row['number'] . '">';
+                echo '<div id="BookTitle">' . $row['ShortName'] . '</div>';
+                echo '<div id="BookAuthor">' . $row['Author'] . '</div>';
+                echo '<div id="BookDesc">' . $row['Description'] . '</div>';
+                echo '<button id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">' . $row['Price'] . ' грн</button>';
+                echo '<a id="UnderBuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> ПРИДБАТИ </a>';
+                echo '</div>';
+            }
+            
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        ?>
     <script src="CartBooks.js"></script>
+    <script src="SetDiscounts.js"></script>
     <script>
             document.addEventListener('DOMContentLoaded', function () {
-                // Отримати посилання на елементи
                 const menuToggle = document.getElementById('menuToggle');
                 const navs = document.querySelectorAll('nav');
                 const cabinet = document.getElementById('Cabinet');
                 
-                // Додати обробник подій для кліку на #menuToggle
                 menuToggle.addEventListener('click', function () {
-                    // Змінити стилі в залежності від стану меню
                     navs.forEach(nav => {
                     if (nav.style.display === 'grid') {
                         nav.style.display = 'none';
-                        // Змінити атрибути grid-row та grid-column на початкові значення
                         nav.style.gridRow = 'initial';
                         nav.style.gridColumn = 'initial';
                         nav.classList.remove('active-menu');
                     } else {
                         nav.style.display = 'grid';
-                        // Змінити атрибути grid-row та grid-column на нові значення
                         nav.classList.add('active-menu');
                     }   
                     });
                 });
-
+                let buyBtns = document.querySelectorAll('#BuyButton');
+                buyBtns.forEach(buyBtn  => {
+                    buyBtn.addEventListener('click', function() {
+                        window.location.href = buyBtn.getAttribute('href');;
+                    })
+                })
             });
         </script> 
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

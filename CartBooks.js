@@ -38,10 +38,11 @@ function transferToBook() {
         const covers = bookElement.querySelectorAll('.CartCover');
         let bookTitle = bookElement.querySelector('.CartTitle').textContent;
         let bookAuthor = bookElement.querySelector('.CartAuthor').textContent;
+        let bookCode = bookElement.id;
 
         covers.forEach(cover => {
             cover.addEventListener('click', function () {
-                const encodedString = encodeURIComponent(bookTitle + ' ' + bookAuthor);
+                const encodedString = encodeURIComponent(bookTitle + ' ' + bookAuthor + ' ' + bookCode);
                 const url = 'КнижковаСторінка.php?id=' + encodedString.replace(/%20/g, '+');
                 console.log(url);
                 window.location.href = url;

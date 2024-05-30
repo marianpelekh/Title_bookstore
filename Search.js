@@ -20,11 +20,11 @@ $(document).ready(function(){
                 if (response.books && response.books.length > 0) {
                     $.each(response.books, function(index, book){
                         let bookHTML = '<div class="book-container">' +
-                                        '<img class="cover" data-loc="КнижковаСторінка.php?id=' + encodeURIComponent(book.Name + ' ' + book.Author) + '" src="' + book.Cover + '">' +
+                                        '<img class="cover" data-loc="КнижковаСторінка.php?id=' + encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.number) + '" src="' + book.Cover + '">' +
                                         '<div class="description">' +
                                         '<div class="book-name">' + book.Name + '</div>' +
                                         '<div class="book-author">' + book.Author + '</div>' +
-                                        '<div class="price">' + book.Price + '</div>' +
+                                        '<div class="price">' + book.Price + ' грн</div>' +
                                         '</div>' +
                                         '</div>';
 

@@ -322,8 +322,8 @@
     width: min-content;
 }
 
-#addFormDiv, #EditFormDiv, #DeleteFormDiv {
-    margin: 10px;
+#addFormDiv, #EditFormDiv, #DeleteFormDiv, #addDiscountFormDiv {
+    margin: 10px auto;
     width: 50vw;
     height: auto;
     display: flex;
@@ -334,7 +334,7 @@
     border-radius: 10px;
     background-color: var(--mid-color);
 }
-#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select {
+#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select, #addDiscountFormDiv input, #addDiscountFormDiv select {
     margin: 10px;
     background-color: var(--white);
     border: 2px solid var(--a-color);
@@ -385,4 +385,28 @@ h4 {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+#addDiscountFormDiv button {
+    border: 2px solid var(--a-color);
+    border-radius: 5px;
+    background-color: var(--main-color);
+    cursor: pointer;
+    font-family: Comfortaa, sans-serif;
+    font-size: 14px;
+    height: 30px;
+    width: 200px;
+    transition: all 0.3s ease;
+    margin: 20px;
+}
+#addDiscountFormDiv button:hover {
+    background-color: var(--page-color);
+    box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow);
+}
+#addDiscountFormDiv #expirationInput h5 {
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+#AdminFormsTitle {
+    text-align: center;
+    margin: 100px auto 0px;
 }

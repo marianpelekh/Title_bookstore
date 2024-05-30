@@ -110,7 +110,7 @@ include('connect_db.php');
             $interval = $date1->diff($date2);
             if ($interval->y == 0 && $interval->m < 2){
                 echo '<div class="book-container">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
                 echo '<img class="cover" src="' . $row['Cover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
@@ -118,7 +118,7 @@ include('connect_db.php');
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
                 echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> Придбати </a>';
                 echo '</div>';
             }    
         }
@@ -237,6 +237,7 @@ include('connect_db.php');
 <script src="NewBooksScrolling.js"></script>
 <script src="CartBooks.js"></script>
 <script src="MakeComments.js"></script>
+<script src="SetDiscounts.js" defer></script>
 <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // Отримати посилання на елементи
