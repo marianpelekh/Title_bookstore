@@ -65,6 +65,9 @@
             while ($row = mysqli_fetch_array($result)) {
                 $date1 = new DateTime($row['DateExact']);
                 $date2 = new DateTime();
+                if ($date1 > $date2) {
+                    continue;
+                }
                 $interval = $date1->diff($date2);
                 if ($interval->y == 0 && $interval->m < 2){
                     $novelties[] = $row;

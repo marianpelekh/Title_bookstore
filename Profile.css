@@ -334,12 +334,13 @@
     border-radius: 10px;
     background-color: var(--mid-color);
 }
-#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select, #addDiscountFormDiv input, #addDiscountFormDiv select {
+#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select, #addDiscountFormDiv input, #addDiscountFormDiv select, #addFormDiv textarea, #EditFormDiv textarea {
     margin: 10px;
     background-color: var(--white);
     border: 2px solid var(--a-color);
     border-radius: 5px;
     min-height: 25px;
+    max-width: 34vw;
     width: 34vw;
     text-align: left;
     color: var(--a-color);

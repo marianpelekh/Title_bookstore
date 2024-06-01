@@ -145,12 +145,12 @@
                             let id = url.searchParams.get('id');
                             let idParts = id.split(' ');
                             let bookId = idParts[idParts.length - 1];
-                            console.log('Book discount ID:', bookId);
                             $.ajax({
                                 url: 'load_discounts.php',
                                 method: 'GET',
                                 data: {
-                                    bookId: bookId
+                                    bookId: bookId,
+                                    quantity: 1
                                 },
                                 success: function(data) {
                                     bookPrice.innerHTML = data;

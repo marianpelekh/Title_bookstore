@@ -137,8 +137,32 @@ if ($result) {
             <p>Кількість сторінок: <?php echo $row['PageNumbers'] ?></p>
             <p>Мова видання: <?php echo $row['Language'] ?></p>
             <p>Рік видання: <?php echo $row['YearOfPubl'] ?></p>
-            <h2 id="price"><?php echo $row['Price'].' грн' ?></h2>
-            <button type="button" id="InCart" data-product-id="<?php echo $row['number']; ?>"><a>Додати в корзину</a><span id="InCartBG"></span></button>
+            <?php
+                $discount_exist_query = "SELECT Expires FROM discounts WHERE BookID = '" . $row['number'] . "'";
+                $discount_exist_result = mysqli_query($conn, $discount_exist_query);
+                $dateFromDatabase = new DateTime($row['DateExact']);
+                $currentDate = new DateTime();
+
+                $hasDiscount = false;
+                if ($disc = mysqli_fetch_assoc($discount_exist_result)) {
+                    $hasDiscount = true;
+                    if ($dateFromDatabase <= $currentDate) {
+                        echo '<p>Знижка діє до: ' . $disc['Expires'] . '</p>';
+                    } 
+                }
+                if ($dateFromDatabase > $currentDate) {
+                    echo '<p>Передзамовлення діє до: ' . $row['DateExact'] . '</p>';
+                }
+            ?>
+
+                <h2 id="price"><?php echo $row['Price'] . ' грн'; ?></h2>
+
+            <?php
+                $buttonText = ($dateFromDatabase > $currentDate) ? "Передзамовити" : "Додати в корзину";
+                echo '<button type="button" id="InCart" data-product-id="' . $row['number'] . '"><a>' . $buttonText . '</a><span id="InCartBG"></span></button>';
+            ?>
+
+
 
         </span>
         </div>
@@ -638,7 +662,8 @@ if ($result) {
                     url: 'load_discounts.php',
                     method: 'GET',
                     data: {
-                        bookId: bookId
+                        bookId: bookId,
+                        quantity: 1
                     },
                     success: function(data) {
                         bookPrice.innerHTML = data;

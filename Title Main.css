@@ -78,7 +78,7 @@ header {
     justify-items: center;
     box-shadow: 0px 4px 3px var(--shadow);
     background-color: var(--main-color);
-    z-index: 100;
+    z-index: 1000;
 }
 #menuToggle {
     display: none;
@@ -102,7 +102,7 @@ footer {
 }
 nav {
     background-color: var(--main-color);
-    z-index: 101;
+    z-index: 2000;
     grid-row: 1;
     grid-column: 2 / 7;
     display: grid;
@@ -164,23 +164,23 @@ header a:not(#Title):hover {
 @media screen and (max-width: 1000px) {
     #Catalog {
         grid-row: 1;
-        grid-column: 1;
+        grid-column: 3;
       }
       #Authors {
         grid-row: 2;
-        grid-column: 1;
+        grid-column: 3;
       }
       #New {
         grid-row: 3;
-        grid-column: 1;
+        grid-column: 3;
       }
       #Contacts {
         grid-row: 4;
-        grid-column: 1;
+        grid-column: 3;
       }
       #Cabinet {
         grid-row: 5;
-        grid-column: 1;
+        grid-column: 3;
       }
       #MainCabinet {
         display: none;
@@ -233,7 +233,7 @@ footer h2:hover {
     position: fixed;
     width: 40px;
     height: 80px;
-    z-index: 1000;
+    z-index: 3001;
     background-color: var(--main-color);
     border: 2px solid var(--a-color);
     border-right: none;
@@ -248,7 +248,7 @@ footer h2:hover {
     transition: all 0.3s ease-in-out;
 }
 #CartWindow {
-    z-index: 200;
+    z-index: 3000;
     width: 500px;
     height: 100vh;
     background-color: var(--main-color);
@@ -291,46 +291,7 @@ footer h2:hover {
     filter: brightness(1.05);
     box-shadow: 0px -5px 0px var(--shadow);
   }
-  #bookElement {
-    display: grid;
-    width: 480px;
-    height: 200px;
-    margin: 10px;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(2, 100px);
-}
 
-#bookElement #CartCover {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column: 1;
-    background-color: var(--white);
-}
-
-#bookElement #CartTitle {
-    grid-row: 1;
-    grid-column: 2;
-    text-align: left;
-    margin: 10px;
-    font-size: 20px;
-}
-
-#bookElement #CartAuthor {
-    grid-row: 2;
-    grid-column: 2;
-    text-align: left;
-    margin: 10px;
-}
-
-#bookElement #CartPrice {
-    grid-row: 2;
-    grid-column: 3;
-    text-align: right;
-    margin: 10px;
-    font-size: 20px;
-    font-weight: 100;
-    font-family: 'Orelega';
-}
 
 
 

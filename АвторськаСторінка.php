@@ -92,7 +92,7 @@ mysqli_stmt_close($stmt); // Close the statement after using it
         <div id="AuthorsContent">
                 <img id="AuthorsPicture" src="<?php echo $row['Picture']; ?>">
                 <?php
-                    $queryBooks = "SELECT * FROM books";
+                    $queryBooks = "SELECT * FROM books ORDER BY SeriesName, NumberInSeries DESC";
                     $resultBooks = mysqli_query($conn, $queryBooks);
                     
                     echo '<h2 id="AuthorBooksTitle">Книги автора:</h2>';

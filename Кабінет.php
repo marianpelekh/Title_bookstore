@@ -154,7 +154,7 @@ session_start();
                   <h4>Додати знижку на книгу</h4>
                   <select id='DiscountBookId' name='discountBookId'>";
             echo "<option value='' disabled selected>Виберіть книгу для додавання знижки</option>";
-            $select_books_sql = "SELECT * FROM books";
+            $select_books_sql = "SELECT * FROM books ORDER BY SeriesName, NumberInSeries, ShortName ASC";
             $result = mysqli_query($conn, $select_books_sql);
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<option value='" . $row['number'] . "'>" . $row['Name'] . "</option>";
@@ -180,7 +180,7 @@ session_start();
                   <input type='text' name='Language' placeholder='Мова'>
                   <input type='text' name='PublishingYear' maxlength='4' placeholder='Рік видання'>
                   <input type='date' name='ExactPublishingDate' placeholder='Точна дата видання'>
-                  <input type='text' name='Annotation' placeholder='Анотація'>
+                  <textarea name='Annotation' placeholder='Анотація'></textarea>
                   <input type='text' name='Genre' placeholder='Жанр'>
                   <div class='isSeriesDiv'><p>Це серія?</p>
                   <input type='checkbox' name='IsSeries'></div>
@@ -194,7 +194,7 @@ session_start();
             echo "<h4>Форма для редагування книг</h4>
                   <select name='bookCodeEdit' onchange='this.form.submit()'>";
             echo "<option value='' disabled selected>Виберіть код книги для редагування</option>";
-            $select_books_sql_2 = "SELECT * FROM books";
+            $select_books_sql_2 = "SELECT * FROM books ORDER BY SeriesName, NumberInSeries, ShortName ASC";
             $result_2 = mysqli_query($conn, $select_books_sql_2);
             while ($rowi = mysqli_fetch_assoc($result_2)) {
                 echo "<option value='" . $rowi['number'] . "'>" . $rowi['Name'] . "</option>";
@@ -223,7 +223,7 @@ session_start();
                 echo "<input type='text' name='LanguageEdit' value='" . $selected_book_row['Language'] . "' placeholder='Мова'>";
                 echo "<input type='text' name='PublishingYearEdit' value='" . $selected_book_row['YearOfPubl'] . "' maxlength='4' placeholder='Рік видання'>";
                 echo "<input type='date' name='ExactPublishingDateEdit' value='" . $selected_book_row['DateExact'] . "' placeholder='Точна дата видання'>";
-                echo "<input type='text' name='AnnotationEdit' value='" . $selected_book_row['Description'] . "' placeholder='Анотація'>";
+                echo "<textarea name='AnnotationEdit' placeholder='Анотація'>". $selected_book_row['Description'] . "</textarea>";
                 echo "<input type='text' name='GenreEdit' value='" . $selected_book_row['Genre'] . "' placeholder='Жанр'>";
                 echo "<div class='isSeriesDiv'><p>Це серія?</p>
                       <input type='checkbox' name='IsSeriesEdit' " . ($selected_book_row['IsSeries'] ? 'checked' : '') . "></div>";
@@ -275,8 +275,9 @@ session_start();
                     $edited_isSeries = 0;
                 }
                 $update_sql = "UPDATE books SET ShortName='$edited_shortName', Name='$edited_fullName', number='$edited_book_code', Author='$edited_author', Publishing='$edited_publishing', Price='$edited_price', Cover='$edited_coverURL', BackCover='$edited_rearCoverURL', PageNumbers='$edited_pageNumber', Language='$edited_language', YearOfPubl='$edited_publishingYear', DateExact='$edited_exactPublishingDate', Description='$edited_annotation', Genre='$edited_genre', IsSeries='$edited_isSeries', SeriesName='$edited_seriesName', NumberInSeries='$edited_inSeriesNumber' WHERE number='$edited_book_code'";
-                echo $update_sql;
-                mysqli_query($conn, $update_sql);
+                if(mysqli_query($conn, $update_sql)) {
+                    echo "Книгу '" . $edited_shortName .  "' успішно оновлено.";
+                }
             }
 
             // Видалення книги з БД
@@ -351,15 +352,15 @@ session_start();
             $responseBooks = mysqli_query($conn, $featuredSql);
             while ($row = mysqli_fetch_array($responseBooks)) {
                 echo '<div class="book-container" data-genre="' . $row["Genre"] . '">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
                 echo '<img class="cover" src="' . $row['Cover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $row['Name'] . '</div>';
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
-                echo '<div class="price">' . $row['Price'] . '</div>';
+                echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> Придбати </a>';
                 echo '</div>';
             }
             echo '</div>';
@@ -377,6 +378,7 @@ session_start();
 </section>
 <script src="CloseUploadForm.js"></script>
 <script src="Search.js"></script>
+<script src="SetDiscounts.js"></script>
 </body>
 <footer>
     <h1 id="foot-title">Title</h1>

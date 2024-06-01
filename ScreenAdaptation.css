@@ -1,282 +1,304 @@
 @media screen and (max-width: 1000px) {
-    #menuToggle {
-        display: block;
-        grid-column: 3;
-        cursor: pointer;
-    }
-    header {
-      position: relative;
-      grid-template-columns: repeat(3, auto);
-      grid-template-rows: repeat(1, auto);
-      text-align: center;
-      max-width: 100vw;
-      width: 100vw;
-      min-height: 50px;
-    }
-    header #Title {
-      grid-row: 1;
-      grid-column: 2;
+  #menuToggle {
       display: block;
-    }
-    header img {
-      margin-left: 30px;
-      margin-right: 30px;
-    }
-    nav, #MainCabinet{
-      display: none; /* Сховати меню на початку */
-      width: 100%;
-      height: 0px;
-      transition: all 0.2s ease;
-      grid-area: initial;
-    }
-    nav.active-menu {
-      border-bottom: 2px solid var(--a-color);
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px;
-      position: absolute;
-      top: 50px;
-      left: 0px;
-      width: 100%;
-      height: auto;
-      display: grid; /* Відображати меню, коли чекбокс вибраний */
-      grid-template-rows: repeat(5, 50px);
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-    #TitleNav {
-      display: none;
-      grid-row: 1;
-      grid-column: 1;
-    }
-    #Catalog {
-      grid-row: 1;
-      grid-column: 1;
-    }
-    #Authors {
-      grid-row: 2;
-      grid-column: 1;
-    }
-    #New {
-      grid-row: 3;
-      grid-column: 1;
-    }
-    #Contacts {
-      grid-row: 4;
-      grid-column: 1;
-    }
-    nav.active-menu #Cabinet {
-      display: block;
-      grid-row: 5;
-      grid-column: 1;
-    }
-
-    .BookMainInfo {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      width: 100%;
-    }
-    #BookCoverBG {
-      margin-bottom: 100px;
-    }
-    #card {
-      grid-row: 1;
-      grid-column: 1;
-    }
-    .TextContainer {
-      grid-row: 2;
-      grid-column: 1;
-      padding-left: 10%;
-      padding-right: 10%;
-    }
-    #descriptionCont {
-      text-align: justify;
-      font-size: 16px;
-      width: 90vw;
-    }
-    #Cart {
-      width: 30px;
-      height: 60px;
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px;
-    }
-    #CartWindow {
-      width: 350px;
-      right: -350px;
-      box-sizing: border-box;
-    }
-    #Purchase {
-      width: 350px;
-    }
-    .bookElement {
-      max-width: 320px;
-      grid-template-rows: repeat(2, auto);
-    }
-    .spacer {
-      max-width: 340px;
-    }
-    .CartCover {
-      grid-row: 1 / span 2;
-    }
-    .CartTitle {
-      font-size: smaller;
-    }
-    .CartAuthor {
-      font-size: smaller;
-    }
-    .CartPrice {
-      font-size: smaller;
-    }
-
-
-    section {
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: auto;
-      margin: 0px;
-    }
-    .carousel {
-      grid-row: 1;
-      grid-column: 1;
-      max-width: 90vw;
-      margin-right: auto;
-      margin-left: auto;
-    }
-    .dot-container {
-      grid-row: 2;
-      grid-column: 1;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .titleimage {
-      width: 100%;
-      margin: 0px;
-    }
-    #greetings {
-      grid-row: 3;
-      grid-column: 1;
-      padding: 0px;
-      margin-top: 20px;
-      max-width: 90vw;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    p {
-      font-size: medium;
-    }
-    #NewBooksMain {
-      height: 450px;
-    }
-    .InfoAboutStore {
-      padding: 15px;
-      max-width: 100vw;
-    }
-    .InfoAboutStoreNext {
-      padding: 0px;
-      max-width: 90vw;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .Comment {
-      grid-template-rows: auto;
-      margin: 5px;
-      height: auto;
-      min-height: 60px;
-    }
-    .CommentText {
-      padding: 5px;
-      height: auto;
-      min-height: 40px;
-    }
-    .undercomms {
-      width: 100%;
-      max-width: 90vw;
-      text-align: center;
-
-    }
-    footer {
-      height: 40vh;
-    }
-    #catalog-footer {
-      height: 40vh;
-    }
-    #other-footer-info {
-      height: 40vh;
-    }
-    #foot-title {
-      font-size: 24px;
-    }
-    #AllAuthors {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(fit-content, 50px);
-    }
-    .AuthorContainer {
-      margin: 5px;
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 90vw;
-    }
-    #AuthorsContent {
-      margin: 0px;
-      grid-template-columns: repeat(1, 100vw);
-      grid-template-rows: repeat(fit-content, auto);
-    }
-    #AuthorsPicture {
-      grid-row: 1;
-      grid-column: 1;
-    }
-    #AuthorBooksTitle {
-      grid-row: 3;
-      grid-column: 1;
-    }
-    #AuthorsBooks {
-      grid-row: 4;
-      grid-column: 1;
-      width: 100%;
-      margin-top: 50px;
-      flex-direction: row;
-      gap: 20px;
-      overflow-x: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    #AuthorsName {
-      width: 200px;
-      min-height: 40px;
-      height: auto;
-    }
-    #AuthorsBibliography {
-      grid-row: 2; /* Place below the first row */
-      grid-column: 2;
-      padding: 10px;
-      width: 80vw;
-      margin: 0px auto;
-      text-align: justify;
-      line-height: 1.5;
-      hyphens: auto; /* Enable automatic hyphenation */
-      -webkit-hyphens: auto;
-      word-break: break-word; /* Break words when needed */
+      grid-column: 3;
+      cursor: pointer;
+  }
+  header {
+    position: relative;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(1, auto);
+    text-align: center;
+    max-width: 100vw;
+    width: 100vw;
+    min-height: 50px;
+    z-index: 2000;
+  }
+  header #Title {
+    grid-row: 1;
+    grid-column: 2;
+    display: block;
+    z-index: 2001;
+  }
+  header img {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  nav{
+    position: absolute;
+    width: 100vw !important;
+    height: 40vh;
+    top: -50vh;
+    transition: all 0.2s ease-in-out;
+    grid-area: initial;
+    overflow: hidden;
+    display: grid !important;
+  }
+  nav.active-menu {
+    position: absolute;
+    z-index: 500;
+    border-bottom: 2px solid var(--a-color);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: repeat(5, 8vh);
+    grid-template-columns: repeat(5, auto);
+    justify-content: center;
+    text-align: center;
+  }
+  #TitleNav {
+    display: none;
+    grid-row: 1;
+    grid-column: 3;
+  }
+  #Catalog {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  #Authors {
+    grid-row: 2;
+    grid-column: 3;
+  }
+  #New {
+    grid-row: 3;
+    grid-column: 3;
+  }
+  #Contacts {
+    grid-row: 4;
+    grid-column: 3;
+  }
+  nav.active-menu #Cabinet {
+    display: block;
+    grid-row: 5;
+    grid-column: 3;
+  }
+  .BookMainInfo {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+  }
+  #BookCoverBG {
+    margin-bottom: 100px;
+  }
+  #card {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .TextContainer {
+    grid-row: 2;
+    grid-column: 1;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  #descriptionCont {
+    text-align: justify;
+    font-size: 16px;
+    width: 90vw;
+  }
+  #Cart {
+    width: 30px;
+    height: 60px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  #CartWindow {
+    width: 350px;
+    right: -350px;
+    box-sizing: border-box;
+  }
+  #Purchase {
+    width: 350px;
+  }
+  .bookElement {
+    max-width: 320px;
+    grid-template-rows: repeat(2, auto);
+  }
+  .spacer {
+    max-width: 340px;
+  }
+  .CartCover {
+    grid-row: 1 / span 2;
+  }
+  .CartTitle {
+    font-size: smaller;
+  }
+  .CartAuthor {
+    font-size: smaller;
+  }
+  .CartPrice {
+    align-self: flex-end;
+    height: min-content;
+    font-size: smaller;
+  }
+  .CartPrice p {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: small;
+  }
+  .CartPrice sup {
+    display: none;
+  }
+  section {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    margin: 0px;
+  }
+  .carousel {
+    grid-row: 1;
+    grid-column: 1;
+    max-width: 90vw;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .dot-container {
+    grid-row: 2;
+    grid-column: 1;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .titleimage {
+    width: 100%;
+    margin: 0px;
+  }
+  #greetings {
+    grid-row: 3;
+    grid-column: 1;
+    padding: 0px;
+    margin-top: 20px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    font-size: medium;
+  }
+  #NewBooksMain, #DiscountsBooksMain, #PresalesMain {
+    height: 450px;
+  }
+  .InfoAboutStore {
+    padding: 15px;
+    max-width: 100vw;
+  }
+  .InfoAboutStoreNext {
+    padding: 0px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Avatar, .Avatar img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .Comment {
+    grid-template-rows: auto;
+    margin: 5px;
+    height: auto;
+    min-height: 60px;
+  }
+  .CommentText {
+    padding: 5px;
+    height: auto;
+    min-height: 40px;
+  }
+  .undercomms {
+    width: 100%;
+    max-width: 90vw;
+    text-align: center;
+  }
+  footer {
+    height: 40vh;
+  }
+  #catalog-footer {
+    height: 40vh;
+  }
+  #other-footer-info {
+    height: 40vh;
+  }
+  #foot-title {
+    font-size: 24px;
+  }
+  #AllAuthors {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(fit-content, 50px);
+  }
+  .AuthorContainer {
+    margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90vw;
+  }
+  #AuthorsContent {
+    margin: 0px;
+    grid-template-columns: repeat(1, 100vw);
+    grid-template-rows: repeat(fit-content, auto);
+  }
+  #AuthorsPicture {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  #AuthorBooksTitle {
+    grid-row: 3;
+    grid-column: 1;
+  }
+  #AuthorsBooks {
+    grid-row: 4;
+    grid-column: 1;
+    width: 100%;
+    margin-top: 50px;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  #AuthorsName {
+    width: 200px;
+    min-height: 40px;
+    height: auto;
+  }
+  #AuthorsBibliography {
+    grid-row: 2; /* Place below the first row */
+    grid-column: 2;
+    padding: 10px;
+    width: 80vw;
+    margin: 0px auto;
+    text-align: justify;
+    line-height: 1.5;
+    hyphens: auto; /* Enable automatic hyphenation */
+    -webkit-hyphens: auto;
+    word-break: break-word; /* Break words when needed */
   }  
-    #Col2 {
-      grid-row: 2;
-      grid-column: 1;
-    }
-    .book-container {
-      margin-top: 22.5px;
-      margin-bottom: 20px;
-      margin-right: auto;
-      margin-left: auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      /* grid-template-rows: 138.75px 22.5px 138.75px 67.5px; */
-      grid-template-rows: 120px 22.5px 120px 65px;
-      text-align: center;
-      line-height: 1.5;
-      /* width: 182px;
-      height: 402px; */
-      width: 160px;
-      height: 360px;
-      border-top: 3px solid var(--darker-white);
-      border-radius: 7.5px;
-      background-color: var(--white);
+  #Col2 {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .book-container {
+    margin-top: 22.5px;
+    margin-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    /* grid-template-rows: 138.75px 22.5px 138.75px 67.5px; */
+    grid-template-rows: 120px 22.5px 120px 65px;
+    text-align: center;
+    line-height: 1.5;
+    /* width: 182px;
+    height: 402px; */
+    width: 160px;
+    height: 360px;
+    border-top: 3px solid var(--darker-white);
+    border-radius: 7.5px;
+    background-color: var(--white);
   }
   
   .cover {
@@ -305,17 +327,20 @@
     margin-bottom: 5px;
     font-size: smaller;
     box-shadow: inset 0px -5px 5px var(--main-color);
-}
-
-.book-author {
-    font-size: smaller;
-    overflow: hidden;
-    white-space: nowrap; /* Prevent text from wrapping */
-    text-overflow: ellipsis; /* Add ellipsis for overflow */
-    margin-bottom: 5px;
-    box-shadow: inset 0px -5px 5px var(--main-color);
-}
-
+  }
+  
+  .book-author {
+      font-size: smaller;
+      overflow: hidden;
+      white-space: nowrap; /* Prevent text from wrapping */
+      text-overflow: ellipsis; /* Add ellipsis for overflow */
+      margin-bottom: 5px;
+      box-shadow: inset 0px -5px 5px var(--main-color);
+  }
+  .price, .price > p {
+    max-height: 21px;
+    line-height: 1;
+  }
   .description {
       margin-top: 15px;
       font-size: 15px;
@@ -405,6 +430,7 @@
   }
   .relatedInfo {
     justify-content: flex-start;
+    margin-top: -100px;
   }
   .swiperContent {
     margin-top: 20px;
@@ -622,5 +648,12 @@
     z-index: 49;
     height: 100%;
     margin: 20px auto;
+  }
+
+  #addDiscountFormDiv, #addFormDiv, #EditFormDiv, #DeleteFormDiv {
+    width: 90vw;
+  }
+  #addDiscountFormDiv form input  {
+    width: 100%;
   }
 }

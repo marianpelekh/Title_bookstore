@@ -17,19 +17,30 @@ function updateTotal() {
     }
 
     let total = 0;
-
+    let NoDiscountTotal = 0;
+    let bookElements = document.querySelectorAll('.bookElement');
+    bookElements.forEach(bookElement => {
+        LoadDiscounts(bookElement, bookElement.id, bookElement.getAttribute('quantity'), bookElement.querySelector(".CartPrice"));
+        let price = parseInt(bookElement.getAttribute('discount')) || parseInt(storedBooks.find(storedBook => storedBook.code == bookElement.id).singlePrice);
+        console.log("DOM", price, parseInt(bookElement.querySelector('.quantityItself').textContent));
+        if (!isNaN(price)) {
+            total += price * parseInt(bookElement.querySelector('.quantityItself').textContent);
+        }
+    });
     storedBooks.forEach(storedBook => {
         let singlePrice = parseFloat(storedBook.singlePrice);
         if (!isNaN(singlePrice)) {
-            total += singlePrice * storedBook.quantity;
+            NoDiscountTotal += singlePrice * storedBook.quantity;
+            console.log("JSON", singlePrice, storedBook.quantity);
         }
     });
 
     totalElement = document.createElement('p');
     totalElement.classList.add('totalElement');
-    totalElement.textContent = total.toFixed(2) + ' грн';
+    let discountTotal = total.toFixed(1);
+    let originalTotal = NoDiscountTotal.toFixed(1);
+    totalElement.innerHTML = discountTotal + ' <s style="color: var(--red);">' + originalTotal + '</s> грн';
     spacer.appendChild(totalElement);
-    UpdateStoredBooks();
 }
 
 function transferToBook() {
@@ -120,16 +131,15 @@ function updateQuantity(bookElement, newQuantity) {
         
     let changedBook = storedBooks.find(storedBook => storedBook.code === bookElement.id);
     changedBook.quantity = newQuantity;
+    bookElement.setAttribute('quantity', newQuantity);
     localStorage.setItem('books', JSON.stringify(storedBooks));
         
     console.log("Quantity of " + bookElement.id + " has been set in local storage.");
         
     let newPrice = changedBook.singlePrice * newQuantity;
     let priceText = bookElement.querySelector('.CartPrice');
-    priceText.textContent = newPrice.toFixed(2) + ' грн';
-        
+    priceText.textContent = newPrice.toFixed(0) + ' грн';
     console.log("New price of " + bookElement.id + " has been set.");
-        
     updateTotal();
 }
 
@@ -157,7 +167,6 @@ function OpenCart(CartOpen) {
         cartWin.style.right = '0px';
         sessionStorage.setItem('CartOpen', 'true');
     }
-    console.log("OPEN DEBUGGER: ", cartWin.style.right, cartIcon.style.right);
 }
 }
 
@@ -175,7 +184,6 @@ function CloseCart(CartOpen) {
         cartWin.style.right = '-350px';
         sessionStorage.setItem('CartOpen', 'false');
     }
-    console.log("CLOSE DEBUGGER: ", cartWin.style.right, cartIcon.style.right);
 }
 }
 
@@ -209,6 +217,7 @@ window.onload = function () {
             let bookElement = document.createElement('div');
             bookElement.innerHTML = storedBook.innerHTML;
             bookElement.id = storedBook.code;
+            bookElement.setAttribute('quantity', storedBook.quantity || 1);
             bookElement.classList.add('bookElement');
             Object.assign(bookElement.style, storedBook.style);
             let quantityInput = bookElement.querySelector('.quantityItself');
@@ -220,13 +229,13 @@ window.onload = function () {
                 const priceElement = bookElement.querySelector('.CartPrice');
                 let price = parseFloat(priceElement.textContent.replace(/[^0-9\.]/g, ''));
                 let bookTotal = price * quantity;
-                priceElement.textContent = bookTotal.toFixed(2) + ' грн';
+                priceElement.textContent = bookTotal.toFixed(0) + ' грн';
 
                 total += bookTotal;
             }
-
             cartWin.appendChild(bookElement);
         }
+        updateTotal();
     }
 
     totalTitle.textContent = "Загальна вартість: ";
@@ -258,10 +267,10 @@ window.onload = function () {
     
 
     cartWin.appendChild(purchaseButton);
-    updateTotal();
     handleDeleteClick();
     changeQuantity();
     transferToBook();
+    updateTotal();
 };
 function handlePurchaseClick() {
     console.log('Redirecting...');
@@ -281,4 +290,26 @@ function UpdateStoredBooks() {
         }
     };
     xhr.send(JSON.stringify({books: storedB}));
+}
+
+function LoadDiscounts(bookElement, bookId, quantity, element) {
+    $.ajax({
+        url: 'load_discounts.php',
+        method: 'GET',
+        data: { 
+            bookId: bookId, 
+            quantity: quantity 
+        },
+        success: function(data) {
+            element.innerHTML = data;
+            console.log('Successfully loaded discounts.');
+            let match = data.match(/<p[^>]*>(\d+)/);
+            if (match && match[1]) {
+                bookElement.setAttribute('discount', match[1]);
+            } else {
+                bookElement.setAttribute('discount', data.replace(' грн', ''));
+            }
+        }
+        
+    });
 }
