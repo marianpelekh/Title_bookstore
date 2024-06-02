@@ -181,11 +181,21 @@ session_start();
                   <input type='text' name='PublishingYear' maxlength='4' placeholder='Рік видання'>
                   <input type='date' name='ExactPublishingDate' placeholder='Точна дата видання'>
                   <textarea name='Annotation' placeholder='Анотація'></textarea>
-                  <input type='text' name='Genre' placeholder='Жанр'>
+                  <select name='Genre'>
+                  <option value='' disabled selected>Жанр</option>
+                  <option value='Fantasy'>Фентезі та фантастика</option>
+                  <option value='Horrors'>Горрори | Трилери</option>
+                  <option value='Dark Academia'>Dark academia</option>
+                  <option value='Light Academia'>Light academia</option>
+                  <option value='Detective'>Детектив</option>
+                  <option value='Gothic'>Готика</option>
+                  <option value='Other prose'>Інша проза</option>
+                  <option value='Poetry'>Поезія</option>
+                  </select>
                   <div class='isSeriesDiv'><p>Це серія?</p>
                   <input type='checkbox' name='IsSeries'></div>
                   <input type='text' name='SeriesName' placeholder='Назва серії'>
-                  <input type='number' name='InSeriesNumber' placeholder='Номер в серії'>
+                  <input type='number' step='0.1' name='InSeriesNumber' placeholder='Номер в серії'>
                   <input type='submit' value='Додати книгу' name='addBtn'>
                   <form></div>";
             echo "<div id='EditFormDiv'>";
@@ -203,32 +213,46 @@ session_start();
             echo "</form>";
 
             // Відображення форми для редагування
-            if(isset($_POST['bookCodeEdit'])) {
+            if (isset($_POST['bookCodeEdit'])) {
                 $selected_book_code = $_POST['bookCodeEdit'];
                 $selected_book_query = "SELECT * FROM books WHERE number='$selected_book_code'";
                 $selected_book_result = mysqli_query($conn, $selected_book_query);
                 $selected_book_row = mysqli_fetch_assoc($selected_book_result);
-                
+            
+                // Set the charset for the MySQL connection
+                mysqli_set_charset($conn, "utf8");
+            
                 // Форма для редагування
                 echo "<form action='' method='POST'>";
-                echo "<input type='text' name='ShortNameEdit' value='" . $selected_book_row['ShortName'] . "' placeholder='Коротка назва'>";
-                echo "<input type='text' name='BookCodeEdit' value='" . $selected_book_row['number'] . "' placeholder='Код книги'>";
-                echo "<input type='text' name='FullNameEdit' value='" . $selected_book_row['Name'] . "' placeholder='Повна назва'>";
-                echo "<input type='text' name='AuthorEdit' value='" . $selected_book_row['Author'] . "' placeholder='Автор'>";
-                echo "<input type='text' name='PublishingEdit' value='" . $selected_book_row['Publishing'] . "' placeholder='Видавництво'>";
-                echo "<input type='text' name='PriceEdit' value='" . $selected_book_row['Price'] . "' placeholder='Ціна'>";
-                echo "<input type='text' name='CoverURLEdit' value='" . $selected_book_row['Cover'] . "' placeholder='Посилання на обкладинку (перед)'>";
-                echo "<input type='text' name='RearCoverURLEdit' value='" . $selected_book_row['BackCover'] . "' placeholder='Посилання на обкладинку (тил)'>";
-                echo "<input type='text' name='PageNumberEdit' value='" . $selected_book_row['PageNumbers'] . "' placeholder='Кількість сторінок'>";
-                echo "<input type='text' name='LanguageEdit' value='" . $selected_book_row['Language'] . "' placeholder='Мова'>";
-                echo "<input type='text' name='PublishingYearEdit' value='" . $selected_book_row['YearOfPubl'] . "' maxlength='4' placeholder='Рік видання'>";
-                echo "<input type='date' name='ExactPublishingDateEdit' value='" . $selected_book_row['DateExact'] . "' placeholder='Точна дата видання'>";
-                echo "<textarea name='AnnotationEdit' placeholder='Анотація'>". $selected_book_row['Description'] . "</textarea>";
-                echo "<input type='text' name='GenreEdit' value='" . $selected_book_row['Genre'] . "' placeholder='Жанр'>";
+                echo "<input type='text' name='ShortNameEdit' value='" . htmlspecialchars($selected_book_row['ShortName'], ENT_QUOTES, 'UTF-8') . "' placeholder='Коротка назва'>";
+                echo "<input type='text' name='BookCodeEdit' value='" . htmlspecialchars($selected_book_row['number'], ENT_QUOTES, 'UTF-8') . "' placeholder='Код книги'>";
+                echo "<input type='text' name='FullNameEdit' value='" . htmlspecialchars($selected_book_row['Name'], ENT_QUOTES, 'UTF-8') . "' placeholder='Повна назва'>";
+                echo "<input type='text' name='AuthorEdit' value='" . htmlspecialchars($selected_book_row['Author'], ENT_QUOTES, 'UTF-8') . "' placeholder='Автор'>";
+                echo "<input type='text' name='PublishingEdit' value='" . htmlspecialchars($selected_book_row['Publishing'], ENT_QUOTES, 'UTF-8') . "' placeholder='Видавництво'>";
+                echo "<input type='text' name='PriceEdit' value='" . htmlspecialchars($selected_book_row['Price'], ENT_QUOTES, 'UTF-8') . "' placeholder='Ціна'>";
+                echo "<input type='text' name='CoverURLEdit' value='" . htmlspecialchars($selected_book_row['Cover'], ENT_QUOTES, 'UTF-8') . "' placeholder='Посилання на обкладинку (перед)'>";
+                echo "<input type='text' name='RearCoverURLEdit' value='" . htmlspecialchars($selected_book_row['BackCover'], ENT_QUOTES, 'UTF-8') . "' placeholder='Посилання на обкладинку (тил)'>";
+                echo "<input type='text' name='PageNumberEdit' value='" . htmlspecialchars($selected_book_row['PageNumbers'], ENT_QUOTES, 'UTF-8') . "' placeholder='Кількість сторінок'>";
+                echo "<input type='text' name='LanguageEdit' value='" . htmlspecialchars($selected_book_row['Language'], ENT_QUOTES, 'UTF-8') . "' placeholder='Мова'>";
+                echo "<input type='text' name='PublishingYearEdit' value='" . htmlspecialchars($selected_book_row['YearOfPubl'], ENT_QUOTES, 'UTF-8') . "' maxlength='4' placeholder='Рік видання'>";
+                echo "<input type='date' name='ExactPublishingDateEdit' value='" . htmlspecialchars($selected_book_row['DateExact'], ENT_QUOTES, 'UTF-8') . "' placeholder='Точна дата видання'>";
+                echo "<textarea name='AnnotationEdit' placeholder='Анотація'>". htmlspecialchars($selected_book_row['Description'], ENT_QUOTES, 'UTF-8') . "</textarea>";
+                //echo "<input type='text' name='GenreEdit' value='" . htmlspecialchars($selected_book_row['Genre'], ENT_QUOTES, 'UTF-8') . "' placeholder='Жанр'>";
+                echo "<select name='GenreEdit'>
+                      <option value='".htmlspecialchars($selected_book_row['Genre'], ENT_QUOTES, 'UTF-8')."' selected>" . htmlspecialchars($selected_book_row['Genre'], ENT_QUOTES, 'UTF-8') . "</option>
+                      <option value='Fantasy'>Фентезі та фантастика</option>
+                      <option value='Horrors'>Горрори | Трилери</option>
+                      <option value='Dark Academia'>Dark academia</option>
+                      <option value='Light Academia'>Light academia</option>
+                      <option value='Detective'>Детектив</option>
+                      <option value='Gothic'>Готика</option>
+                      <option value='Other prose'>Інша проза</option>
+                      <option value='Poetry'>Поезія</option>
+                      </select>";
                 echo "<div class='isSeriesDiv'><p>Це серія?</p>
                       <input type='checkbox' name='IsSeriesEdit' " . ($selected_book_row['IsSeries'] ? 'checked' : '') . "></div>";
-                echo "<input type='text' name='SeriesNameEdit' value='" . $selected_book_row['SeriesName'] . "' placeholder='Назва серії'>";
-                echo "<input type='number' name='InSeriesNumberEdit' value='" . $selected_book_row['NumberInSeries'] . "' placeholder='Номер в серії'>";
+                echo "<input type='text' name='SeriesNameEdit' value='" . htmlspecialchars($selected_book_row['SeriesName'], ENT_QUOTES, 'UTF-8') . "' placeholder='Назва серії'>";
+                echo "<input type='number' step='0.1' name='InSeriesNumberEdit' value='" . htmlspecialchars($selected_book_row['NumberInSeries'], ENT_QUOTES, 'UTF-8') . "' placeholder='Номер в серії'>";
                 echo "<input type='submit' value='Оновити книгу' name='editBtn'>";
                 echo "</form>";
             }
@@ -266,7 +290,7 @@ session_start();
                 $edited_exactPublishingDate = mysqli_real_escape_string($conn, $_POST['ExactPublishingDateEdit']);
                 $edited_annotation = mysqli_real_escape_string($conn, $_POST['AnnotationEdit']);
                 $edited_genre = mysqli_real_escape_string($conn, $_POST['GenreEdit']);
-                $edited_isSeries = mysqli_real_escape_string($conn, $_POST['IsSeriesEdit']);
+                $edited_isSeries = isset($_POST['IsSeriesEdit']) ? $_POST['IsSeriesEdit'] : false;
                 $edited_seriesName = mysqli_real_escape_string($conn, $_POST['SeriesNameEdit']);
                 $edited_inSeriesNumber = mysqli_real_escape_string($conn, $_POST['InSeriesNumberEdit']);
                 if ($edited_isSeries == true) {
@@ -367,41 +391,22 @@ session_start();
         }
     }
 ?>
-<div id="backdropShadow">
-<form id="UploadImageForm" action="UploadPictures.php" method="post" enctype="multipart/form-data">
-    <h3>Завантажити зображення</h3><br>
-    <label for="file">Виберіть фото:</label>
-    <input type="file" name="file" id="file">
-    <input type="submit" value="Завантажити">
-    <a id="closeUploadForm"><img id="closeUploadFormImage" src="close.png" width="25"></a>
-</form></div>
-</section>
-<script src="CloseUploadForm.js"></script>
-<script src="Search.js"></script>
-<script src="SetDiscounts.js"></script>
-</body>
-<footer>
-    <h1 id="foot-title">Title</h1>
-    <span id="catalog-footer">
-        <a id="FootCatalog" href="Каталог.php"><h2 id="FootCatalog" style="text-align: left;">Каталог</h2></a>
-        <a href="Каталог.php" class="genreLink" genre-link="Fantasy">Фентезі</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Horrors">Горрори | Трилери</a>
-        <a href="Каталог.php" class="genreLink" genre-link="DarkAcademia">Dark academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="LightAcademia">Light academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Detective">Детективи</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Gothic">Готика</a>
-        <a href="Каталог.php" class="genreLink" genre-link="OtherProse">Інша проза</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Poetry">Поезія</a>
-    </span>
-    <span id="other-footer-info">
-        <a id="FootAuthors" href="Автори.php"><h2 id="FootAuthors">Автори</h2></a>
-        <a id="FootNews" href="Новинки.php"><h2 id="FootNews">Новинки</h2></a>
-        <a id="FootContacts" href="Контакти.php"><h2 id="FootContacts">Контакти</h2></a>
-        <a href="">@titlebookstore</a>
-        <a href="">title@contact.com</a>
-        <a href="">+380*********</a>
-    </span>
-</footer>
+            <div id="backdropShadow">
+            <form id="UploadImageForm" action="UploadPictures.php" method="post" enctype="multipart/form-data">
+                <h3>Завантажити зображення</h3><br>
+                <label for="file">Виберіть фото:</label>
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Завантажити">
+                <a id="closeUploadForm"><img id="closeUploadFormImage" src="close.png" width="25"></a>
+            </form></div>
+        </section>
+        <script src="CloseUploadForm.js"></script>
+        <script src="Search.js"></script>
+        <script src="SetDiscounts.js"></script>
+        <script src="FooterAdder.js" defer></script>
+    </body>
+    <footer>
+    </footer>
 </html>
 <?php
 ob_end_flush();

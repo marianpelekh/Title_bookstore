@@ -358,21 +358,54 @@ if ($result) {
                 }
 
                 let total = 0;
-
+                let storedBooksIds = [];
                 storedBooks.forEach(storedBook => {
                     let singlePrice = parseFloat(storedBook.singlePrice);
                     if (!isNaN(singlePrice)) {
                         total += singlePrice * storedBook.quantity;
                     }
+                    let bookId = storedBook.code;
+                    let quantity = storedBook.quantity;
+                    let element = document.querySelector('.bookElement#' + storedBook.code + ' .CartPrice');
+                    LoadDiscounts(bookId, quantity, element);
+                    storedBooksIds.push({ code: storedBook.code, quantity: storedBook.quantity });
                 });
 
                 totalElement = document.createElement('p');
                 totalElement.classList.add('totalElement');
-                totalElement.textContent = total.toFixed(2) + ' грн';
+                totalElement.textContent = total.toFixed(1) + ' грн';
+                LoadTotalDiscount(storedBooksIds, total.toFixed(1), totalElement);
                 spacer.appendChild(totalElement);
                 UpdateStoredBooks();
             }
-
+            function LoadTotalDiscount(storedBooksIds, originalTotal, totalElement) {
+                $.ajax({
+                    url: 'load_total_with_discounts.php',
+                    method: 'GET',
+                    data: {
+                        ids: JSON.stringify(storedBooksIds),
+                        originalTotal: originalTotal
+                    },
+                    success: function(data) {
+                        totalElement.innerHTML = parseFloat(data).toFixed(1) + ' <s style="color: var(--red);">' + originalTotal + '</s> грн';
+                    }
+                });
+            }
+            function LoadDiscounts(bookId, quantity, element) {
+                $.ajax({
+                    url: 'load_discounts.php',
+                    method: 'GET',
+                    data: { 
+                        bookId: bookId, 
+                        quantity: quantity 
+                    },
+                    success: function(data) {
+                        element.innerHTML = data;
+                        console.log('Successfully loaded discounts.');
+                    }
+                    
+                });
+            }
             function transferToBook() {
                 const bookElements = cartWin.querySelectorAll('.bookElement');
                 bookElements.forEach(bookElement => {
@@ -670,6 +703,7 @@ if ($result) {
                     }
                 })
             });
+            
             function changeQuantity() {
                 const bookElements = document.querySelectorAll('.bookElement');
                 bookElements.forEach(bookElement => {
@@ -751,28 +785,9 @@ if ($result) {
         <script src="Comments.js"></script>
     <script src="Description.js"></script>
     <script src="Search.js"></script>
+    <script src="FooterAdder.js" defer></script>
 </body>
 <footer>
-    <h1 id="foot-title">Title</h1>
-    <span id="catalog-footer">
-        <a id="FootCatalog" href="Каталог.php"><h2 id="FootCatalog" style="text-align: left;">Каталог</h2></a>
-        <a href="Каталог.php" class="genreLink" genre-link="Fantasy">Фентезі</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Horrors">Горрори | Трилери</a>
-        <a href="Каталог.php" class="genreLink" genre-link="DarkAcademia">Dark academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="LightAcademia">Light academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Detective">Детективи</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Gothic">Готика</a>
-        <a href="Каталог.php" class="genreLink" genre-link="OtherProse">Інша проза</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Poetry">Поезія</a>
-    </span>
-    <span id="other-footer-info">
-        <a id="FootAuthors" href="Автори.php"><h2 id="FootAuthors">Автори</h2></a>
-        <a id="FootNews" href="Новинки.php"><h2 id="FootNews">Новинки</h2></a>
-        <a id="FootContacts" href="Контакти.php"><h2 id="FootContacts">Контакти</h2></a>
-        <a href="">@titlebookstore</a>
-        <a href="">title@contact.com</a>
-        <a href="">+380*********</a>
-    </span>
 </footer>
 
 </html>

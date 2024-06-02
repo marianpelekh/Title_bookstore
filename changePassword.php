@@ -125,28 +125,9 @@
 ?>
 </section>
 <script src="Search.js"></script>
+<script src="FooterAdder.js" defer></script>
 </body>
 <footer>
-    <h1 id="foot-title">Title</h1>
-    <span id="catalog-footer">
-        <a id="FootCatalog" href="Каталог.php"><h2 id="FootCatalog" style="text-align: left;">Каталог</h2></a>
-        <a href="Каталог.php" class="genreLink" genre-link="Fantasy">Фентезі</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Horrors">Горрори | Трилери</a>
-        <a href="Каталог.php" class="genreLink" genre-link="DarkAcademia">Dark academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="LightAcademia">Light academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Detective">Детективи</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Gothic">Готика</a>
-        <a href="Каталог.php" class="genreLink" genre-link="OtherProse">Інша проза</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Poetry">Поезія</a>
-    </span>
-    <span id="other-footer-info">
-        <a id="FootAuthors" href="Автори.php"><h2 id="FootAuthors">Автори</h2></a>
-        <a id="FootNews" href="Новинки.php"><h2 id="FootNews">Новинки</h2></a>
-        <a id="FootContacts" href="Контакти.php"><h2 id="FootContacts">Контакти</h2></a>
-        <a href="">@titlebookstore</a>
-        <a href="">title@contact.com</a>
-        <a href="">+380*********</a>
-    </span>
 </footer>
 </html>
 <?php

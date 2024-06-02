@@ -64,7 +64,9 @@
             <?php
             require('connect_db.php');
             $row = mysqli_fetch_assoc(mysqli_query($conn, 'SELECT * FROM `users` WHERE `userId` = ' . $_SESSION['id'] . ''));
-            $phoneNumber = !empty($row['PhoneNumber']) ? $row['PhoneNumber'] : null;
+            $phoneNumber = !empty($row['PhoneNumber']) ? preg_replace('/^0/', '', $row['PhoneNumber']) : null;
+
+            
             echo '<li>
                     <div id="ContactInfo">
                         <h3>Контактна інформація</h3>
@@ -157,27 +159,42 @@
                     totalElement.parentNode.removeChild(totalElement);
                 }
 
-                let total = 0;
-
+                let storedBooksIds = [];
+                let NoDiscountTotal = 0;
                 storedBooks.forEach(storedBook => {
                     let singlePrice = parseFloat(storedBook.singlePrice);
                     if (!isNaN(singlePrice)) {
-                        total += singlePrice * storedBook.quantity;
+                        NoDiscountTotal += singlePrice * storedBook.quantity;
                     }
+                    let bookId = storedBook.code;
+                    let quantity = storedBook.quantity;
+                    let element = document.querySelector('.bookElement#' + storedBook.code + ' .CartPrice');
+                    LoadDiscounts(bookId, quantity, element);
+                    storedBooksIds.push({ code: storedBook.code, quantity: storedBook.quantity });
                 });
 
-                totalElement = document.createElement('p');
                 totalElement.classList.add('totalElement');
-                totalElement.textContent = total.toFixed(2) + ' грн';
-                spacer.appendChild(totalElement);
-                let tTotalEl = document.createElement('p');
-                tTotalEl.classList.add('totalElement');
-                tTotalEl.textContent = totalElement.textContent;
-                let totalPrice = document.getElementById('totalPrice');
-                totalPrice.appendChild(tTotalEl);
-                UpdateStoredBooks();
-            }
+                let originalTotal = NoDiscountTotal.toFixed(1);
+                totalElement.innerHTML = originalTotal + ' грн';
 
+                LoadTotalDiscount(storedBooksIds, originalTotal, totalElement);
+
+                spacer.appendChild(totalElement);
+
+            }
+            function LoadTotalDiscount(storedBooksIds, originalTotal, totalElement) {
+                $.ajax({
+                    url: 'load_total_with_discounts.php',
+                    method: 'GET',
+                    data: {
+                        ids: JSON.stringify(storedBooksIds),
+                        originalTotal: originalTotal
+                    },
+                    success: function(data) {
+                        totalElement.innerHTML = parseFloat(data).toFixed(1) + ' <s style="color: var(--red);">' + originalTotal + '</s> грн';
+                    }
+                });
+            }
             function transferToBook() {
                 const bookElements = document.querySelectorAll('.bookElement');
                 bookElements.forEach(bookElement => {
@@ -343,35 +360,49 @@
                     });
                 });
             });
+            function UpdateStoredBooks() {
+                console.log("Викликана функція оновлення збережених книг.");
+                let storedB = JSON.parse(localStorage.getItem("books"));
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update_stored_books.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                    } else {
+                        console.log("Запит не пройшов");
+                    }
+                };
+                xhr.send(JSON.stringify({books: storedB}));
+            }
+
+            function LoadDiscounts(bookId, quantity, element) {
+                $.ajax({
+                    url: 'load_discounts.php',
+                    method: 'GET',
+                    data: { 
+                        bookId: bookId, 
+                        quantity: quantity 
+                    },
+                    success: function(data) {
+                        element.innerHTML = data;
+                        console.log('Successfully loaded discounts.');
+                    }
+                    
+                });
+            }
         </script>
         <script src="Search.js"></script>
         </div>
         <div id="totalPrice">
             <p>Загальна вартість:</p>
         </div>
-        <input type="submit" id="ConfirmOrder" value="Підтвердити замовлення">
+        <input type="submit" id="ConfirmOrder" name="ConfirmOrder" value="Підтвердити замовлення">
+        <p id="MessageFromServer"></p>
     </section>
+    <script src="ProcessOrder.js" defer></script>
+    <script src="FooterAdder.js" defer></script>
 </body>
 <footer>
-    <h1 id="foot-title">Title</h1>
-    <span id="catalog-footer">
-        <a id="FootCatalog" href="Каталог.php"><h2 id="FootCatalog" style="text-align: left;">Каталог</h2></a>
-        <a href="Каталог.php" class="genreLink" genre-link="Fantasy">Фентезі</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Horrors">Горрори | Трилери</a>
-        <a href="Каталог.php" class="genreLink" genre-link="DarkAcademia">Dark academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="LightAcademia">Light academia</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Detective">Детективи</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Gothic">Готика</a>
-        <a href="Каталог.php" class="genreLink" genre-link="OtherProse">Інша проза</a>
-        <a href="Каталог.php" class="genreLink" genre-link="Poetry">Поезія</a>
-    </span>
-    <span id="other-footer-info">
-        <a id="FootAuthors" href="Автори.php"><h2 id="FootAuthors">Автори</h2></a>
-        <a id="FootNews" href="Новинки.php"><h2 id="FootNews">Новинки</h2></a>
-        <a id="FootContacts" href="Контакти.php"><h2 id="FootContacts">Контакти</h2></a>
-        <a href="">@titlebookstore</a>
-        <a href="">title@contact.com</a>
-        <a href="">+380*********</a>
-    </span>
 </footer>
 </html>

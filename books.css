@@ -23,6 +23,8 @@
     margin: auto;
     width: 250px;
     height: 400px;
+    object-fit: contain;
+    object-position: center;
     grid-column: 1;
     grid-row-start: 1;
     grid-row-end: 4;

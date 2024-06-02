@@ -11,7 +11,6 @@ booksDiscountBlocks.forEach((bookContainer) => {
             if (id) {
                 let idParts = id.split(' ');
                 let bookId = idParts[idParts.length - 1];
-                console.log('Book discount ID:', bookId);
                 sendRequest(bookId, 1, bookPrice);
             }
         }

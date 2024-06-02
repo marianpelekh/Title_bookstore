@@ -94,6 +94,11 @@
     padding-left: 10%;
     padding-right: 10%;
   }
+  h2#price, h2#price > p{
+    font-family: Orelega, Comfortaa, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 25px;
+    font-weight: lighter;
+  }
   #descriptionCont {
     text-align: justify;
     font-size: 16px;
@@ -133,6 +138,8 @@
     align-self: flex-end;
     height: min-content;
     font-size: smaller;
+    display: flex;
+    flex-direction: column;
   }
   .CartPrice p {
     height: 100%;
@@ -324,7 +331,7 @@
     white-space: nowrap; /* Prevent text from wrapping */
     text-overflow: ellipsis; /* Add ellipsis for overflow */
     min-height: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     font-size: smaller;
     box-shadow: inset 0px -5px 5px var(--main-color);
   }
@@ -334,7 +341,7 @@
       overflow: hidden;
       white-space: nowrap; /* Prevent text from wrapping */
       text-overflow: ellipsis; /* Add ellipsis for overflow */
-      margin-bottom: 5px;
+      margin-bottom: 0px;
       box-shadow: inset 0px -5px 5px var(--main-color);
   }
   .price, .price > p {

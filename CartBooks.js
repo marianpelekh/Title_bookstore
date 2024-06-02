@@ -16,33 +16,42 @@ function updateTotal() {
         totalElement.parentNode.removeChild(totalElement);
     }
 
-    let total = 0;
+    let storedBooksIds = [];
     let NoDiscountTotal = 0;
-    let bookElements = document.querySelectorAll('.bookElement');
-    bookElements.forEach(bookElement => {
-        LoadDiscounts(bookElement, bookElement.id, bookElement.getAttribute('quantity'), bookElement.querySelector(".CartPrice"));
-        let price = parseInt(bookElement.getAttribute('discount')) || parseInt(storedBooks.find(storedBook => storedBook.code == bookElement.id).singlePrice);
-        console.log("DOM", price, parseInt(bookElement.querySelector('.quantityItself').textContent));
-        if (!isNaN(price)) {
-            total += price * parseInt(bookElement.querySelector('.quantityItself').textContent);
-        }
-    });
     storedBooks.forEach(storedBook => {
         let singlePrice = parseFloat(storedBook.singlePrice);
         if (!isNaN(singlePrice)) {
             NoDiscountTotal += singlePrice * storedBook.quantity;
-            console.log("JSON", singlePrice, storedBook.quantity);
         }
+        let bookId = storedBook.code;
+        let quantity = storedBook.quantity;
+        let element = document.querySelector('.bookElement#' + storedBook.code + ' .CartPrice');
+        LoadDiscounts(bookId, quantity, element);
+        storedBooksIds.push({ code: storedBook.code, quantity: storedBook.quantity });
     });
 
-    totalElement = document.createElement('p');
     totalElement.classList.add('totalElement');
-    let discountTotal = total.toFixed(1);
     let originalTotal = NoDiscountTotal.toFixed(1);
-    totalElement.innerHTML = discountTotal + ' <s style="color: var(--red);">' + originalTotal + '</s> грн';
-    spacer.appendChild(totalElement);
-}
+    totalElement.innerHTML = originalTotal + ' грн';
 
+    LoadTotalDiscount(storedBooksIds, originalTotal, totalElement);
+
+    spacer.appendChild(totalElement);
+
+}
+function LoadTotalDiscount(storedBooksIds, originalTotal, totalElement) {
+    $.ajax({
+        url: 'load_total_with_discounts.php',
+        method: 'GET',
+        data: {
+            ids: JSON.stringify(storedBooksIds),
+            originalTotal: originalTotal
+        },
+        success: function(data) {
+            totalElement.innerHTML = parseFloat(data).toFixed(1) + ' <s style="color: var(--red);">' + originalTotal + '</s> грн';
+        }
+    });
+}
 function transferToBook() {
     const bookElements = cartWin.querySelectorAll('.bookElement');
     bookElements.forEach(bookElement => {
@@ -221,7 +230,7 @@ window.onload = function () {
             bookElement.classList.add('bookElement');
             Object.assign(bookElement.style, storedBook.style);
             let quantityInput = bookElement.querySelector('.quantityItself');
-
+            
             if (quantityInput) {
                 let quantity = storedBook.quantity || 1;
                 quantityInput.textContent = quantity;
@@ -229,7 +238,7 @@ window.onload = function () {
                 const priceElement = bookElement.querySelector('.CartPrice');
                 let price = parseFloat(priceElement.textContent.replace(/[^0-9\.]/g, ''));
                 let bookTotal = price * quantity;
-                priceElement.textContent = bookTotal.toFixed(0) + ' грн';
+                priceElement.textContent = bookTotal.toFixed(0) + '<br> грн';
 
                 total += bookTotal;
             }
@@ -292,7 +301,7 @@ function UpdateStoredBooks() {
     xhr.send(JSON.stringify({books: storedB}));
 }
 
-function LoadDiscounts(bookElement, bookId, quantity, element) {
+function LoadDiscounts(bookId, quantity, element) {
     $.ajax({
         url: 'load_discounts.php',
         method: 'GET',
@@ -303,12 +312,6 @@ function LoadDiscounts(bookElement, bookId, quantity, element) {
         success: function(data) {
             element.innerHTML = data;
             console.log('Successfully loaded discounts.');
-            let match = data.match(/<p[^>]*>(\d+)/);
-            if (match && match[1]) {
-                bookElement.setAttribute('discount', match[1]);
-            } else {
-                bookElement.setAttribute('discount', data.replace(' грн', ''));
-            }
         }
         
     });

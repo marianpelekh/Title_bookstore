@@ -353,7 +353,7 @@
 }
 #FootAuthors:hover, #FootCatalog:hover, #FootNews:hover, #FootContacts:hover {
     color: var(--black);
-    text-shadow: none;
+    text-shadow: none !important;
 }
 footer h2:hover {
     color: var(--black);
