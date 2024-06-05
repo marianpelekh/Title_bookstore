@@ -85,10 +85,10 @@ while ($row = mysqli_fetch_array($result)) {
     $books[] = array(
         'Name' => $row['Name'],
         'Author' => $row['Author'],
-        'Cover' => $row['Cover'],
+        'Cover' => $row['FrontCover'],
         'Price' => $row['Price'],
         'Genre' => $row['Genre'],
-        'Id' => $row['number'],
+        'Id' => $row['BookID'],
         'PublishingEng' => $publ_row['PublNameEng']
     );
 }

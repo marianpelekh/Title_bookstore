@@ -81,9 +81,9 @@
             echo '<div class="swiper-wrapper">';
             
             foreach ($novelties as $row) {
-                echo '<div class="swiper-slide" style="display: flex; justify-content: center; align-items: center; max-height: 500px;" related-book="' . $row['number'] . '">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
-                echo '<img class="cover" width="250rem" src="' . $row['Cover'] . '">';
+                echo '<div class="swiper-slide" style="display: flex; justify-content: center; align-items: center; max-height: 500px;" related-book="' . $row['BookID'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">';
+                echo '<img class="cover" width="250rem" src="' . $row['FrontCover'] . '">';
                 echo '</a>';
                 echo '</div>';
             }
@@ -93,12 +93,12 @@
             
             echo '<div class="info">';
             foreach ($novelties as $row) {
-                echo '<div class="relatedInfo" related-book="' . $row['number'] . '">';
+                echo '<div class="relatedInfo" related-book="' . $row['BookID'] . '">';
                 echo '<div id="BookTitle">' . $row['ShortName'] . '</div>';
                 echo '<div id="BookAuthor">' . $row['Author'] . '</div>';
                 echo '<div id="BookDesc">' . $row['Description'] . '</div>';
-                echo '<button id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">' . $row['Price'] . ' грн</button>';
-                echo '<a id="UnderBuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> ПРИДБАТИ </a>';
+                echo '<button id="BuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">' . $row['Price'] . ' грн</button>';
+                echo '<a id="UnderBuyButton" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '"> ПРИДБАТИ </a>';
                 echo '</div>';
             }
             

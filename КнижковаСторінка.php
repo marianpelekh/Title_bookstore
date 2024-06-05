@@ -4,7 +4,7 @@ include('connect_db.php');
 session_start();
 $id = urldecode($_GET['id']);
 
-$query = "SELECT * FROM books WHERE CONCAT(`Name`, ' ', `Author`, ' ', `number`)='" . mysqli_real_escape_string($conn, $id) . "'";
+$query = "SELECT * FROM books WHERE CONCAT(`Name`, ' ', `Author`, ' ', `BookID`)='" . mysqli_real_escape_string($conn, $id) . "'";
 $result = mysqli_query($conn, $query);
 
 if ($result) {
@@ -113,13 +113,13 @@ if ($result) {
         <div id='card'>
             <?php
                 $backCover = ($row['BackCover'] != null) ? $row['BackCover'] : "IMGmissing.png";
-                echo '<img id="CoverOfBook" src="' . $row['Cover'] . '">';
+                echo '<img id="CoverOfBook" src="' . $row['FrontCover'] . '">';
                 echo '<img id="BackCover" src="' . $backCover . '">';
             ?>
         </div>
         <span class="TextContainer">
             <h2><?php echo $row['Name'] ?></h2>
-            <p style="font-size: 10px; color: var(--gray);">Код товару: <?php echo $row['number'] ?></p>
+            <p style="font-size: 10px; color: var(--gray);">Код товару: <?php echo $row['BookID'] ?></p>
             <p>Автор: 
                 <?php
                 $authors = explode(", ", $row['Author']);
@@ -134,11 +134,11 @@ if ($result) {
                 ?>
             </p>
             <p>Видавництво: <?php echo $row['Publishing'] ?></p>
-            <p>Кількість сторінок: <?php echo $row['PageNumbers'] ?></p>
+            <p>Кількість сторінок: <?php echo $row['PagesNumber'] ?></p>
             <p>Мова видання: <?php echo $row['Language'] ?></p>
-            <p>Рік видання: <?php echo $row['YearOfPubl'] ?></p>
+            <p>Рік видання: <?php echo date('Y', strtotime($row['DateExact'])) ?></p>
             <?php
-                $discount_exist_query = "SELECT Expires FROM discounts WHERE BookID = '" . $row['number'] . "'";
+                $discount_exist_query = "SELECT Expires FROM discounts WHERE BookID = '" . $row['BookID'] . "'";
                 $discount_exist_result = mysqli_query($conn, $discount_exist_query);
                 $dateFromDatabase = new DateTime($row['DateExact']);
                 $currentDate = new DateTime();
@@ -159,7 +159,7 @@ if ($result) {
 
             <?php
                 $buttonText = ($dateFromDatabase > $currentDate) ? "Передзамовити" : "Додати в корзину";
-                echo '<button type="button" id="InCart" data-product-id="' . $row['number'] . '"><a>' . $buttonText . '</a><span id="InCartBG"></span></button>';
+                echo '<button type="button" id="InCart" data-product-id="' . $row['BookID'] . '"><a>' . $buttonText . '</a><span id="InCartBG"></span></button>';
             ?>
 
 
@@ -186,7 +186,7 @@ if ($result) {
     </section>
         <!-- <script src="CartBooks.js"></script> -->
         <?php
-            if ($row['IsSeries'] == '1') {
+            if (!empty($row['SeriesName'])) {
                 $IsSeries = 'true';
             } else {
                 $IsSeries = 'false';
@@ -211,11 +211,11 @@ if ($result) {
                     $books = array();
 
                     while ($singleRow = mysqli_fetch_array($result)) {
-                        if ($singleRow['IsSeries'] != 0 && $singleRow['SeriesName'] == $thisBookSeriesName){
+                        if (!empty($singleRow['SeriesName']) && $singleRow['SeriesName'] == $thisBookSeriesName){
                             echo '<div class="book-container">';
                             echo '<div class="NumInSeries">' . 'Книга ' . $singleRow['NumberInSeries'] . '</div>';
-                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($singleRow['Name'] . ' ' . $singleRow['Author'] . ' ' . $singleRow['number']) . '">';
-                            echo '<img class="cover" src="' . $singleRow['Cover'] . '">';
+                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($singleRow['Name'] . ' ' . $singleRow['Author'] . ' ' . $singleRow['BookID']) . '">';
+                            echo '<img class="cover" src="' . $singleRow['FrontCover'] . '">';
                             echo '</a>';
                             echo '<div class="description">';
                             echo '<div class="book-name">' . mysqli_real_escape_string($conn, $singleRow['ShortName']) . '</div>';
@@ -235,7 +235,7 @@ if ($result) {
                 <div id="BookCommentsBlock">
                     <div id="BookComments">
                         <?php 
-                            $current_book_id = $row['number'];
+                            $current_book_id = $row['BookID'];
                             $bc_query = "
                                 SELECT c.userName, c.userPic, c.commentText 
                                 FROM comments c 
@@ -331,7 +331,7 @@ if ($result) {
                         $link_comm_sql = "INSERT INTO BooksComments(BookID, CommentID) VALUES ('$current_book_id', '$commentId')";
                         mysqli_query($conn, $link_comm_sql);
                     }
-                    header("Location: КнижковаСторінка.php?id=" . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']));
+                    header("Location: КнижковаСторінка.php?id=" . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']));
                 } else {
                     echo "Коментар не може бути порожнім.";
                 }
@@ -583,11 +583,11 @@ if ($result) {
                 event.preventDefault();
                 let bookTitle = '<?php echo mysqli_real_escape_string($conn, $row['Name']); ?>';
                 let bookAuthor = '<?php echo $row["Author"]; ?>';
-                let bookCover = '<?php echo $row["Cover"]; ?>';
+                let bookCover = '<?php echo $row["FrontCover"]; ?>';
                 let bookPrice = '<?php echo $row["Price"]; ?>';
                 bookPrice = parseFloat(bookPrice);
                 bookPrice = bookPrice.toFixed(2);
-                let bookCode = '<?php echo $row['number']; ?>';
+                let bookCode = '<?php echo $row['BookID']; ?>';
                 ToggleCartOpening('false');
                 console.log('1');
                 if (storedBooks.some(storedBook => storedBook.code == bookCode)) {
@@ -689,7 +689,7 @@ if ($result) {
                     });
                 });
 
-                let bookId = '<?php echo $row['number']; ?>';
+                let bookId = '<?php echo $row['BookID']; ?>';
                 let bookPrice = document.getElementById('price');
                 $.ajax({
                     url: 'load_discounts.php',

@@ -1,5 +1,14 @@
 <?php 
-$servername = '192.168.0.195';
+//Home
+// $servername = '192.168.0.195';
+
+//Mobile
+// $servername = '192.168.6.247';
+
+//GALCOL_U
+$servername = '192.168.170.254';
+
+
 $username = 'marianpelekh';
 $password = 'mH04122005Op';
 $dbname = 'books';

@@ -108,8 +108,8 @@ mysqli_stmt_close($stmt); // Close the statement after using it
                         // Check if the author's name is present in the book's name or vice versa
                         if (stripos($bookName, $bookAuthorLastName) !== false || stripos($bookAuthor, $authorName) !== false) {
                             echo '<div class="book-container">';
-                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author'] . ' ' . $bookRow['number']) . '">';
-                            echo '<img class="cover" src="' . $bookRow['Cover'] . '">';
+                            echo '<a href="КнижковаСторінка.php?id=' . urlencode($bookRow['Name'] . ' ' . $bookRow['Author'] . ' ' . $bookRow['BookID']) . '">';
+                            echo '<img class="cover" src="' . $bookRow['FrontCover'] . '">';
                             echo '</a>';
                             echo '<div class="description">';
                             echo '<div class="book-name">' . $bookRow['Name'] . '</div>';
@@ -124,7 +124,7 @@ mysqli_stmt_close($stmt); // Close the statement after using it
                 ?>
             <div id="Col2">
                 <h2 id='AuthorsName'><?php echo $row['AuthorName']; ?></h2>
-                <h4 id='AuthorsLife'><?php echo $row['YearsOfLife']; ?></h4>
+                <h4 id='AuthorsLife'><?php echo $row['Birth'] . '-' . (is_null($row['Death']) ? '...' : $row['Death']); ?></h4>
                 <p id='AuthorsBibliography'><?php echo $row['Bibliography']; ?></p>
             </div>
         </div>

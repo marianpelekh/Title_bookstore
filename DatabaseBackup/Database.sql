@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: mariadb
--- Час створення: Чрв 01 2024 р., 21:21
+-- Час створення: Чрв 03 2024 р., 17:46
 -- Версія сервера: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Версія PHP: 8.2.8
 
@@ -311,6 +311,13 @@ CREATE TABLE `orders` (
   `CardNumber` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Дамп даних таблиці `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `OrderDate`, `BookIDs`, `TotalPrice`, `UserName`, `UserPhone`, `UserEmail`, `DeliveryMethod`, `DeliveryTown`, `DeliveryAddress`, `PayByCard`, `CardNumber`) VALUES
+(1, '2024-06-01 21:21:51', '[{\"code\":\"ІЛ-00028134\",\"quantity\":1},{\"code\":\"ІД-9786178383\",\"quantity\":1}]', 866, 'Пелех Мар\'ян Павлович', '+380(67) 281 46 60', 'marianpeleh@gmail.com', 'Ukrposhta', '', '', b'1', '4563-2151-5138-1843');
+
 -- --------------------------------------------------------
 
 --
@@ -457,7 +464,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблиці `publishings`

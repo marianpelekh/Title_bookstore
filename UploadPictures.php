@@ -51,22 +51,25 @@ if (file_exists($target_file)) {
 
 // Оновлення бази даних
 $query = "UPDATE users SET image = ? WHERE userId = ?";
-$stmt = mysqli_prepare($conn, $query);
+$g = mysqli_prepare($conn, $query);
 
-if (!$stmt) {
+if (!$g) {
     die("Помилка підготовки SQL запиту: " . mysqli_error($conn));
 }
 
-mysqli_stmt_bind_param($stmt, "si", $relative_path, $_SESSION["id"]);
-mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_param($g, "si", $relative_path, $_SESSION["id"]);
+mysqli_stmt_execute($g);
 
-if (mysqli_stmt_affected_rows($stmt) > 0) {
+if (mysqli_stmt_affected_rows($g) > 0) {
+    $userId= $_SESSION['id'];
+    $sql = "UPDATE comments SET userPic = '$relative_path' WHERE userId = '$userId'";
+    mysqli_query($conn, $sql);
     echo "Зображення успішно оновлено.";
 } else {
     echo "Помилка оновлення зображення у базі даних.";
 }
 
-mysqli_stmt_close($stmt);
+mysqli_stmt_close($g);
 
 header('Location: Кабінет.php');
 exit();

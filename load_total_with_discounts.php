@@ -22,7 +22,7 @@ if (isset($_GET['ids']) && isset($_GET['originalTotal'])) {
             $discountedPrice = $initialPrice * (1 - $discount);
             $total += $discountedPrice * $quantity;
         } else {
-            $query = "SELECT Price FROM books WHERE `number` = '$bookId'";
+            $query = "SELECT Price FROM books WHERE `BookID` = '$bookId'";
             $result = mysqli_query($conn, $query);
             if ($result && mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);

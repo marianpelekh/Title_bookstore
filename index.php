@@ -30,9 +30,9 @@ include('connect_db.php');
         <h1><a id="TitleNav" href="index.php">Title</a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
-        <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
+        <a id="Cabinet" href="Profile.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
-    <a id="MainCabinet" href="Кабінет.php"><img src="personal-icon.png" width="20px"></a>
+    <a id="MainCabinet" href="Profile.php"><img src="personal-icon.png" width="20px"></a>
     <div id="menuToggle">
         <img src="menu.png" alt="Menu" width="20px">
     </div>
@@ -107,15 +107,15 @@ include('connect_db.php');
             $interval = $date1->diff($date2);
             if ($interval->y == 0 && $interval->m < 2){
                 echo '<div class="book-container">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
-                echo '<img class="cover" src="' . $row['Cover'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">';
+                echo '<img class="cover" src="' . $row['FrontCover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $row['Name'] . '</div>';
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
                 echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '"> Придбати </a>';
                 echo '</div>';
             }    
         }
@@ -139,19 +139,19 @@ include('connect_db.php');
         $result = mysqli_query($conn, $query);
         echo '<div id="DiscountsBooksMain">';
         while ($row = mysqli_fetch_array($result)) {
-            $have_disc_query = "SELECT * FROM discounts WHERE BookID = '" . $row['number'] . "'";
+            $have_disc_query = "SELECT * FROM discounts WHERE BookID = '" . $row['BookID'] . "'";
             $have_disc_result = mysqli_query($conn, $have_disc_query);
             if (mysqli_fetch_assoc($have_disc_result)){
                 echo '<div class="book-container">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
-                echo '<img class="cover" src="' . $row['Cover'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">';
+                echo '<img class="cover" src="' . $row['FrontCover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $row['Name'] . '</div>';
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
                 echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '"> Придбати </a>';
                 echo '</div>';
             }    
         }
@@ -178,15 +178,15 @@ include('connect_db.php');
             echo '<div id="PresalesMain">';
             while ($pre_row = mysqli_fetch_array($pre_result)) {
                 echo '<div class="book-container">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($pre_row['Name'] . ' ' . $pre_row['Author'] . ' ' . $pre_row['number']) . '">';
-                echo '<img class="cover" src="' . $pre_row['Cover'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($pre_row['Name'] . ' ' . $pre_row['Author'] . ' ' . $pre_row['BookID']) . '">';
+                echo '<img class="cover" src="' . $pre_row['FrontCover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $pre_row['Name'] . '</div>';
                 echo '<div class="book-author">' . $pre_row['Author'] . '</div>';
                 echo '<div class="price">' . $pre_row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($pre_row['Name'] . ' ' . $pre_row['Author'] . ' ' . $pre_row['number']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($pre_row['Name'] . ' ' . $pre_row['Author'] . ' ' . $pre_row['BookID']) . '"> Придбати </a>';
                 echo '</div>';
             }
             echo '</div>';
@@ -241,13 +241,13 @@ include('connect_db.php');
     <h2>Відгуки та пропозиції</h2>
 </div>
 <div class="CommentsBlock">
+    <div id="CommentsScroll">
 <?php 
     $sql_comment = "
         SELECT * 
         FROM comments c 
-        WHERE c.commentId NOT IN (SELECT bc.CommentID FROM BooksComments bc) 
-        ORDER BY c.commentId DESC 
-        LIMIT 4";
+        WHERE c.commentId NOT IN (SELECT bc.CommentID FROM BooksComments bc) AND c.Rate >= 3
+        ORDER BY c.Likes DESC ";
         
     $result = mysqli_query($conn, $sql_comment);
     if (mysqli_num_rows($result) > 0) {
@@ -255,10 +255,25 @@ include('connect_db.php');
             $userPic = htmlspecialchars($row['userPic'], ENT_QUOTES, 'UTF-8');
             $userName = htmlspecialchars($row['userName'], ENT_QUOTES, 'UTF-8');
             $commentText = htmlspecialchars($row['commentText'], ENT_QUOTES, 'UTF-8');
-            
-            echo "<div class='Comment'>";
+            $commentId = htmlspecialchars($row['commentId'], ENT_QUOTES, 'UTF-8');
+            $stars = htmlspecialchars($row['Rate'], ENT_QUOTES, 'UTF-8');
+            $likes = htmlspecialchars($row['Likes'], ENT_QUOTES, 'UTF-8');
+
+            echo "<div class='Comment' data-comment-id='" . $commentId . "'>";
             echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
-            echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
+            echo "<div class='CommentText'>
+                    <div class='CommentTextItself'>
+                        <h3 class='CommUserName'>" . $userName . "</h3>
+                        <p>" . $commentText . "</p>
+                    </div>
+                    <div class='CommentStars'>
+                        <div class='starsDisplay' style='color: var(--a-color);'>" . str_repeat('★', $stars) . str_repeat('☆', 5 - $stars) . "</div>
+                    </div>
+                    <div class='Likes'>
+                        <a class='LikeComment'>♥</a>
+                        <span class='likeCount'></span>
+                    </div>
+                  </div>";
             echo "</div>";
         }
     } else {
@@ -266,6 +281,7 @@ include('connect_db.php');
     }
 ?>
 
+</div>
     <div class="undercomms">
         <p id="MakeComment">Залишити відгук</p>
         <a href="mailto:title@contact.com" id="SendProposition">Надати пропозицію</a>
@@ -283,11 +299,11 @@ include('connect_db.php');
             $lastName = mysqli_real_escape_string($conn, $userInfoRow['LastName']);
             $userName = $firstName . ' ' . $lastName;
             $userPic = mysqli_real_escape_string($conn, $userInfoRow['image']);
-            
+            $rating = $_POST['rating'];
             $commentText = mysqli_real_escape_string($conn, $_POST["commText"]);
             
-            $comms_sql = "INSERT INTO `comments` (`userId`, `userName`, `userPic`, `commentText`) 
-                        VALUES ('$userId', '$userName', '$userPic', '$commentText')";
+            $comms_sql = "INSERT INTO `comments` (`userId`, `userName`, `userPic`, `commentText`, `Rate`) 
+                        VALUES ('$userId', '$userName', '$userPic', '$commentText', '$rating')";
             
             mysqli_query($conn, $comms_sql);
             header('Location: index.php');
@@ -307,35 +323,36 @@ include('connect_db.php');
 <script src="CartBooks.js"></script>
 <script src="MakeComments.js"></script>
 <script src="SetDiscounts.js" defer></script>
+<script src="CommentStarsAndLikes.js" defer></script>
 <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                // Отримати посилання на елементи
-                const menuToggle = document.getElementById('menuToggle');
-                const navs = document.querySelectorAll('nav');
-                const cabinet = document.getElementById('Cabinet');
-                
-                // Додати обробник подій для кліку на #menuToggle
-                menuToggle.addEventListener('click', function () {
-                    // Змінити стилі в залежності від стану меню
-                    navs.forEach(nav => {
-                    if (nav.style.display === 'grid') {
-                        nav.style.display = 'none';
-                        // Змінити атрибути grid-row та grid-column на початкові значення
-                        nav.style.gridRow = 'initial';
-                        nav.style.gridColumn = 'initial';
-                        nav.classList.remove('active-menu');
-                    } else {
-                        nav.style.display = 'grid';
-                        // Змінити атрибути grid-row та grid-column на нові значення
-                        nav.classList.add('active-menu');
-                    }   
-                    });
-                });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Отримати посилання на елементи
+        const menuToggle = document.getElementById('menuToggle');
+        const navs = document.querySelectorAll('nav');
+        const cabinet = document.getElementById('Cabinet');
+        
+        // Додати обробник подій для кліку на #menuToggle
+        menuToggle.addEventListener('click', function () {
+            // Змінити стилі в залежності від стану меню
+            navs.forEach(nav => {
+            if (nav.style.display === 'grid') {
+                nav.style.display = 'none';
+                // Змінити атрибути grid-row та grid-column на початкові значення
+                nav.style.gridRow = 'initial';
+                nav.style.gridColumn = 'initial';
+                nav.classList.remove('active-menu');
+            } else {
+                nav.style.display = 'grid';
+                // Змінити атрибути grid-row та grid-column на нові значення
+                nav.classList.add('active-menu');
+            }   
             });
-        </script>
-        <script src="Search.js"></script>
-        <script src="Loading.js"></script>
-        <script src="FooterAdder.js" defer></script>
+        });
+    });
+</script>
+<script src="Search.js"></script>
+<script src="Loading.js"></script>
+<script src="FooterAdder.js" defer></script>
 </body>
 <footer>
 </footer>

@@ -321,10 +321,51 @@
 #exitForm {
     width: min-content;
 }
-
-#addFormDiv, #EditFormDiv, #DeleteFormDiv, #addDiscountFormDiv {
-    margin: 10px auto;
+#formsTabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--main-color);
+    height: 40px;
+    width: 100vw;
+    margin: 50px auto;
+}
+#formsTabs a {
+    padding: 5px 20px;
+}
+#formsTabs a.active {
+    text-align: center;
+    background-color: var(--page-color);
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+#formsTabs a:hover {
+    cursor: pointer;
+    color: var(--a-hover);
+    transition: all 0.1s ease;
+    text-shadow: 0px 0px 2px var(--shadow), 1px 1px 1px var(--shadow), 1.5px 1.5px 1px var(--shadow), 2px 2px 1px var(--shadow);
+}
+#adminForms {
+    overflow: hidden;
+    width: 100%;
+}
+#adminFormsDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-left: 100vw;
+    transition: transform 0.5s ease-in-out;
+}
+.adminFormContent {
+    background-color: var(--darker-mid-color);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px 25vw;
     width: 50vw;
+    height: min-content;
+}
+.adminFormContent form {
+    margin: 10px auto;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -334,7 +375,7 @@
     border-radius: 10px;
     background-color: var(--mid-color);
 }
-#addFormDiv input:not([type="submit"]):not([type="checkbox"]), #addFormDiv select, #EditFormDiv select, #EditFormDiv input:not([type="submit"]), #DeleteFormDiv select, #addDiscountFormDiv input, #addDiscountFormDiv select, #addFormDiv textarea, #EditFormDiv textarea {
+.adminFormContent select, .adminFormContent textarea, .adminFormContent input {
     margin: 10px;
     background-color: var(--white);
     border: 2px solid var(--a-color);
@@ -346,7 +387,10 @@
     color: var(--a-color);
     font-family: Comfortaa, sans-serif;
 }
-#addFormDiv input[type="submit"], #EditFormDiv input[type="submit"], #DeleteFormDiv input[type="submit"] {
+.adminFormContent textarea {
+    height: 200px;
+}
+.adminFormContent button {
     border: 2px solid var(--a-color);
     border-radius: 5px;
     background-color: var(--main-color);
@@ -355,55 +399,19 @@
     font-size: 14px;
     height: 30px;
     width: 200px;
+    margin: 10px;
     transition: all 0.3s ease;
 }
-#addFormDiv input[type="submit"]:hover, #EditFormDiv input[type="submit"]:hover, #DeleteFormDiv input[type="submit"]:hover {
+.adminFormContent button:hover {
     background-color: var(--page-color);
     box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow);
-}
-.isSeriesDiv p {
-    width: max-content;
-    text-align: right;
-    display: flex;
-    align-items: center;
-}
-.isSeriesDiv input {
-    background-color: var(--white);
-    border: 2px solid var(--a-color);
-    border-radius: 5px;
-    min-height: 25px;
-    width: 25px !important;
-    color: var(--a-color);
-    font-family: Comfortaa, sans-serif;
-}
-.isSeriesDiv {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 10px;
 }
 h4 {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
-#addDiscountFormDiv button {
-    border: 2px solid var(--a-color);
-    border-radius: 5px;
-    background-color: var(--main-color);
-    cursor: pointer;
-    font-family: Comfortaa, sans-serif;
-    font-size: 14px;
-    height: 30px;
-    width: 200px;
-    transition: all 0.3s ease;
-    margin: 20px;
-}
-#addDiscountFormDiv button:hover {
-    background-color: var(--page-color);
-    box-shadow: 5px 0px 0px var(--soft-shadow), -5px 0px 0px var(--soft-shadow);
-}
-#addDiscountFormDiv #expirationInput h5 {
+#addDiscountForm #expirationInput p {
     margin-left: 20px;
     margin-bottom: 0px;
 }

@@ -29,9 +29,9 @@
         <h1><a id="TitleNav" href="index.php">Title</a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
-        <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
+        <a id="Cabinet" href="Profile.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
-    <a id="MainCabinet" href="Кабінет.php"><img src="personal-icon.png" width="20px"></a>
+    <a id="MainCabinet" href="Profile.php"><img src="personal-icon.png" width="20px"></a>
     <div id="menuToggle">
         <img src="menu.png" alt="Menu" width="20px">
     </div>
@@ -70,7 +70,7 @@
     echo '<p>Новий пароль: <input type="password" name="userPass"></p>';
     echo '<p>Повторити пароль: <input type="password" name="userPassRepeat"></p>';
     echo '<input type="submit" name="changePass" value="Змінити пароль">';
-    echo '<input type="button" name="returnToCabinet" value="Повернутися" onclick="window.location=\'Кабінет.php\'">';
+    echo '<input type="button" name="returnToCabinet" value="Повернутися" onclick="window.location=\'Profile.php\'">';
     echo '</form>';
 ?>
 <script>
@@ -120,7 +120,7 @@
     if(isset($_POST['changePass'])) {
         $query = "UPDATE users SET Password = '". $_POST['userPass']."' WHERE userId = '" . $_SESSION['id'] . "'";
         $response = mysqli_query($conn, $query);
-        echo '<script>window.location.href = "Кабінет.php"</script>';
+        echo '<script>window.location.href = "Profile.php"</script>';
     }
 ?>
 </section>

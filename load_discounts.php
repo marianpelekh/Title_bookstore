@@ -5,7 +5,7 @@ if (isset($_GET['bookId']) && isset($_GET['quantity'])) {
     $bookId = $_GET['bookId'];
     $quantity = (int)$_GET['quantity'];
 
-    $priceQuery = "SELECT Price FROM books WHERE `number` = '$bookId'";
+    $priceQuery = "SELECT Price FROM books WHERE `BookID` = '$bookId'";
     $priceResult = mysqli_query($conn, $priceQuery);
 
     if ($priceResult && mysqli_num_rows($priceResult) > 0) {
