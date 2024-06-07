@@ -30,9 +30,9 @@ session_start();
         <h1><a id="TitleNav" href="index.php">Title</a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
-        <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
+        <a id="Cabinet" href="Profile.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
-    <a id="MainCabinet" href="Кабінет.php"><img src="personal-icon.png" width="20px"></a>
+    <a id="MainCabinet" href="Profile.php"><img src="personal-icon.png" width="20px"></a>
     <div id="menuToggle">
         <img src="menu.png" alt="Menu" width="20px">
     </div>
@@ -64,7 +64,7 @@ session_start();
         echo "<p>Прізвище: <input type='text' name='LastName'></p>";
         echo "<p>Ім'я: <input type='text' name='FirstName'></p>";
         echo "<p>По-батькові: <input type='text' name='MiddleName'></p>";
-        echo '<p>Email: <input type="text" name="Email"></p>';
+        echo '<p>Email: <input type="email" name="Email"></p>';
         echo '<p>Логін: <input type="text" name="userLogin"></p>';
         echo '<p>Пароль: <input type="password" name="userPass"></p>';
         echo '<p>Повторити пароль: <input type="password" name="userPassRepeat"></p>';

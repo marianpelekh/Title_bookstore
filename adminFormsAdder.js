@@ -141,7 +141,7 @@ function getBooksByCode(code) {
             editBookForm.appendChild(createNewSelectWV('BookGenre', 'editBookGenreSelect', 'EditGenre', bookInfo.Genre));
             editBookForm.appendChild(createInputWV('Назва серії', 'text', 'EditSeriesName', 0, bookInfo.SeriesName));
             editBookForm.appendChild(createInputWV('Номер в серії', 'number', 'EditInSeriesNumber', 0, bookInfo.NumberInSeries));
-            editBookForm.appendChild(createButton('editBtn', 'Редагувати книгу'));
+            editBookForm.appendChild(createButton('editBookBtn', 'Редагувати книгу'));
         }
     })
 }
@@ -237,7 +237,7 @@ addBookForm.appendChild(createTextarea('Анотація', 'Annotation'));
 addBookForm.appendChild(createNewSelect('BookGenre', 'addBookGenreSelect', 'Genre'));
 addBookForm.appendChild(createInput('Назва серії', 'text', 'SeriesName', 0));
 addBookForm.appendChild(createInput('Номер в серії', 'number', 'InSeriesNumber', 0));
-addBookForm.appendChild(createButton('addBtn', 'Додати книгу'));
+addBookForm.appendChild(createButton('addBookBtn', 'Додати книгу'));
 
 booksAdminForms.appendChild(addBookForm);
 
@@ -255,7 +255,7 @@ booksAdminForms.appendChild(editBookForm);
 
 let deleteBookForm = createForm('deleteBookForm', 'booksAdminForms.php', 'POST', 'Видалити книгу');
 deleteBookForm.appendChild(createNewSelect('BookCode', 'deleteBookSelect', 'deleteBook'));
-deleteBookForm.appendChild(createButton('deleteBook', 'Видалити книгу'));
+deleteBookForm.appendChild(createButton('deleteBookBtn', 'Видалити книгу'));
 booksAdminForms.appendChild(deleteBookForm);
 
 adminFormsDiv.appendChild(booksAdminForms);

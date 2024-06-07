@@ -105,7 +105,7 @@ include('connect_db.php');
             }
         
             $interval = $date1->diff($date2);
-            if ($interval->y == 0 && $interval->m < 2){
+            if ($interval->y == 0 && $interval->m < 3){
                 echo '<div class="book-container">';
                 echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">';
                 echo '<img class="cover" src="' . $row['FrontCover'] . '">';

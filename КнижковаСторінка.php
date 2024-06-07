@@ -73,9 +73,9 @@ if ($result) {
         <h1><a id="TitleNav" href="index.php"><?php echo $row['ShortName']; ?></a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
-        <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
+        <a id="Cabinet" href="Profile.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
-    <a id="MainCabinet" href="Кабінет.php"><img src="personal-icon.png" width="20px"></a>
+    <a id="MainCabinet" href="Profile.php"><img src="personal-icon.png" width="20px"></a>
     <div id="menuToggle">
         <img src="menu.png" alt="Menu" width="20px">
     </div>
@@ -125,7 +125,8 @@ if ($result) {
                 $authors = explode(", ", $row['Author']);
 
                 foreach ($authors as $author) {
-                    echo '<a class="AuthorLink" style="color: var(--a-color);" href="АвторськаСторінка.php?id=' . urlencode($author) . '">' . $author . '</a>';
+                    $Author_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM authors WHERE AuthorName = '$author'"));
+                    echo '<a class="AuthorLink" style="color: var(--a-color);" href="АвторськаСторінка.php?id=' . urlencode($Author_row['id']) . '">' . $author . '</a>';
 
                     if ($author !== end($authors)) {
                         echo ', ';

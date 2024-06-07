@@ -32,9 +32,9 @@
         <h1><a id="TitleNav" href="index.php">Title</a></h1>
         <a id="New" href="Новинки.php">Новинки</a>
         <a id="Contacts" href="Контакти.php">Контакти</a>
-        <a id="Cabinet" href="Кабінет.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
+        <a id="Cabinet" href="Profile.php"><img src="personal-icon.png" id="pers-cab" width="20px"></a>
     </nav>
-    <a id="MainCabinet" href="Кабінет.php"><img src="personal-icon.png" width="20px"></a>
+    <a id="MainCabinet" href="Profile.php"><img src="personal-icon.png" width="20px"></a>
     <div id="menuToggle">
         <img src="menu.png" alt="Menu" width="20px">
     </div>

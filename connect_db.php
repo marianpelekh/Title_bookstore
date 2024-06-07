@@ -3,10 +3,10 @@
 // $servername = '192.168.0.195';
 
 //Mobile
-// $servername = '192.168.6.247';
+$servername = '192.168.6.247';
 
 //GALCOL_U
-$servername = '192.168.170.254';
+// $servername = '192.168.170.254';
 
 
 $username = 'marianpelekh';
