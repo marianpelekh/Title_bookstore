@@ -184,7 +184,6 @@ if ($result) {
             <h2 style="text-align: center; height: 20px;">Корзина</h2>
         </div>
     </section>
-        <!-- <script src="CartBooks.js"></script> -->
         <?php
             if (!empty($row['SeriesName'])) {
                 $IsSeries = 'true';
@@ -237,27 +236,54 @@ if ($result) {
                         <?php 
                             $current_book_id = $row['BookID'];
                             $bc_query = "
-                                SELECT c.userName, c.userPic, c.commentText 
+                                SELECT c.commentId, c.userName, c.userPic, c.commentText, c.Rate, c.Likes 
                                 FROM comments c 
                                 JOIN BooksComments bc ON c.commentId = bc.CommentID 
                                 WHERE bc.BookID = '$current_book_id'
-                                ORDER BY c.commentId DESC
-                                LIMIT 10";
+                                ORDER BY c.Likes DESC, c.Rate DESC, c.postTime DESC";
                             $bc_result = mysqli_query($conn, $bc_query);
-
                             if (mysqli_num_rows($bc_result) > 0) {
                                 while ($bc_row = mysqli_fetch_array($bc_result)) {
                                     $userPic = htmlspecialchars($bc_row['userPic'], ENT_QUOTES, 'UTF-8');
                                     $userName = htmlspecialchars($bc_row['userName'], ENT_QUOTES, 'UTF-8');
                                     $commentText = htmlspecialchars($bc_row['commentText'], ENT_QUOTES, 'UTF-8');
-                                    
-                                    echo "<div class='Comment'>";
+                                    $commentId = htmlspecialchars($bc_row['commentId'], ENT_QUOTES, 'UTF-8');
+                                    $stars = htmlspecialchars($bc_row['Rate'], ENT_QUOTES, 'UTF-8');
+                                    $likes = htmlspecialchars($bc_row['Likes'], ENT_QUOTES, 'UTF-8');
+                        
+                                    echo "<div class='Comment' data-comment-id='" . $commentId . "'>";
                                     echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
-                                    echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
+                                    echo "<div class='CommentText'>
+                                            <div class='CommentTextItself'>
+                                                <h3 class='CommUserName'>" . $userName . "</h3>
+                                                <p>" . $commentText . "</p>
+                                            </div>
+                                            <div class='CommentStars'>
+                                                <div class='starsDisplay' style='color: var(--a-color);'>" . str_repeat('★', $stars) . str_repeat('☆', 5 - $stars) . "</div>
+                                            </div>
+                                            <div class='Likes'>
+                                                <a class='LikeComment'>♥</a>
+                                                <span class='likeCount'></span>
+                                            </div>
+                                          </div>";
                                     echo "</div>";
                                 }
                             } else {
-                                echo "Немає відгуків для відображення.";
+                                // if (mysqli_num_rows($bc_result) > 0) {
+                                //     while ($bc_row = mysqli_fetch_array($bc_result)) {
+                                //         $userPic = htmlspecialchars($bc_row['userPic'], ENT_QUOTES, 'UTF-8');
+                                //         $userName = htmlspecialchars($bc_row['userName'], ENT_QUOTES, 'UTF-8');
+                                //         $commentText = htmlspecialchars($bc_row['commentText'], ENT_QUOTES, 'UTF-8');
+                                        
+                                //         echo "<div class='Comment'>";
+                                //         echo "<div class='Avatar'><img src='" . $userPic . "' alt=''></div>";
+                                //         echo "<div class='CommentText'><div><h3 class='CommUserName'>" . $userName . "</h3><p>" . $commentText . "</p></div></div>";
+                                //         echo "</div>";
+                                //     }
+                                // } else {
+                                //     echo "Немає відгуків для відображення.";
+                                // }
+                                echo "Немає коментарів для відображення.";
                             }
                         ?>
                     </div>
@@ -266,46 +292,8 @@ if ($result) {
                     <p class="MakeBookComment" id="MakeComment">Залишити відгук про книгу</p>
                 </div>
             </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                let makecommsBtn = document.getElementById('MakeComment');
-                let undercomms = document.getElementsByClassName('undercomms')[0];
-
-                makecommsBtn.addEventListener('click', function() {
-                    if (document.getElementById("CommentForm") === undefined || document.getElementById("CommentForm") === null) {
-                        let commForm = document.createElement('form');
-                        commForm.setAttribute('action', '');
-                        commForm.setAttribute('method', 'POST');
-                        commForm.id = "CommentForm";
-
-                        let commInput = document.createElement('textarea'); // Замість input використовуйте textarea
-                        commInput.setAttribute('name', 'commText');
-                        commForm.appendChild(commInput);
-
-                        let submitBtn = document.createElement('button');
-                        submitBtn.setAttribute('type', 'submit');
-                        submitBtn.setAttribute('name', 'postComm');
-                        
-                        let subImage = document.createElement('img');
-                        subImage.src = 'post_comment.png';
-                        subImage.alt = 'Submit';
-                        submitBtn.appendChild(subImage);
-
-                        commForm.appendChild(submitBtn);
-
-                        undercomms.appendChild(commForm);
-                        undercomms.removeChild(makecommsBtn);
-                    }
-                });
-                document.addEventListener('submit', function(event) {
-                    if (event.target.id === 'CommentForm') {
-                        let submitBtn = document.getElementById('submitBtn');
-                        submitBtn.disabled = true; // Disable the submit button
-                    }
-                });
-            });
-
-            </script>
+            <script src="MakeComments.js"></script>
+            <script src="CommentStarsAndLikes.js"></script>
             <script src="SetDiscounts.js" defer></script>
             <?php
             if (isset($_POST['postComm']) && isset($_SESSION['id'])) {
@@ -320,11 +308,11 @@ if ($result) {
                     $lastName = mysqli_real_escape_string($conn, $userInfoRow['LastName']);
                     $userName = $firstName . ' ' . $lastName;
                     $userPic = mysqli_real_escape_string($conn, $userInfoRow['image']);
-
+                    $rating = $_POST['rating'];
                     $commentText = mysqli_real_escape_string($conn, $_POST["commText"]);
 
-                    $comms_sql = "INSERT INTO `comments` (`userId`, `userName`, `userPic`, `commentText`) 
-                                VALUES ('$userId', '$userName', '$userPic', '$commentText')";
+                    $comms_sql = "INSERT INTO `comments` (`userId`, `userName`, `userPic`, `commentText`, `Rate`) 
+                        VALUES ('$userId', '$userName', '$userPic', '$commentText', '$rating')";
                     if (mysqli_query($conn, $comms_sql)) {
                         $commentId = mysqli_insert_id($conn);
 

@@ -2,7 +2,7 @@
     include('connect_db.php');
     
     $searchValue = $_GET['searchValue'];
-    $query = "SELECT * FROM books WHERE name LIKE '%$searchValue%' OR author LIKE '%$searchValue%' OR SeriesName LIKE '%$searchValue%'";       
+    $query = "SELECT * FROM books WHERE Name LIKE '%$searchValue%' OR Author LIKE '%$searchValue%' OR SeriesName LIKE '%$searchValue%'";       
     $result = mysqli_query($conn, $query);
     
     $books = array();

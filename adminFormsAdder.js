@@ -111,7 +111,7 @@ function createTextareaWV(placeholder, name, value) {
     let textarea = document.createElement('textarea');
     textarea.setAttribute('placeholder', placeholder);
     textarea.setAttribute('name', name);
-    textarea.innerText = value;
+    textarea.innerHTML = value;
     return textarea;
 }
 function getBooksByCode(code) {
@@ -137,7 +137,7 @@ function getBooksByCode(code) {
             editBookForm.appendChild(createInputWV('Кількість сторінок', 'number', 'EditPageNumber', 0, bookInfo.PagesNumber));
             editBookForm.appendChild(createInputWV('Мова', 'text', 'EditLanguage', 0, bookInfo.Language));
             editBookForm.appendChild(createInputWV('Дата виходу', 'date', 'EditExactPublishingDate', 0, bookInfo.DateExact));
-            editBookForm.appendChild(createTextarea('Анотація', 'EditAnnotation', bookInfo.Description));
+            editBookForm.appendChild(createTextareaWV('Анотація', 'EditAnnotation', bookInfo.Description));
             editBookForm.appendChild(createNewSelectWV('BookGenre', 'editBookGenreSelect', 'EditGenre', bookInfo.Genre));
             editBookForm.appendChild(createInputWV('Назва серії', 'text', 'EditSeriesName', 0, bookInfo.SeriesName));
             editBookForm.appendChild(createInputWV('Номер в серії', 'number', 'EditInSeriesNumber', 0, bookInfo.NumberInSeries));
@@ -296,11 +296,17 @@ let editAuthorForm = createForm('editAuthorForm', 'authorAdminForms.php', 'POST'
 editAuthorForm.appendChild(editAuthorSelect);
 
 authorsForms.appendChild(editAuthorForm);
+
+//ФОРМА ДЛЯ ВИДАЛЕННЯ АВТОРА
+
+let deleteAuthorSelect = createNewSelect('Author', 'deleteAuthorSelect', "deleteAuthorSelect");
+let deleteAuthorForm = createForm('deleteAuthorForm', 'authorAdminForms.php', 'POST', 'Видалити автора');
+deleteAuthorForm.appendChild(deleteAuthorSelect);
+deleteAuthorForm.appendChild(createButton('deleteAuthor', 'Видалити'))
+authorsForms.appendChild(deleteAuthorForm);
+
+
 adminFormsDiv.appendChild(authorsForms);
-
-
-
-
 
 
 

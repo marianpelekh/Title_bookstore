@@ -149,6 +149,16 @@ session_start();
         echo '</div>';
         if (isset($_SESSION["login"]) && $_SESSION["login"] != null && $_SESSION['login'] == "admin") {
             echo "<h3 id='AdminFormsTitle'>Форми для адміністрування сайту</h3>
+                  <div id='formsTabs'>
+                    <a id='booksAdminFormsA' class='active' href='#booksAdminForms'>Книги</a>
+                    <a id='authorsAdminFormsA' href='#authorsAdminForms'>Автори</a>
+                    <a id='publishersAdminFormsA' href='#publishersAdminForms'>Видавництва</a>
+                    <a id='commentsAdminFormsA' href='#commentsAdminForms'>Коментарі</a>
+                    <a id='ordersAdminFormsA' href='#ordersAdminForms'>Замовлення</a>
+                  </div>
+                  <div id='adminForms'>
+                  <div id='adminFormsDiv'>
+                  <div id='booksAdminForms' class='adminFormContent'>
                   <div id='addDiscountFormDiv'>
                   <form action='add_discounts.php' method='POST'>
                   <h4>Додати знижку на книгу</h4>
@@ -157,7 +167,7 @@ session_start();
             $select_books_sql = "SELECT * FROM books ORDER BY SeriesName, NumberInSeries, ShortName ASC";
             $result = mysqli_query($conn, $select_books_sql);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<option value='" . $row['number'] . "'>" . $row['Name'] . "</option>";
+                echo "<option value='" . $row['BookID'] . "'>" . $row['Name'] . "</option>";
             }
             echo "</select>
                   <input type='text' name='discountValue' placeholder='Відсоток знижки'>
@@ -178,7 +188,6 @@ session_start();
                   <input type='text' name='RearCoverURL' placeholder='Посилання на обкладинку (тил)'>
                   <input type='text' name='PageNumber' placeholder='Кількість сторінок'>
                   <input type='text' name='Language' placeholder='Мова'>
-                  <input type='text' name='PublishingYear' maxlength='4' placeholder='Рік видання'>
                   <input type='date' name='ExactPublishingDate' placeholder='Точна дата видання'>
                   <textarea name='Annotation' placeholder='Анотація'></textarea>
                   <select name='Genre'>
@@ -192,8 +201,6 @@ session_start();
                   <option value='Other prose'>Інша проза</option>
                   <option value='Poetry'>Поезія</option>
                   </select>
-                  <div class='isSeriesDiv'><p>Це серія?</p>
-                  <input type='checkbox' name='IsSeries'></div>
                   <input type='text' name='SeriesName' placeholder='Назва серії'>
                   <input type='number' step='0.1' name='InSeriesNumber' placeholder='Номер в серії'>
                   <input type='submit' value='Додати книгу' name='addBtn'>
@@ -207,7 +214,7 @@ session_start();
             $select_books_sql_2 = "SELECT * FROM books ORDER BY SeriesName, NumberInSeries, ShortName ASC";
             $result_2 = mysqli_query($conn, $select_books_sql_2);
             while ($rowi = mysqli_fetch_assoc($result_2)) {
-                echo "<option value='" . $rowi['number'] . "'>" . $rowi['Name'] . "</option>";
+                echo "<option value='" . $rowi['BookID'] . "'>" . $rowi['Name'] . "</option>";
             }
             echo "</select>";
             echo "</form>";
@@ -215,7 +222,7 @@ session_start();
             // Відображення форми для редагування
             if (isset($_POST['bookCodeEdit'])) {
                 $selected_book_code = $_POST['bookCodeEdit'];
-                $selected_book_query = "SELECT * FROM books WHERE number='$selected_book_code'";
+                $selected_book_query = "SELECT * FROM books WHERE BookID='$selected_book_code'";
                 $selected_book_result = mysqli_query($conn, $selected_book_query);
                 $selected_book_row = mysqli_fetch_assoc($selected_book_result);
             
@@ -223,18 +230,17 @@ session_start();
                 mysqli_set_charset($conn, "utf8");
             
                 // Форма для редагування
-                echo "<form action='' method='POST'>";
+                echo "<form action='' method='POST' id='editBookForm'>";
                 echo "<input type='text' name='ShortNameEdit' value='" . htmlspecialchars($selected_book_row['ShortName'], ENT_QUOTES, 'UTF-8') . "' placeholder='Коротка назва'>";
-                echo "<input type='text' name='BookCodeEdit' value='" . htmlspecialchars($selected_book_row['number'], ENT_QUOTES, 'UTF-8') . "' placeholder='Код книги'>";
+                echo "<input type='text' name='BookCodeEdit' value='" . htmlspecialchars($selected_book_row['BookID'], ENT_QUOTES, 'UTF-8') . "' placeholder='Код книги'>";
                 echo "<input type='text' name='FullNameEdit' value='" . htmlspecialchars($selected_book_row['Name'], ENT_QUOTES, 'UTF-8') . "' placeholder='Повна назва'>";
                 echo "<input type='text' name='AuthorEdit' value='" . htmlspecialchars($selected_book_row['Author'], ENT_QUOTES, 'UTF-8') . "' placeholder='Автор'>";
                 echo "<input type='text' name='PublishingEdit' value='" . htmlspecialchars($selected_book_row['Publishing'], ENT_QUOTES, 'UTF-8') . "' placeholder='Видавництво'>";
                 echo "<input type='text' name='PriceEdit' value='" . htmlspecialchars($selected_book_row['Price'], ENT_QUOTES, 'UTF-8') . "' placeholder='Ціна'>";
-                echo "<input type='text' name='CoverURLEdit' value='" . htmlspecialchars($selected_book_row['Cover'], ENT_QUOTES, 'UTF-8') . "' placeholder='Посилання на обкладинку (перед)'>";
+                echo "<input type='text' name='CoverURLEdit' value='" . htmlspecialchars($selected_book_row['FrontCover'], ENT_QUOTES, 'UTF-8') . "' placeholder='Посилання на обкладинку (перед)'>";
                 echo "<input type='text' name='RearCoverURLEdit' value='" . htmlspecialchars($selected_book_row['BackCover'], ENT_QUOTES, 'UTF-8') . "' placeholder='Посилання на обкладинку (тил)'>";
-                echo "<input type='text' name='PageNumberEdit' value='" . htmlspecialchars($selected_book_row['PageNumbers'], ENT_QUOTES, 'UTF-8') . "' placeholder='Кількість сторінок'>";
+                echo "<input type='text' name='PageNumberEdit' value='" . htmlspecialchars($selected_book_row['PagesNumber'], ENT_QUOTES, 'UTF-8') . "' placeholder='Кількість сторінок'>";
                 echo "<input type='text' name='LanguageEdit' value='" . htmlspecialchars($selected_book_row['Language'], ENT_QUOTES, 'UTF-8') . "' placeholder='Мова'>";
-                echo "<input type='text' name='PublishingYearEdit' value='" . htmlspecialchars($selected_book_row['YearOfPubl'], ENT_QUOTES, 'UTF-8') . "' maxlength='4' placeholder='Рік видання'>";
                 echo "<input type='date' name='ExactPublishingDateEdit' value='" . htmlspecialchars($selected_book_row['DateExact'], ENT_QUOTES, 'UTF-8') . "' placeholder='Точна дата видання'>";
                 echo "<textarea name='AnnotationEdit' placeholder='Анотація'>". htmlspecialchars($selected_book_row['Description'], ENT_QUOTES, 'UTF-8') . "</textarea>";
                 //echo "<input type='text' name='GenreEdit' value='" . htmlspecialchars($selected_book_row['Genre'], ENT_QUOTES, 'UTF-8') . "' placeholder='Жанр'>";
@@ -249,8 +255,6 @@ session_start();
                       <option value='Other prose'>Інша проза</option>
                       <option value='Poetry'>Поезія</option>
                       </select>";
-                echo "<div class='isSeriesDiv'><p>Це серія?</p>
-                      <input type='checkbox' name='IsSeriesEdit' " . ($selected_book_row['IsSeries'] ? 'checked' : '') . "></div>";
                 echo "<input type='text' name='SeriesNameEdit' value='" . htmlspecialchars($selected_book_row['SeriesName'], ENT_QUOTES, 'UTF-8') . "' placeholder='Назва серії'>";
                 echo "<input type='number' step='0.1' name='InSeriesNumberEdit' value='" . htmlspecialchars($selected_book_row['NumberInSeries'], ENT_QUOTES, 'UTF-8') . "' placeholder='Номер в серії'>";
                 echo "<input type='submit' value='Оновити книгу' name='editBtn'>";
@@ -267,13 +271,16 @@ session_start();
             echo "<option value='' disabled selected>Виберіть код книги для видалення</option>";
             mysqli_data_seek($result, 0);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<option value='" . $row['number'] . "'>" . $row['Name'] . "</option>";
+                echo "<option value='" . $row['BookID'] . "'>" . $row['Name'] . "</option>";
             }
             echo "</select>";
             echo "<input type='submit' value='Видалити книгу' name='deleteBtn'>";
             echo "</form>";
-            echo "</div>";
-
+            echo "</div></div>
+                  <div id='authorsAdminForms' class='adminFormContent'></div>
+                  <div id='publisheradminForms' class='adminFormContent'></div>
+                  <div id='commentsAdminForms' class='adminFormContent'></div>
+                  <div id='ordersAdminForms' class='adminFormContent'></div></div></div>";
             // Оновлення книги в БД після редагування
             if (isset($_POST['editBtn'])) {
                 $edited_shortName = mysqli_real_escape_string($conn, $_POST['ShortNameEdit']);
@@ -286,19 +293,17 @@ session_start();
                 $edited_rearCoverURL = mysqli_real_escape_string($conn, $_POST['RearCoverURLEdit']);
                 $edited_pageNumber = mysqli_real_escape_string($conn, $_POST['PageNumberEdit']);
                 $edited_language = mysqli_real_escape_string($conn, $_POST['LanguageEdit']);
-                $edited_publishingYear = mysqli_real_escape_string($conn, $_POST['PublishingYearEdit']);
                 $edited_exactPublishingDate = mysqli_real_escape_string($conn, $_POST['ExactPublishingDateEdit']);
                 $edited_annotation = mysqli_real_escape_string($conn, $_POST['AnnotationEdit']);
                 $edited_genre = mysqli_real_escape_string($conn, $_POST['GenreEdit']);
-                $edited_isSeries = isset($_POST['IsSeriesEdit']) ? $_POST['IsSeriesEdit'] : false;
                 $edited_seriesName = mysqli_real_escape_string($conn, $_POST['SeriesNameEdit']);
                 $edited_inSeriesNumber = mysqli_real_escape_string($conn, $_POST['InSeriesNumberEdit']);
-                if ($edited_isSeries == true) {
+                if (!empty($edited_seriesName)) {
                     $edited_isSeries = 1;
                 } else {
                     $edited_isSeries = 0;
                 }
-                $update_sql = "UPDATE books SET ShortName='$edited_shortName', Name='$edited_fullName', number='$edited_book_code', Author='$edited_author', Publishing='$edited_publishing', Price='$edited_price', Cover='$edited_coverURL', BackCover='$edited_rearCoverURL', PageNumbers='$edited_pageNumber', Language='$edited_language', YearOfPubl='$edited_publishingYear', DateExact='$edited_exactPublishingDate', Description='$edited_annotation', Genre='$edited_genre', IsSeries='$edited_isSeries', SeriesName='$edited_seriesName', NumberInSeries='$edited_inSeriesNumber' WHERE number='$edited_book_code'";
+                $update_sql = "UPDATE books SET ShortName='$edited_shortName', Name='$edited_fullName', BookID='$edited_book_code', Author='$edited_author', Publishing='$edited_publishing', Price='$edited_price', FrontCover='$edited_coverURL', BackCover='$edited_rearCoverURL', PagesNumber ='$edited_pageNumber', Language='$edited_language', DateExact='$edited_exactPublishingDate', Description='$edited_annotation', Genre='$edited_genre', SeriesName='$edited_seriesName', NumberInSeries='$edited_inSeriesNumber' WHERE BookID='$edited_book_code'";
                 if(mysqli_query($conn, $update_sql)) {
                     echo "Книгу '" . $edited_shortName .  "' успішно оновлено.";
                 }
@@ -307,7 +312,7 @@ session_start();
             // Видалення книги з БД
             if (isset($_POST['deleteBtn'])) {
                 $deleted_book_code = mysqli_real_escape_string($conn, $_POST['bookCodeDelete']);
-                $delete_sql = "DELETE FROM books WHERE number='$deleted_book_code'";
+                $delete_sql = "DELETE FROM books WHERE BookID='$deleted_book_code'";
                 mysqli_query($conn, $delete_sql);
             }
 
@@ -323,21 +328,19 @@ session_start();
                 $rearCoverURL = mysqli_real_escape_string($conn, $_POST['RearCoverURL']);
                 $pageNumber = mysqli_real_escape_string($conn, $_POST['PageNumber']);
                 $language = mysqli_real_escape_string($conn, $_POST['Language']);
-                $publishingYear = mysqli_real_escape_string($conn, $_POST['PublishingYear']);
                 $exactPublishingDate = mysqli_real_escape_string($conn, $_POST['ExactPublishingDate']);
                 $annotation = mysqli_real_escape_string($conn, $_POST['Annotation']);
                 $genre = mysqli_real_escape_string($conn, $_POST['Genre']);
-                $isSeries = mysqli_real_escape_string($conn, $_POST['IsSeries']);
                 $seriesName = mysqli_real_escape_string($conn, $_POST['SeriesName']);
                 $inSeriesNumber = mysqli_real_escape_string($conn, $_POST['InSeriesNumber']);
-                
-                if ($isSeries == true) {
+                $isSeries;
+                if (!empty($seriesName)) {
                     $isSeries = 1;
                 } else {
                     $isSeries = 0;
                 }
                 
-                $adding_sql = "INSERT INTO books (ShortName, number, Name, Author, Publishing, Price, Cover, BackCover, PageNumbers, Language, YearOfPubl, DateExact, Description, Genre, IsSeries, SeriesName, NumberInSeries) VALUES ('$shortName', '$bookCode', '$fullName', '$author', '$publishing', '$price', '$coverURL', '$rearCoverURL', '$pageNumber', '$language', '$publishingYear', '$exactPublishingDate', '$annotation', '$genre', '$isSeries', '$seriesName', '$inSeriesNumber')";
+                $adding_sql = "INSERT INTO books (ShortName, BookID, Name, Author, Publishing, Price, FrontCover, BackCover, PagesNumber, Language, DateExact, Description, Genre, SeriesName, NumberInSeries) VALUES ('$shortName', '$bookCode', '$fullName', '$author', '$publishing', '$price', '$coverURL', '$rearCoverURL', '$pageNumber', '$language', '$exactPublishingDate', '$annotation', '$genre', '$seriesName', '$inSeriesNumber')";
                 
                 if (mysqli_query($conn, $adding_sql)) {
                     echo "Результат: Книгу додано успішно :)";
@@ -376,15 +379,15 @@ session_start();
             $responseBooks = mysqli_query($conn, $featuredSql);
             while ($row = mysqli_fetch_array($responseBooks)) {
                 echo '<div class="book-container" data-genre="' . $row["Genre"] . '">';
-                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '">';
-                echo '<img class="cover" src="' . $row['Cover'] . '">';
+                echo '<a href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '">';
+                echo '<img class="cover" src="' . $row['FrontCover'] . '">';
                 echo '</a>';
                 echo '<div class="description">';
                 echo '<div class="book-name">' . $row['Name'] . '</div>';
                 echo '<div class="book-author">' . $row['Author'] . '</div>';
                 echo '<div class="price">' . $row['Price'] . ' грн</div>';
                 echo '</div>';
-                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['number']) . '"> Придбати </a>';
+                echo '<a class="buy" href="КнижковаСторінка.php?id=' . urlencode($row['Name'] . ' ' . $row['Author'] . ' ' . $row['BookID']) . '"> Придбати </a>';
                 echo '</div>';
             }
             echo '</div>';
@@ -404,6 +407,7 @@ session_start();
         <script src="Search.js"></script>
         <script src="SetDiscounts.js"></script>
         <script src="FooterAdder.js" defer></script>
+        <script src="adminFormsAdder.js" defer></script>
     </body>
     <footer>
     </footer>

@@ -77,18 +77,18 @@ session_start();
             $middleName = mysqli_real_escape_string($conn, $_POST['MiddleName']);
             $email = mysqli_real_escape_string($conn, $_POST['Email']);
             $userLogin = mysqli_real_escape_string($conn, $_POST['userLogin']);
-            $userPass = mysqli_real_escape_string($conn, $_POST['userPass']);
+            $userPass = password_hash(mysqli_real_escape_string($conn, $_POST['userPass']), PASSWORD_BCRYPT);
             $userPassRepeat = mysqli_real_escape_string($conn, $_POST['userPassRepeat']);
             if ($userPass !== $userPassRepeat) {
                 echo "<p id='regError'>ПОМИЛКА: Пароль та його повторення не співпадають.</p>";
                 exit;
             }
-            $check_sql = "SELECT * FROM `users` WHERE `Login`='$userLogin' OR `Password`='$userPass'";
+            $check_sql = "SELECT * FROM `users` WHERE `Login`='$userLogin'";
             $check_result = mysqli_query($conn, $check_sql);
             $check_email_sql = "SELECT * FROM `users` WHERE `Email`='$email'";
             $check_email_result = mysqli_query($conn, $check_email_sql);
             if (mysqli_num_rows($check_result) > 0) {
-                echo "<p id='regError'>ПОМИЛКА: Користувач з таким логіном або паролем вже існує. Виберіть інший логін або пароль.</p>";
+                echo "<p id='regError'>ПОМИЛКА: Користувач з таким логіном уже існує. Введіть інший логін.</p>";
             } else if (mysqli_num_rows($check_email_result) > 0) {
                 echo "<p id='regError'>ПОМИЛКА: На дану електронну пошту вже зареєстрований користувач. На один email можна зареєструвати лише одного користувача.</p>";
             } else if ($userLogin == "admin") {
@@ -98,7 +98,7 @@ session_start();
                         VALUES ('$userLogin','$userPass','$email','$firstName','$lastName','$middleName','user.png', '[]', '')";
                 mysqli_query($conn, $sql);
                 $_SESSION['id'] = mysqli_insert_id($conn);
-                header('Location: Кабінет.php');
+                header('Location: Profile.php');
                 exit;
             }
         }

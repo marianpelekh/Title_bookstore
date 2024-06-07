@@ -23,7 +23,7 @@ if (isset($_GET['bookCode'])) {
                 'PagesNumber' => htmlspecialchars($row['PagesNumber'], ENT_QUOTES, 'UTF-8'),
                 'Language' => htmlspecialchars($row['Language'], ENT_QUOTES, 'UTF-8'),
                 'DateExact' => htmlspecialchars($row['DateExact'], ENT_QUOTES, 'UTF-8'),
-                'Description' => htmlspecialchars($row['Description'], ENT_QUOTES, 'UTF-8'),
+                'Description' => $row['Description'],
                 'Genre' => htmlspecialchars($row['Genre'], ENT_QUOTES, 'UTF-8'),
                 'SeriesName' => htmlspecialchars($row['SeriesName'], ENT_QUOTES, 'UTF-8'),
                 'NumberInSeries' => htmlspecialchars($row['NumberInSeries'], ENT_QUOTES, 'UTF-8')

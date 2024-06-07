@@ -14,9 +14,9 @@ if (isset($_GET['authorId'])) {
             $authorInfo = array(
                 'AuthorName' => htmlspecialchars($row['AuthorName'], ENT_QUOTES, 'UTF-8'),
                 'Birth' => htmlspecialchars($row['Birth'], ENT_QUOTES, 'UTF-8'),
-                'Death' => htmlspecialchars($row['Death'], ENT_QUOTES, 'UTF-8'),
+                'Death' => isset($row['Death']) ? htmlspecialchars($row['Death'], ENT_QUOTES, 'UTF-8') : null,
                 'Picture' => htmlspecialchars($row['Picture'], ENT_QUOTES, 'UTF-8'),
-                'Biography' => htmlspecialchars($row['Bibliography'], ENT_QUOTES, 'UTF-8')
+                'Biography' => $row['Bibliography']
             );
             echo json_encode($authorInfo);
         } else {

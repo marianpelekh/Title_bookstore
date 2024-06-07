@@ -4,7 +4,7 @@ include('connect_db.php');
 $id = urldecode($_GET['id']);  // отримуємо ідентифікатор автора з URL
 
 // Use prepared statement to prevent SQL injection
-$query = "SELECT * FROM `authors` WHERE `AuthorName`=?";
+$query = "SELECT * FROM `authors` WHERE `id`=?";
 $stmt = mysqli_prepare($conn, $query);
 
 if (!$stmt) {

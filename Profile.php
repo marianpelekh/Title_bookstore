@@ -84,11 +84,11 @@ session_start();
                             $invalid = true;
                         }
                         if (!$invalid){
-                            $sql = "SELECT * FROM users WHERE Login='" . $_POST['login'] . "' AND Password='" . $_POST['pass'] . "'";
+                            $sql = "SELECT * FROM users WHERE Login='" . $_POST['login'] . "'";
                             $res = mysqli_query($conn, $sql);
                             $result = mysqli_fetch_array($res);
                             
-                            if(empty($result)){
+                            if(empty($result) || !password_verify($_POST['pass'], $result['Password'])){
                                 echo "<p id='regError'>Користувача з даним логіном та паролем не існує. Перевірте введені дані.</p>";
                             } 
                             else {

@@ -77,11 +77,10 @@
     let passwordInput = document.getElementsByName('userPass')[0];
     let confirmPasswordInput = document.getElementsByName('userPassRepeat')[0];
 
-    // Функція для перевірки пароля
     function validatePassword() {
         let password = passwordInput.value;
         let confirmPassword = confirmPasswordInput.value;
-        let currentPassword = '<?php echo $result["Password"]; ?>'; // Поточний пароль користувача
+        let currentPassword = '<?php echo $result["Password"]; ?>';
 
         // Перевірка, щоб новий пароль був не порожнім
         if (!password || password.trim() === '') {
@@ -95,13 +94,11 @@
             return false;
         }
 
-        // Перевірка, щоб новий пароль співпадав з підтвердженням пароля
         if (password !== confirmPassword) {
             alert('Пароль та підтвердження пароля повинні співпадати.');
             return false;
         }
 
-        // Перевірка, щоб новий пароль не збігався з поточним паролем
         if (password === currentPassword) {
             alert('Новий пароль повинен відрізнятися від поточного пароля.');
             return false;
@@ -112,15 +109,15 @@
             return false;
         }
 
-        // Якщо всі перевірки успішно пройдено, можна відправити форму
         return true;
     }
 </script>
 <?php 
     if(isset($_POST['changePass'])) {
-        $query = "UPDATE users SET Password = '". $_POST['userPass']."' WHERE userId = '" . $_SESSION['id'] . "'";
+        $password = password_hash($_POST['userPass'], PASSWORD_BCRYPT);
+        $query = "UPDATE users SET Password = '$password' WHERE userId = '" . $_SESSION['id'] . "'";
         $response = mysqli_query($conn, $query);
-        echo '<script>window.location.href = "Profile.php"</script>';
+        header('Location: Profile.php');
     }
 ?>
 </section>

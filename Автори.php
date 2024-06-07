@@ -66,7 +66,7 @@
             
             echo '<div id="AllAuthors">';
             while ($row = mysqli_fetch_array($result)) {
-                echo '<button type="button" class="AuthorContainer" onclick="window.location.href=\'АвторськаСторінка.php?id=' . urlencode($row['AuthorName']) . '\';">' . $row['AuthorName'] . '</button>';
+                echo '<button type="button" class="AuthorContainer" onclick="window.location.href=\'АвторськаСторінка.php?id=' . urlencode($row['id']) . '\';">' . $row['AuthorName'] . '</button>';
             }
             echo '</div>';
         ?>

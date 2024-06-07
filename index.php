@@ -247,7 +247,7 @@ include('connect_db.php');
         SELECT * 
         FROM comments c 
         WHERE c.commentId NOT IN (SELECT bc.CommentID FROM BooksComments bc) AND c.Rate >= 3
-        ORDER BY c.Likes DESC ";
+        ORDER BY c.Likes DESC, c.Rate DESC, c.postTime DESC ";
         
     $result = mysqli_query($conn, $sql_comment);
     if (mysqli_num_rows($result) > 0) {

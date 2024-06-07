@@ -20,7 +20,7 @@ $(document).ready(function(){
                 if (response.books && response.books.length > 0) {
                     $.each(response.books, function(index, book){
                         let bookHTML = '<div class="book-container">' +
-                                        '<img class="cover" data-loc="КнижковаСторінка.php?id=' + encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.number) + '" src="' + book.Cover + '">' +
+                                        '<img class="cover" data-loc="КнижковаСторінка.php?id=' + encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.BookID) + '" src="' + book.Cover + '">' +
                                         '<div class="description">' +
                                         '<div class="book-name">' + book.Name + '</div>' +
                                         '<div class="book-author">' + book.Author + '</div>' +
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
                 if (response.authors && response.authors.length > 0) {
                     $.each(response.authors, function(index, author){
-                        let authorHTML = '<button type="button" class="AuthorContainer" onclick="window.location.href=\'АвторськаСторінка.php?id=' + encodeURIComponent(author.AuthorName) + '\';">' + author.AuthorName + '</button>';
+                        let authorHTML = '<button type="button" class="AuthorContainer" onclick="window.location.href=\'АвторськаСторінка.php?id=' + encodeURIComponent(author.id) + '\';">' + author.AuthorName + '</button>';
                         $('#authorsContainer').append(authorHTML);
                     });
                 } else {
