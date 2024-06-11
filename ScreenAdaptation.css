@@ -589,14 +589,14 @@
     width: calc(100vw / 200px);
     height: calc(100vw / 200px);
     left: calc(50vw - 100px);
-    top: calc(25vw);
+    top: 100px;
   }
   #userPictRect {
     position: static;
-    width: 90%;
-    height: 90%;
+    width: calc(100vw / 200px);
+    height: calc(100vw / 200px);
     margin-left: -20px;
-    margin-top: -20px;
+    margin-top: -30px;
   }
   #userInfo {
     grid-row: 2;
@@ -611,8 +611,10 @@
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    width: 100vw;
   }
   #UserFeatures {
+    margin: 0px;
     width: 100vw;
   }
   #UserFeatures .book-container {
@@ -657,10 +659,90 @@
     margin: 20px auto;
   }
 
-  #addDiscountFormDiv, #addFormDiv, #EditFormDiv, #DeleteFormDiv {
+
+  #formsTabs {
+    width: 100vw !important;
+    min-height: 25px;
+    height: auto;
+    overflow-x: auto;
+  }
+  #adminFormsFrame {
+    width: 100vw;
+    overflow: hidden;
+    margin: 0px;
+  }
+  #adminFormsDiv {
+    min-width: 500vw;
+    width: 100%;
+    margin: 0vw 5vw;
+    gap: 10vw;
+  }
+  .adminFormContent {
+    padding: 10px;
     width: 90vw;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .adminFormContent form {
+    width: 100%;
+    margin: 10px auto;
   }
   #addDiscountFormDiv form input  {
     width: 100%;
   }
+
+  .tab-text {
+    display: none;
+  }
+  .tab-icon {
+      display: inline-block;
+  }
+
+  #YourOrdersTitle {
+    text-align: center;
+    margin: 20px auto;
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+}
+#YourOrders {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+    max-width: 100vw;
+    width: 100vw;
+    min-height: 150px;
+    max-height: 70vw;
+    overflow-y: auto;
+}
+#Order {
+  width: 100vw;
+  margin: 0;
+}
+#Order > p, #Order > div {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--cookie-bg);
+    background-color: var(--main-color);
+    width: 20vw;
+}
+#Order #OrderCovers {
+    display: flex;
+    align-items: center;
+  }
+#OrderCovers img {
+    margin: 0px;
+    max-height: 85px;
+}
+#OrderCovers p {
+    display: none;
+    font-size: xx-small;
+}
+
 }

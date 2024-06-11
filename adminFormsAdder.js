@@ -10,16 +10,42 @@ adminFormsTitle.textContent = "Форми для адмініструваннн�
 
 section.appendChild(adminFormsTitle);
 
-function createTab(id, href, text, isActive = false) {
+function createTab(id, href, text, icon, isActive = false) {
     let tab = document.createElement('a');
     tab.id = id;
     tab.href = href;
-    tab.textContent = text;
+    let textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    textSpan.classList.add('tab-text');
+    let iconImg = document.createElement('img');
+    iconImg.src = icon;
+    iconImg.classList.add('tab-icon');
+    iconImg.style.display = 'none';
+    tab.appendChild(iconImg);
+    tab.appendChild(textSpan);
     if (isActive) {
         tab.classList.add('active');
     }
     return tab;
 }
+
+function handleResize() {
+    let tabs = document.querySelectorAll('#formsTabs a');
+    if (window.innerWidth < 1000) {
+        tabs.forEach(tab => {
+            tab.querySelector('.tab-text').style.display = 'none';
+            tab.querySelector('.tab-icon').style.display = 'inline-block';
+        });
+    } else {
+        tabs.forEach(tab => {
+            tab.querySelector('.tab-text').style.display = 'inline';
+            tab.querySelector('.tab-icon').style.display = 'none';
+        });
+    }
+}
+
+window.addEventListener('resize', handleResize);
+window.addEventListener("DOMContentLoaded", handleResize);
 
 function createForm(id, action, method, formName) {
     let form = document.createElement('form');
@@ -169,11 +195,11 @@ function getAuthorByCode(code) {
 let formsTabs = document.createElement('div');
 formsTabs.id = 'formsTabs';
 
-let booksAdminFormsA = createTab('booksAdminFormsA', '#booksAdminForms', 'Книги та знижки', true);
-let authorsAdminFormsA = createTab('authorsAdminFormsA', '#authorsAdminForms', 'Автори');
-let publishersAdminFormsA = createTab('publishersAdminFormsA', '#publishersAdminForms', 'Видавництва');
-let commentsAdminFormsA = createTab('commentsAdminFormsA', '#commentsAdminForms', 'Коментарі');
-let ordersAdminFormsA = createTab('ordersAdminFormsA', '#ordersAdminForms', 'Замовлення');
+let booksAdminFormsA = createTab('booksAdminFormsA', '#booksAdminForms', 'Книги та знижки', 'books.png', true);
+let authorsAdminFormsA = createTab('authorsAdminFormsA', '#authorsAdminForms', 'Автори', 'authors.png');
+let publishersAdminFormsA = createTab('publishersAdminFormsA', '#publishersAdminForms', 'Видавництва', 'publishers.png');
+let commentsAdminFormsA = createTab('commentsAdminFormsA', '#commentsAdminForms', 'Коментарі', 'comments.png');
+let ordersAdminFormsA = createTab('ordersAdminFormsA', '#ordersAdminForms', 'Замовлення', 'orders.png');
 
 formsTabs.appendChild(booksAdminFormsA);
 formsTabs.appendChild(authorsAdminFormsA);
@@ -182,13 +208,16 @@ formsTabs.appendChild(commentsAdminFormsA);
 formsTabs.appendChild(ordersAdminFormsA);
 
 section.appendChild(formsTabs);
+handleResize();
 
 //ФОРМИ
 
-
+let adminFormsFrame = document.createElement('div');
+adminFormsFrame.id = 'adminFormsFrame';
 let adminFormsDiv = document.createElement('div');
 adminFormsDiv.id = "adminFormsDiv";
-section.appendChild(adminFormsDiv);
+adminFormsFrame.appendChild(adminFormsDiv);
+section.appendChild(adminFormsFrame);
 
 
 //КНИЖКОВІ ФОРМИ
@@ -223,7 +252,6 @@ booksAdminForms.appendChild(addDiscountForm);
 
 let addBookForm = createForm('addBookForm', 'booksAdminForms.php', 'POST', 'Додати книгу');
 addBookForm.appendChild(createInput('Коротка назва', 'text', 'ShortName', 0));
-addBookForm.appendChild(createInput('Код книги', 'text', 'BookCode', 0));
 addBookForm.appendChild(createInput('Повна назва', 'text', 'FullName', 0));
 addBookForm.appendChild(createInput('Автор', 'text', 'Author', 0));
 addBookForm.appendChild(createInput('Видавництво', 'text', 'Publishing', 0));

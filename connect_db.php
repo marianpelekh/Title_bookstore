@@ -1,9 +1,9 @@
 <?php 
 //Home
-// $servername = '192.168.0.195';
+$servername = '192.168.0.198';
 
 //Mobile
-$servername = '192.168.6.247';
+// $servername = '192.168.6.247';
 
 //GALCOL_U
 // $servername = '192.168.170.254';

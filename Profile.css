@@ -314,6 +314,7 @@
     overflow-x: auto;
     width: 60vw;
     padding-bottom: 30px;
+    margin: 0px auto;
 }
 #changePassForm {
     width: min-content;
@@ -418,4 +419,72 @@ h4 {
 #AdminFormsTitle {
     text-align: center;
     margin: 100px auto 0px;
+}
+.tab-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+
+#YourOrdersTitle {
+    text-align: center;
+    margin: 20px auto;
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+}
+#YourOrders {
+    padding: 0px 10px;
+    margin: 0px auto;
+    max-width: 80vw;
+    min-height: 150px;
+    max-height: 70vw;
+    overflow-y: auto;
+}
+#YourOrders #Order {
+    height: 100px;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--darker-mid-color);
+}
+#Order > p, #Order > div {
+    margin: 0px 0px;
+    border-radius: 5px;
+    height: 90px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--cookie-bg);
+    background-color: var(--main-color);
+    width: 20vw;
+}
+#Order #OrderCovers {
+    display: flex;
+    align-items: center;
+}
+#OrderCovers img {
+    margin: 0px -15px;
+    max-height: 25px;
+    width: 25px;
+}
+#OrderCovers #OrdersList {
+    display: none;
+}
+#OrderCovers #OrdersList img {
+    max-height: 80px;
+}
+#OrderCovers p {
+    display: none;
+    font-size: xx-small;
 }
