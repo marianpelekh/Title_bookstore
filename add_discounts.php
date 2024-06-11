@@ -13,6 +13,6 @@ if(mysqli_query($conn, $discount_query)) {
 } else {
     die('Знижка не встановлена.');
 }
-header("Location: Кабінет.php");
+header("Location: Profile.php");
 ob_end_flush();
 ?>

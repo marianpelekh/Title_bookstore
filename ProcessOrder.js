@@ -1,12 +1,10 @@
 document.getElementById('ConfirmOrder').addEventListener('click', function(event) {
     event.preventDefault();
 
-    // Collect user details
     let phoneNumber = document.getElementById('phoneNumber').value;
     let userMail = document.getElementById('userMail').value;
     let userName = document.getElementById('userName').value;
 
-    // Collect delivery details
     let deliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked').value;
     let deliveryTown = document.getElementById('TownPick').value;
     let deliveryAddress = document.getElementById('PostOfficePick').value;
@@ -41,16 +39,16 @@ document.getElementById('ConfirmOrder').addEventListener('click', function(event
         totalPrice: totalPrice
     };
 
-    // Send data to the server using AJAX
     $.ajax({
         url: 'process_order.php',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(orderData),
         success: function(response) {
-            document.getElementById("MessageFromServer").textContent = "Замовлення прийнято!";
+            document.getElementById('ConfirmOrder').style.display = 'none';
+            document.getElementById("MessageFromServer").innerText = "Замовлення прийнято!";
             console.log(response);
-            // Optionally, redirect the user to another page or clear the cart
+            localStorage.removeItem('books');
         },
         error: function(xhr, status, error) {
             document.getElementById("MessageFromServer").textContent = "Сталася помилка... Можете сконтактувати з нами й розробники оперативно все виправлять.";

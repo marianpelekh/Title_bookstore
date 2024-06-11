@@ -118,7 +118,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0px;
+    border-radius: 4px;
     box-shadow: 0 6px 30px var(--soft-shadow);
     transform: translateY(-30px);
     position: relative;

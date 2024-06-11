@@ -133,8 +133,9 @@ include('connect_db.php');
         <path d="M6.53023 52.5763L43.5302 30.0804C45.4899 28.9182 45.4899 26.0818 43.5302 24.9196L6.53023 2.42373C4.53044 1.23781 2 2.67912 2 5.00412L2 49.9959C2 52.3209 4.53043 53.7622 6.53023 52.5763Z" fill="var(--main-color)" stroke="var(--a-color)" stroke-width="4" stroke-miterlimit="0" stroke-linecap="round"/>
         </svg>
     </div>
-    <div id="DiscountsTitle">Знижки</div>
     <?php
+    if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM discounts")) > 0){
+        echo '<div id="DiscountsTitle">Знижки</div>';
         $query = "SELECT * FROM books WHERE DateExact <= NOW()";
         $result = mysqli_query($conn, $query);
         echo '<div id="DiscountsBooksMain">';
@@ -156,19 +157,19 @@ include('connect_db.php');
             }    
         }
         echo '</div>';
+        echo '<div class="DiscsArrows">
+            <svg id="LeftArrow" style="cursor: pointer;" width="23.5" height="27.5" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40.4698 2.42373L3.46977 24.9196C1.51008 26.0818 1.51007 28.9182 3.46977 30.0804L40.4698 52.5763C42.4696 53.7622 45 52.3209 45 49.9959L45 5.00411C45 2.67912 42.4696 1.2378 40.4698 2.42373Z" fill="var(--main-color)" stroke="var(--a-color)" stroke-width="4" stroke-miterlimit="0" stroke-linecap="round"/>
+            </svg>
+            <svg id="block"  width="90.5" height="25.5" viewBox="0 0 181 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="181" height="51" rx="3" fill="var(--main-color)"/>
+            </svg>
+            <svg id="RightArrow" style="cursor: pointer;" width="23.5" height="27.5" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.53023 52.5763L43.5302 30.0804C45.4899 28.9182 45.4899 26.0818 43.5302 24.9196L6.53023 2.42373C4.53044 1.23781 2 2.67912 2 5.00412L2 49.9959C2 52.3209 4.53043 53.7622 6.53023 52.5763Z" fill="var(--main-color)" stroke="var(--a-color)" stroke-width="4" stroke-miterlimit="0" stroke-linecap="round"/>
+            </svg>
+        </div>';
+    }
     ?>
-
-    <div class="DiscsArrows">
-        <svg id="LeftArrow" style="cursor: pointer;" width="23.5" height="27.5" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M40.4698 2.42373L3.46977 24.9196C1.51008 26.0818 1.51007 28.9182 3.46977 30.0804L40.4698 52.5763C42.4696 53.7622 45 52.3209 45 49.9959L45 5.00411C45 2.67912 42.4696 1.2378 40.4698 2.42373Z" fill="var(--main-color)" stroke="var(--a-color)" stroke-width="4" stroke-miterlimit="0" stroke-linecap="round"/>
-        </svg>
-        <svg id="block"  width="90.5" height="25.5" viewBox="0 0 181 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="181" height="51" rx="3" fill="var(--main-color)"/>
-        </svg>
-        <svg id="RightArrow" style="cursor: pointer;" width="23.5" height="27.5" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.53023 52.5763L43.5302 30.0804C45.4899 28.9182 45.4899 26.0818 43.5302 24.9196L6.53023 2.42373C4.53044 1.23781 2 2.67912 2 5.00412L2 49.9959C2 52.3209 4.53043 53.7622 6.53023 52.5763Z" fill="var(--main-color)" stroke="var(--a-color)" stroke-width="4" stroke-miterlimit="0" stroke-linecap="round"/>
-        </svg>
-    </div>
 
     <?php
         $pre_query = "SELECT * FROM books WHERE DateExact > NOW()";
