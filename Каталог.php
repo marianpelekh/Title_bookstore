@@ -118,7 +118,7 @@
                 if (books.length > 0) {
                     books.forEach(book => {
                         $('#AllBooks').append(`
-                            <div class="book-container" data-genre="${book.Genre}" data-publishing="${book.PublishingEng}">
+                            <div class="book-container" data-genre="${book.Genre}" data-publishing="${book.PublishingEng}" data-current-price="${book.CurrentPrice}">
                                 <a href="КнижковаСторінка.php?id=${encodeURIComponent(book.Name + ' ' + book.Author + ' ' + book.Id)}">
                                     <img class="cover" src="${book.Cover}" alt="${book.Name}">
                                 </a>
@@ -164,7 +164,7 @@
         });
         
     }
-    //Оновлення при зміні у localStorage
+
     window.addEventListener('storage', function(event) {
         if (event.key === 'storedPublFilter' || event.key === 'storedGenreFilter' || event.key === 'storedPriceFilter') {
             loadBooks();
@@ -176,6 +176,7 @@
     });
 
     loadBooks();
+    window.loadBooks = loadBooks;
 </script>
 
 
@@ -212,10 +213,23 @@
             $priceQuery = 'SELECT `Price` FROM books';
             $priceRes = mysqli_query($conn, $priceQuery);
 
+            $discountQuery = 'SELECT b.Price, d.Discount FROM books b LEFT JOIN discounts d ON b.BookID = d.BookID';
+            $discountRes = mysqli_query($conn, $discountQuery);
+
             $prices = [];
+
             while ($row = mysqli_fetch_assoc($priceRes)) {
-                $prices[] = preg_replace("/[^0-9.]/", "", $row['Price']);
+                $price = $row['Price'];
+                $prices[] = $price;
             }
+
+            while ($row = mysqli_fetch_assoc($discountRes)) {
+                $price = $row['Price'];
+                $discountPercent = isset($row['Discount']) ? $row['Discount'] * 0.01 : 0;
+                $discountedPrice = $price * (1 - $discountPercent / 100);
+                $prices[] = $discountedPrice;
+            }
+
             $minPrice = min($prices);
             $maxPrice = max($prices);
         ?>
@@ -247,16 +261,15 @@
                 }
             });
 
-            let defaultMinPrice = <?php echo $minPrice ?>; // Вкажіть стандартне значення
-            let defaultMaxPrice = <?php echo $maxPrice ?>; // Вкажіть стандартне значення
+            let defaultMinPrice = <?php echo $minPrice ?>;
+            let defaultMaxPrice = <?php echo $maxPrice ?>;
 
             priceSlider.noUiSlider.on('update', function(values, handle) {
                 let minPriceValue = parseFloat(values[0]);
                 let maxPriceValue = parseFloat(values[1]);
 
-                priceDisplay.innerText = minPriceValue.toFixed(0) + "₴ - " + maxPriceValue.toFixed(0) + "₴";
+                priceDisplay.innerText = minPriceValue.toFixed(0) + "₴ — " + maxPriceValue.toFixed(0) + "₴";
 
-                // Фільтруємо книги за ціною, якщо повзунки не на своїх стандартних місцях
                 if (minPriceValue !== defaultMinPrice || maxPriceValue !== defaultMaxPrice) {
                     filterBooksByPrice(minPriceValue, maxPriceValue);
                 }
@@ -266,12 +279,15 @@
             function filterBooksByPrice(minPriceValue, maxPriceValue) {
                 let applFilCont = document.getElementById('appliedFiltersContainer');
                 let AllBooks = document.getElementsByClassName("book-container");
-                let AllPrices = document.getElementsByClassName('price');
+                let AllPrices = [];
+                    document.querySelectorAll('.book-container').forEach(element => {
+                    AllPrices.push(element.getAttribute('data-current-price'));
+                });
                 let storedGenre = localStorage.getItem('storedGenreFilter');
                 let storedPubl = localStorage.getItem('storedPublFilter');
 
                 for (let i = 0; i < AllBooks.length; i++) {
-                    let price = parseFloat(AllPrices[i].textContent);
+                    let price = parseFloat(AllPrices[i]);
                     let genreMatch = true;
                     let publMatch = true;
 

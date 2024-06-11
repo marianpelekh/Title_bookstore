@@ -14,10 +14,9 @@
     border-top: 4px solid var(--darker-white);
     border-radius: 10px;
     background-color: var(--white);
-    box-shadow: 1px 1px 0px var(--shadow), 2px 2px 2px var(--shadow);
+    box-shadow: 1px 1px 0px var(--soft-shadow), 2px 2px 2px var(--soft-shadow);
 }
 .cover {
-    margin-top: 50px;
     opacity: 100%;
     z-index: 4;
     margin: auto;
@@ -32,7 +31,6 @@
 }
 .description {
     margin-top: 20px;
-    font-size: 12px;
     padding: 10px;
     grid-column: 1;
     grid-row: 4;

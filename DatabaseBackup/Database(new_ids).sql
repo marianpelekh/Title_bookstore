@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: mariadb
--- Час створення: Чрв 07 2024 р., 21:44
+-- Час створення: Чрв 11 2024 р., 15:50
 -- Версія сервера: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Версія PHP: 8.2.8
 
@@ -174,7 +174,8 @@ INSERT INTO `books` (`ShortName`, `BookID`, `Name`, `Author`, `Publishing`, `Pri
 ('Заборонений', 'KH-00000063', 'Заборонений. Історія життя і боротьби Василя Стуса', 'Артемій Кірсанов, Сергій Дзюба', 'Фабула', 228, 'https://book-ye.com.ua/upload/iblock/19e/fb630aeb_cd4a_11e9_811d_000c29ae1566_57210d40_4517_11eb_8144_000c29ae1566.jpg', 'https://book-ye.com.ua/upload/iblock/e10/fb630aeb_cd4a_11e9_811d_000c29ae1566_a957a7d7_0e46_11ea_8124_000c29ae1566.jpg', 176, 'Українська', '2019-01-06', 'Колишній аспірантці, яка працювала над дисертацією про життя і творчість видатного поета Василя Стуса, а нині за волею обставин стала медсестрою, запропонували доглядати помираючу від важкої хвороби жінку. Як виявилося важкохвора у минулому була полковником КДБ і багато разів зустрічалася зі Стусом, особливо в останні дні його життя. У романі надзвичайно насичено змальовано життя поета на його рідній Донеччині, в оточенні друзів, педагогів і літераторів, і в концтаборі — де утримували в’язнів совісті, ставлячи їм у провину їхні переконання. Чимало уваги приділено у романі й долі останньої рукописної збірки поета.', 'Other prose', '', 0),
 ('Дев\'ятий Дім', 'KH-00000064', 'Дев\'ятий Дім', 'Лі Бардуґо', 'Vivat', 406, 'https://book-ye.com.ua/upload/iblock/400/0ee7bc87_3f9d_11eb_8142_000c29ae1566_cd9a66b1_3f9d_11eb_8142_000c29ae1566.jpg', 'https://book-ye.com.ua/upload/iblock/82c/0ee7bc87_3f9d_11eb_8142_000c29ae1566_cd9a66b2_3f9d_11eb_8142_000c29ae1566.jpg', 528, 'Українська', '2021-05-11', 'Алекс Стерн — дівчина з непростим минулим, яка виросла в Лос-Анджелесі, рано кинула школу й потрапила в компанію старших, де в пошані була травичка і бульбулятор передавали по колу. І ось Алекс, єдина вижила після жорстокого вбивства, просто на лікарняному ліжку дістала пропозицію вступити до Єля, престижного університету. Але що криється за цією пропозицією? Адже університет виявився осередком таємних товариств, що спеціалізуються на окультизмі й магії, і за всім цим здійснює нагляд таємничий Дев’ятий Дім. Саме за діяльністю цих товариств, поміж членів яких багато дуже впливових людей, і доручили стежити Алекс — у цьому їй допоможуть навички аутсайдерки й здатність бачити привидів. Щоб розкрити змову, історія якої нараховує понад сто років, дівчині доведеться розплутувати жахливі таємниці, балансуючи між світом живих і світом мертвих, і спостерігати за моторошними окультними маніпуляціями.\r\n\r\n', 'Dark Academia', 'Девятий Дім', 1),
 ('Беззоряне Море', 'KH-00000065', 'Беззоряне Море', 'Ерін Морґенштерн', 'Vivat', 218, 'https://book-ye.com.ua/upload/iblock/d16/ba9521c1_4b3e_11eb_8144_000c29ae1566_34d403e2_4b3f_11eb_8144_000c29ae1566.jpg', 'https://book-ye.com.ua/upload/iblock/c70/ba9521c1_4b3e_11eb_8144_000c29ae1566_34d403e3_4b3f_11eb_8144_000c29ae1566.jpg', 544, 'Українська', '2020-09-15', 'Закарі Езра Роулінз — звичайний студент, що живе в університетському містечку у Вермонті. Та якось йому до рук потрапляє загадкова книжка із запилюженої полиці бібліотеки. Затамувавши дух, Закарі гортає сторінку за сторінкою, захоплений долею нещасних закоханих, коли стикається з геть несподіваним — історією з власного дитинства. Дивна книжка розбурхує його уяву, тож він вирішує розкрити її таємницю. Подорож, сповнена неочікуваних пригод, поступово приводить його на маскарад у Нью-Йорку, до секретного клубу та підпільної бібліотеки, схованих глибоко під землею. Хлопець зустріне тут тих, хто пожертвував усім заради цього сховища. Але на нього полюють і хочуть знищити. Разом з Мірабель, безстрашною захисницею цього світу, і Доріаном, чоловіком, у вірності якого ніхто не може бути впевненим, Закарі мандрує звивистими тунелями, темними сходами й танцювальними залами, щоб дізнатися нарешті про справжнє призначення цього царства і про свою долю.', 'Fantasy', '', 0),
-('Я бачу, вас цікавить пітьма', 'KH-00000066', 'Я бачу, вас цікавить пітьма', 'Ілларіон Павлюк', 'Видавництво Старого Лева', 540, 'https://book-ye.com.ua/upload/iblock/bce/eff29e86_12de_11eb_813d_000c29ae1566_87938f31_f705_11ee_8199_005056857596.jpg', 'https://book-ye.com.ua/upload/iblock/a08/eff29e86_12de_11eb_813d_000c29ae1566_d681a1c7_12df_11eb_813d_000c29ae1566.jpg', 664, 'Українська', '2023-06-20', 'Київського кримінального психолога Андрія Гайстера відправляють консультантом у богом забуте селище Буськів Сад. Зимової ночі там зникла маленька дівчинка. А ще там водиться Звір — серійний маніяк, убивств якого тамтешні мешканці воліють не помічати... У цьому проклятому селищі, де все по колу і всі живуть життям, яке ненавидять, розслідування постійно заходить у глухий кут. Андрій вірить, що загублена дівчинка, попри все, жива і він її знайде. Але нікому, крім нього, це не потрібно.\r\n<br><br>\r\n«Я бачу, вас цікавить пітьма» — історія про непробивну людську байдужість і пітьму всередині нас. Про чесність із собою й ціну, яку ми готові заплатити за забуття. Про гріхи, що матеріалізуються, і спокуту, дорожчу за спокій.\r\n\r\n', 'Detective', '', 0);
+('Я бачу, вас цікавить пітьма', 'KH-00000066', 'Я бачу, вас цікавить пітьма', 'Ілларіон Павлюк', 'Видавництво Старого Лева', 540, 'https://book-ye.com.ua/upload/iblock/bce/eff29e86_12de_11eb_813d_000c29ae1566_87938f31_f705_11ee_8199_005056857596.jpg', 'https://book-ye.com.ua/upload/iblock/a08/eff29e86_12de_11eb_813d_000c29ae1566_d681a1c7_12df_11eb_813d_000c29ae1566.jpg', 664, 'Українська', '2023-06-20', 'Київського кримінального психолога Андрія Гайстера відправляють консультантом у богом забуте селище Буськів Сад. Зимової ночі там зникла маленька дівчинка. А ще там водиться Звір — серійний маніяк, убивств якого тамтешні мешканці воліють не помічати... У цьому проклятому селищі, де все по колу і всі живуть життям, яке ненавидять, розслідування постійно заходить у глухий кут. Андрій вірить, що загублена дівчинка, попри все, жива і він її знайде. Але нікому, крім нього, це не потрібно.\r\n<br><br>\r\n«Я бачу, вас цікавить пітьма» — історія про непробивну людську байдужість і пітьму всередині нас. Про чесність із собою й ціну, яку ми готові заплатити за забуття. Про гріхи, що матеріалізуються, і спокуту, дорожчу за спокій.\r\n\r\n', 'Detective', '', 0),
+('Пів короля', 'КН-00000067', 'Пів короля. Книга 1', 'Джо Аберкромбі', 'Nebo BookLab Publishing', 380, 'https://book-ye.com.ua/upload/iblock/af2/d7d3f9ef_327f_11ec_8153_0050568ef5e6_fa73e362_5d8a_11ec_815d_0050568ef5e6.jpg', 'https://book-ye.com.ua/upload/iblock/0ab/d7d3f9ef_327f_11ec_8153_0050568ef5e6_ce86ccf8_3280_11ec_8153_0050568ef5e6.jpg', 296, 'Українська', '2023-03-25', 'У світі, де сталь — відповідь на все, а люди моляться Матері Війні, важко знайти своє місце однорукому хлопчині.\r\n<br><br>\r\nЯрві, молодший син короля Ґеттландії, мав стати служителем Батька Миру, але доля розпорядилася інакше. Батькова й братова смерть не лишають йому іншого вибору, як зійти на престол, якого він ніколи не прагнув. Однак втримати трон однією рукою нелегко. Ярві зазнáє зради, пройде крізь багато випробувань і знайде справжніх друзів, перш ніж стане тим, ким він є. Та чи не втратить він на своєму шляху до помсти чогось важливого?\r\n\r\n', 'Fantasy', 'Пів Короля', 1);
 
 --
 -- Тригери `books`
@@ -232,7 +233,8 @@ INSERT INTO `BooksComments` (`BookID`, `CommentID`) VALUES
 ('KH-00000019', 10),
 ('KH-00000051', 11),
 ('KH-00000048', 20),
-('KH-00000048', 21);
+('KH-00000048', 21),
+('KH-00000048', 24);
 
 -- --------------------------------------------------------
 
@@ -270,7 +272,8 @@ INSERT INTO `comments` (`commentId`, `postTime`, `userId`, `userName`, `userPic`
 (20, '2024-06-06 16:15:14', 16, 'Admin Admin', './UserPictures/favicon2.png', 'Дуже, як би то сказати, cozy книга з класними вайбами кав\'ярні', 16, 5),
 (21, '2024-06-06 16:15:14', 16, 'Admin Admin', './UserPictures/favicon2.png', 'Хочу почитати таке', 6, 4),
 (22, '2024-06-07 08:03:32', 16, 'Admin Admin', './UserPictures/favicon2.png', 'Нехай це буде якийсь відгук', 6, 5),
-(23, '2024-06-07 10:18:22', 16, 'Admin Admin', './UserPictures/favicon2.png', 'буль буль', 32, 5);
+(23, '2024-06-07 10:18:22', 16, 'Admin Admin', './UserPictures/favicon2.png', 'буль буль', 32, 5),
+(24, '2024-06-07 21:56:10', 17, 'Марі Ерні', './UserPictures/e6d1d77275aebae0e8fe11b46fcb8905.jpg', 'Я ж можу залишати коментарі?', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -290,23 +293,16 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`BookID`, `Discount`, `Expires`, `InitialPrice`) VALUES
-('ISBN-978-617-09', 20, '2024-06-30', 430),
-('ІД-04136634', 15, '2024-06-30', 420),
-('ІД-4134103', 10, '2024-06-30', 290),
-('ІД-4135924', 15, '2024-07-10', 680),
-('ІД-9786178383', 20, '2024-07-20', 750),
-('ІЛ-00010104', -20, '2024-06-08', 540),
-('ІЛ-00013597', 30, '2024-07-10', 430),
-('ІЛ-00014951', 10, '2024-06-30', 400),
-('ІЛ-00017084', 150, '2024-06-08', 520),
-('ІЛ-00018582', 5, '2024-07-15', 500),
-('ІЛ-00021195', 15, '2024-06-30', 505),
-('ІЛ-00029034', 10, '2024-08-10', 340),
-('ІЛ-00034565', 20, '2024-07-10', 450),
-('ІЛ-00035753', 20, '2024-07-18', 280),
-('ІЛ-04136643', 15, '2024-07-31', 720),
-('йцу7885', -100, '2024-06-08', 9000000),
-('К-00009123', 10, '2024-07-01', 540);
+('KH-00000001', 30, '2024-07-25', 430),
+('KH-00000014', 10, '2024-07-25', 540),
+('KH-00000016', 5, '2024-08-01', 430),
+('KH-00000017', 15, '2024-07-15', 400),
+('KH-00000027', 15, '2024-08-01', 505),
+('KH-00000047', 15, '2024-07-31', 580),
+('KH-00000048', 30, '2024-07-10', 450),
+('KH-00000049', 30, '2024-07-18', 280),
+('KH-00000050', 30, '2024-07-10', 700),
+('KH-00000056', 10, '2024-07-04', 400);
 
 -- --------------------------------------------------------
 
@@ -315,7 +311,9 @@ INSERT INTO `discounts` (`BookID`, `Discount`, `Expires`, `InitialPrice`) VALUES
 --
 
 CREATE TABLE `orders` (
+  `Status` text NOT NULL,
   `OrderID` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   `OrderDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `BookIDs` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`BookIDs`)),
   `TotalPrice` int(11) NOT NULL,
@@ -333,8 +331,8 @@ CREATE TABLE `orders` (
 -- Дамп даних таблиці `orders`
 --
 
-INSERT INTO `orders` (`OrderID`, `OrderDate`, `BookIDs`, `TotalPrice`, `UserName`, `UserPhone`, `UserEmail`, `DeliveryMethod`, `DeliveryTown`, `DeliveryAddress`, `PayByCard`, `CardNumber`) VALUES
-(1, '2024-06-01 21:21:51', '[{\"code\":\"ІЛ-00028134\",\"quantity\":1},{\"code\":\"ІД-9786178383\",\"quantity\":1}]', 866, 'Пелех Мар\'ян Павлович', '+380(67) 281 46 60', 'marianpeleh@gmail.com', 'Ukrposhta', '', '', b'1', '4563-2151-5138-1843');
+INSERT INTO `orders` (`Status`, `OrderID`, `userId`, `OrderDate`, `BookIDs`, `TotalPrice`, `UserName`, `UserPhone`, `UserEmail`, `DeliveryMethod`, `DeliveryTown`, `DeliveryAddress`, `PayByCard`, `CardNumber`) VALUES
+('New', 22, 17, '2024-06-08 01:57:54', '[{\"code\":\"KH-00000048\",\"quantity\":1},{\"code\":\"KH-00000047\",\"quantity\":\"1\"},{\"code\":\"KH-00000056\",\"quantity\":2}]', 1528, 'Ерні Марі ', '', 'marierni@gmail.com', 'SelfPickup', '', '', b'0', 'NULL');
 
 -- --------------------------------------------------------
 
@@ -399,8 +397,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`userId`, `Login`, `Password`, `Email`, `PhoneNumber`, `FirstName`, `LastName`, `MiddleName`, `StoredBooks`, `image`, `FeaturedGenres`) VALUES
 (6, 'marianpelekh', '$2y$10$Lqx4nDoK/mJNxblL1Ei4n.o.5Byvtyz66OCUclOI.BD9uHBp38PoO', 'marianpeleh@gmail.com', '0672814660', 'Мар\'ян', 'Пелех', 'Павлович', '[{\"code\":\"ІЛ-00028134\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/44e\\/67e46d29_5176_11ee_8187_00505684ea69_c1f8531e_5178_11ee_8187_00505684ea69.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Гадес і Персефона. Книга 1. Доторк темряви<\\/h4><p class=\\u0022CartAuthor\\u0022>Скарлетт Сент-Клер<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІЛ-00028134\\u0022>266 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІЛ-00028134\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІЛ-00028134\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"266\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"ІД-9786178383\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/bookclub.ua\\/images\\/db\\/goods\\/k\\/61570_122219_k.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Дім Неба і Подиху. Місто Півмісяця. Книга 2<\\/h4><p class=\\u0022CartAuthor\\u0022>Сара Дж. Маас<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІД-9786178383\\u0022>750.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІД-9786178383\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІД-9786178383\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"750.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}}]', './UserPictures/c7d52a2279b0b5291dfd58a824b5adbd.jpg', '{\"Dark Academia\":4,\"Fantasy\":35,\"Gothic\":18,\"Detective\":3,\"Poetry\":3,\"Other prose\":2,\"\":1,\"Horrors\":3}'),
 (7, 'heinaoksana', '$2y$10$fdWhbpQHNr19rCKFqfniruDh7BcWze5Jy6ZFVoKmuTkGXNiE9drga', 'oksikheina@gmail.com', NULL, 'Оксана', 'Гейна', 'Іванівна', '', './UserPictures/_6dca93d8-ef95-44ee-818f-9b1d3f26d82b.jfif', '{\"Other prose\":2,\"Gothic\":2}'),
-(16, 'admin', '$2y$10$mOxSntdEOOBceGrYWlpWBuu2j6q0t/w1D9/52puovJvS5wHcPv.4S', 'admin@title.ua', NULL, 'Admin', 'Admin', 'Admin', '[{\"code\":\"ІЛ-00035753\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/06a\\/6e1b8f85_0e00_11ef_819c_005056857596_7a48fec5_0e01_11ef_819c_005056857596.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Гадес і Персефона. Книга 3. Доторк спустошення<\\/h4><p class=\\u0022CartAuthor\\u0022>Скарлетт Сент-Клер<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІЛ-00035753\\u0022>280.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІЛ-00035753\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІЛ-00035753\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"280.00\",\"quantity\":\"1\",\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"ІД-04136634\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/bookclub.ua\\/images\\/db\\/goods\\/61963_123493.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Спалах. Книга 3<\\/h4><p class=\\u0022CartAuthor\\u0022>Рейвен Кеннеді<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІД-04136634\\u0022>420.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІД-04136634\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІД-04136634\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"420.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"ISBN-978-617-09\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/bookclub.ua\\/images\\/db\\/goods\\/62049_123642.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Персі Джексон і олімпійці. Викрадач блискавок. Книга 1<\\/h4><p class=\\u0022CartAuthor\\u0022>Рік Ріордан<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ISBN-978-617-09\\u0022>430.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ISBN-978-617-09\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ISBN-978-617-09\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"430.00\",\"quantity\":\"1\",\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}}]', './UserPictures/favicon2.png', '{\"Fantasy\":369,\"Gothic\":8,\"Other prose\":1,\"\":9,\"Dark Academia\":13,\"Poetry\":1,\"Horrors\":1,\"Detective\":3}'),
-(17, 'mari', '$2y$10$L9RlKeM8MDn.NEtyHgCpmO97vubGdFzs8PYKy6Bo6SkLDFqPibE8i', 'marierni@gmail.com', NULL, 'Марі', 'Ерні', '', '[{\"code\":\"ІЛ-00034565\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/cb9\\/238be91c_edc9_11ee_8195_00505684ea69_35c7d4ff_edc9_11ee_8195_00505684ea69.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Легенди та лате<\\/h4><p class=\\u0022CartAuthor\\u0022>Тревіс Болдрі<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІЛ-00034565\\u0022>450.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІЛ-00034565\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІЛ-00034565\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"450.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"ІЛ-00035753\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/06a\\/6e1b8f85_0e00_11ef_819c_005056857596_7a48fec5_0e01_11ef_819c_005056857596.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Гадес і Персефона. Книга 3. Доторк спустошення<\\/h4><p class=\\u0022CartAuthor\\u0022>Скарлетт Сент-Клер<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІЛ-00035753\\u0022>280.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІЛ-00035753\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІЛ-00035753\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"280.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"ІЛ-00032840\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/73e\\/5b3c124b_cc0c_11ee_8192_00505684ea69_0c915ef9_daec_11ee_8194_00505684ea69.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Темніший колір магії<\\/h4><p class=\\u0022CartAuthor\\u0022>В. Е. Шваб<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022ІЛ-00032840\\u0022>460.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022ІЛ-00032840\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022ІЛ-00032840\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"460.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}}]', './UserPictures/e6d1d77275aebae0e8fe11b46fcb8905.jpg', '{\"Fantasy\":29}'),
+(16, 'admin', '$2y$10$mOxSntdEOOBceGrYWlpWBuu2j6q0t/w1D9/52puovJvS5wHcPv.4S', 'admin@title.ua', NULL, 'Admin', 'Admin', 'Admin', '[{\"code\":\"KH-00000048\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/cb9\\/238be91c_edc9_11ee_8195_00505684ea69_35c7d4ff_edc9_11ee_8195_00505684ea69.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Легенди та лате<\\/h4><p class=\\u0022CartAuthor\\u0022>Тревіс Болдрі<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022KH-00000048\\u0022>450.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022KH-00000048\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022KH-00000048\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"450.00\",\"quantity\":\"1\",\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}}]', './UserPictures/favicon2.png', '{\"Fantasy\":397,\"Gothic\":8,\"Other prose\":1,\"\":9,\"Dark Academia\":13,\"Poetry\":1,\"Horrors\":1,\"Detective\":3}'),
+(17, 'mari', '$2y$10$L9RlKeM8MDn.NEtyHgCpmO97vubGdFzs8PYKy6Bo6SkLDFqPibE8i', 'marierni@gmail.com', NULL, 'Марі', 'Ерні', '', '[{\"code\":\"KH-00000048\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/cb9\\/238be91c_edc9_11ee_8195_00505684ea69_35c7d4ff_edc9_11ee_8195_00505684ea69.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Легенди та лате<\\/h4><p class=\\u0022CartAuthor\\u0022>Тревіс Болдрі<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022KH-00000048\\u0022>450.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022KH-00000048\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022KH-00000048\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"450.00\",\"quantity\":1,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"KH-00000047\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/iblock\\/c61\\/d47f4eff_ec31_11ee_8195_00505684ea69_de528a1d_2245_11ef_81a1_005056857596.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Попіл і Місячне Сяйво. Книга ІІІ<\\/h4><p class=\\u0022CartAuthor\\u0022>Редгрейн Лебовскі<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022KH-00000047\\u0022>580.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022KH-00000047\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022KH-00000047\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"580.00\",\"quantity\":\"1\",\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}},{\"code\":\"KH-00000056\",\"innerHTML\":\"<img class=\\u0022CartCover\\u0022 src=\\u0022https:\\/\\/book-ye.com.ua\\/upload\\/resize_cache\\/iblock\\/2b0\\/520_860_1\\/1c5b4319_858d_11e6_80c0_000c29ae1566_b505cf0d_e927_11ea_813d_000c29ae1566.jpg\\u0022 alt=\\u0022Обкладинка\\u0022><h4 class=\\u0022CartTitle\\u0022>Керамічні Серця<\\/h4><p class=\\u0022CartAuthor\\u0022>Наталія Матолінець<\\/p><h4 class=\\u0022CartPrice\\u0022 price-of=\\u0022KH-00000056\\u0022>400.00 грн<\\/h4><div class=\\u0022Quantity\\u0022><button class=\\u0022DecreaseQuantity\\u0022>-<\\/button><span class=\\u0022quantityItself\\u0022 quantity-of=\\u0022KH-00000056\\u0022>1<\\/span><button class=\\u0022IncreaseQuantity\\u0022>+<\\/button><\\/div><button type=\\u0022button\\u0022 related-book=\\u0022KH-00000056\\u0022 class=\\u0022deleteButton\\u0022><img src=\\u0022x-mark.png\\u0022 width=\\u002220\\u0022><\\/button>\",\"singlePrice\":\"400.00\",\"quantity\":2,\"style\":{\"display\":\"\",\"width\":\"\",\"margin\":\"\",\"gridTemplateColumns\":\"\",\"gridTemplateRows\":\"\"}}]', './UserPictures/e6d1d77275aebae0e8fe11b46fcb8905.jpg', '{\"Fantasy\":38}'),
 (18, 'hong19', '$2y$10$mOxSntdEOOBceGrYWlpWBuu2j6q0t/w1D9/52puovJvS5wHcPv.4S', 'semerka@gmail.com', NULL, 'Бандурист', 'Музика', 'Сопілкович', '[]', 'user.png', '');
 
 --
@@ -450,7 +448,8 @@ ALTER TABLE `discounts`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`OrderID`),
-  ADD KEY `user_email_fk` (`UserEmail`(768));
+  ADD KEY `user_email_fk` (`UserEmail`(768)),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Індекси таблиці `publishings`
@@ -479,13 +478,13 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT для таблиці `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблиці `publishings`
@@ -515,6 +514,18 @@ ALTER TABLE `BooksComments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE NO ACTION;
+
+--
+-- Обмеження зовнішнього ключа таблиці `discounts`
+--
+ALTER TABLE `discounts`
+  ADD CONSTRAINT `discounts_ibfk_1` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Обмеження зовнішнього ключа таблиці `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

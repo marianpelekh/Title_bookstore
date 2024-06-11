@@ -2,7 +2,6 @@
 .carousel {
     grid-row: 1;
     grid-column: 1;
-    height: 100%;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;

@@ -82,6 +82,15 @@ while ($row = mysqli_fetch_array($result)) {
     $publ_result = mysqli_query($conn, $publ_query);
     $publ_row = mysqli_fetch_array($publ_result);
 
+    $disc_query = "SELECT Discount FROM discounts WHERE BookID = '" . mysqli_real_escape_string($conn, $row['BookID']) . "'";
+    $disc_result = mysqli_query($conn, $disc_query);
+
+    $discount = $row['Price'];
+    
+    if ($disc_row = mysqli_fetch_assoc($disc_result)) {
+        $discount = $row['Price'] - ($row['Price'] * (0.01 * $disc_row['Discount']));
+    }
+
     $books[] = array(
         'Name' => $row['Name'],
         'Author' => $row['Author'],
@@ -89,7 +98,8 @@ while ($row = mysqli_fetch_array($result)) {
         'Price' => $row['Price'],
         'Genre' => $row['Genre'],
         'Id' => $row['BookID'],
-        'PublishingEng' => $publ_row['PublNameEng']
+        'PublishingEng' => $publ_row['PublNameEng'],
+        'CurrentPrice' => $discount,
     );
 }
 

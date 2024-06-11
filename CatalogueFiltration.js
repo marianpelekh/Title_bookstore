@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Genre filter has been set");
         }
         genreFilterDel(filter);
+        loadBooks();
     }
 
     function showAllBooks() {
@@ -183,9 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
         applFilCont.appendChild(filter);
         localStorage.setItem('storedPublFilter', publishing);
         publFilterDel(filter);
+        loadBooks();
     }
-
-    let priceFilter = document.getElementById('applFilterPrice');
 
     let asideToggle = document.getElementById('aside-toggle');
     let aside = document.querySelector('aside');

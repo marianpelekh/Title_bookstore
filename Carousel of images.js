@@ -1,4 +1,5 @@
 const images = [
+  { src: 'StandartPhoto.png', url: '' },
   { src: 'NINTH-HOUSE.jpg', url: "КнижковаСторінка.php?id=" + encodeURIComponent("Дев'ятий Дім Лі Бардуґо ІН-00002950") },
   { src: 'BSAF.jpg', url: '' },
   { src: 'https://wallpapersmug.com/download/1600x900/e9f357/high-skies-pixel-art-4k.jpg', url: '' },

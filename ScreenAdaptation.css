@@ -160,6 +160,7 @@
   .carousel {
     grid-row: 1;
     grid-column: 1;
+    height: auto;
     max-width: 90vw;
     margin-right: auto;
     margin-left: auto;

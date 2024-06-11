@@ -1,0 +1,119 @@
+Table authors {
+  id int [pk, unique, increment]
+  AuthorName text [not null]
+  Birth int [note: '4-digit year, optional']
+  Death int [note: '4-digit year, optional']
+  Picture text [not null]
+  Bibliography text [not null]
+}
+
+Table books {
+  ShortName text [not null]
+  BookID varchar(20) [pk]
+  Name text [not null]
+  Author text [not null]
+  Publishing text [not null]
+  Price int [not null]
+  FrontCover text [not null]
+  BackCover text [note: 'optional']
+  PagesNumber int [not null]
+  Language text [not null]
+  DateExact date [not null]
+  Description text [not null]
+  Genre text [not null]
+  SeriesName text [note: 'optional']
+  NumberInSeries float [not null]
+
+  indexes {
+    BookID
+    Publishing
+  }
+}
+
+Table BooksComments {
+  BookID varchar(20) [ref: > books.BookID, not null, pk]
+  CommentID int [ref: > comments.commentId, not null, pk]
+
+  indexes {
+    BookID
+    CommentID
+  }
+}
+
+Table comments {
+  commentId int [pk, increment]
+  postTime timestamp [default: `current_timestamp()`, not null]
+  userId int [ref: > users.userId, not null]
+  userName text [not null]
+  userPic text [not null]
+  commentText text [not null]
+  Likes int [default: 0, not null]
+  Rate int [default: 0, not null]
+
+  indexes {
+    userId
+  }
+}
+
+Table discounts {
+  BookID varchar(20) [pk, ref: - books.BookID, unique, not null]
+  Discount int
+  Expires date [not null]
+  InitialPrice int [not null]
+
+  indexes {
+    BookID
+  }
+}
+
+Table orders {
+  OrderID int [pk, increment]
+  UserId int [pk]
+  OrderDate timestamp [default: `current_timestamp()`, not null]
+  BookIDs longtext [not null, note: 'JSON array of BookIDs']
+  TotalPrice int [not null]
+  UserName text [not null]
+  UserPhone text
+  UserEmail text [not null]
+  DeliveryMethod text [not null]
+  DeliveryTown text
+  DeliveryAddress text
+  PayByCard bit(1) [not null]
+  CardNumber text [not null]
+
+  indexes {
+    UserEmail
+    UserId
+  }
+}
+
+Table publishings {
+  id int [pk, increment]
+  PublName text [not null]
+  PublNameEng text [not null]
+
+  indexes {
+    PublName
+  }
+}
+
+Table users {
+  userId int [pk, increment]
+  Login varchar(20) [not null]
+  Password text [not null]
+  Email varchar(100) [not null]
+  PhoneNumber text
+  FirstName text [not null]
+  LastName text [not null]
+  MiddleName text [not null]
+  StoredBooks text [not null]
+  image text [not null]
+  FeaturedGenres text [not null]
+}
+
+
+Ref: "publishings"."PublName" < "books"."Publishing"
+
+Ref: "authors"."AuthorName" < "books"."Author"
+
+Ref: "orders"."UserId" > "users"."userId"
