@@ -196,32 +196,47 @@ session_start();
                     else {
                         echo '<h2 id="YourOrdersTitle">Ваші замовлення</h2>';
                         echo '<div id="YourOrders">';
-                        $orders_sql = "SELECT * FROM orders WHERE userId = '" . $_SESSION['id'] . "'";
+                        $orders_sql = "SELECT * FROM orders WHERE userId = '" . $_SESSION['id'] . "' ORDER BY FIELD(Status, 'New', 'Processing', 'Shipping', 'Delivered', 'Canceled')";
+
                         $orders_res = mysqli_query($conn, $orders_sql);
+
+                        $formatter = new IntlDateFormatter(
+                            'uk_UA', 
+                            IntlDateFormatter::LONG, 
+                            IntlDateFormatter::SHORT, 
+                            'Europe/Kiev', 
+                            IntlDateFormatter::GREGORIAN, 
+                            'd MMMM yyyy HH:mm'
+                        );
                         while ($or_row = mysqli_fetch_array($orders_res)) {
+                            $orderDate = new DateTime($or_row['OrderDate']);
+                            $formattedDate = $formatter->format($orderDate);
                             echo '<div id="Order">';
                             echo '<p id="OrderStatus">' . $or_row['Status'] . '</p>';
-                            echo '<p id="OrderDate">' . $or_row['OrderDate'] . '</p>';
-                            echo '<div id="OrderCovers"><img src="books.png" alt="Переглянути книги"></div>';
+                            echo '<p id="OrderDate">' . $formattedDate . '</p>';
+                            echo '<div id="OrderCovers"><a class="ViewOrderBooks"><img src="books.png" alt="Переглянути книги"></a></div>';
+                            echo '<p id="OrderPrice">' . $or_row['TotalPrice'] . ' грн</p>';
                             echo "<div id='OrdersList'>";
                             $bookIds = json_decode($or_row['BookIDs'], true);
                             foreach ($bookIds as $bookId) {
                                 $book_sql = "SELECT * FROM books WHERE BookID = '" . $bookId['code'] . "'";
                                 $book_res = mysqli_query($conn, $book_sql);
                                 $book_row = mysqli_fetch_array($book_res);
+                                
                                 echo '<div id="OrdersBook">';
-                                echo '<img src="' . $book_row['FrontCover'] . '" alt="' . $book_row['Name'] . '">';
+                                echo '<a href="КнижковаСторінка.php?id=' . urlencode($book_row['Name'] . ' ' . $book_row['Author'] . ' ' . $book_row['BookID']) . '">';
+                                echo '<img src="' . $book_row['FrontCover'] . '" alt="' . $book_row['ShortName'] . '">';
+                                echo '</a>';
                                 echo '<p>' . $book_row['Name'] . '</p>';
                                 echo '<p>' . $book_row['Author'] . '</p>';
+                                echo '<p>x' . $bookId['quantity'] . '</p>';
                                 echo '</div>';
                             }
                             echo '</div>';
-                            echo '<p id="OrderPrice">' . $or_row['TotalPrice'] . ' грн</p>';
                             echo '</div>';
                         }
                         echo '</div>';
 
-                        echo '</div>';
                         echo '<h2 id="titleForRecs">Рекомендації для вас</h2>';
                         echo '<div id="UserFeatures">';
                         if(isset($_SESSION['id'])) {
@@ -260,6 +275,7 @@ session_start();
                             echo '</div>';
                         }
                         echo '</div>';
+                        echo '<script src="orderBooksShow.js"></script>';
                     }
                 }
             ?>
