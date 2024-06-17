@@ -2,6 +2,21 @@
 ob_start();
 require('connect_db.php');
 session_start();
+function formatDateToUkrainian($dateString) {
+    $months = [
+        1 => 'січня', 2 => 'лютого', 3 => 'березня', 4 => 'квітня',
+        5 => 'травня', 6 => 'червня', 7 => 'липня', 8 => 'серпня',
+        9 => 'вересня', 10 => 'жовтня', 11 => 'листопада', 12 => 'грудня'
+    ];
+
+    $date = new DateTime($dateString);
+    $day = $date->format('j');
+    $month = $months[(int)$date->format('n')];
+    $year = $date->format('Y');
+    $time = $date->format('H:i');
+    
+    return "{$day} {$month} {$year} {$time}";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -196,21 +211,12 @@ session_start();
                     else {
                         echo '<h2 id="YourOrdersTitle">Ваші замовлення</h2>';
                         echo '<div id="YourOrders">';
-                        $orders_sql = "SELECT * FROM orders WHERE userId = '" . $_SESSION['id'] . "' ORDER BY FIELD(Status, 'New', 'Processing', 'Shipping', 'Delivered', 'Canceled')";
+                        $orders_sql = "SELECT * FROM orders WHERE userId = '" . $_SESSION['id'] . "' ORDER BY FIELD(Status, 'New', 'Processing', 'Shipping', 'Delivered', 'Canceled'), OrderDate DESC";
 
                         $orders_res = mysqli_query($conn, $orders_sql);
 
-                        $formatter = new IntlDateFormatter(
-                            'uk_UA', 
-                            IntlDateFormatter::LONG, 
-                            IntlDateFormatter::SHORT, 
-                            'Europe/Kiev', 
-                            IntlDateFormatter::GREGORIAN, 
-                            'd MMMM yyyy HH:mm'
-                        );
                         while ($or_row = mysqli_fetch_array($orders_res)) {
-                            $orderDate = new DateTime($or_row['OrderDate']);
-                            $formattedDate = $formatter->format($orderDate);
+                            $formattedDate = formatDateToUkrainian($or_row['OrderDate']);
                             echo '<div id="Order">';
                             echo '<p id="OrderStatus">' . $or_row['Status'] . '</p>';
                             echo '<p id="OrderDate">' . $formattedDate . '</p>';
