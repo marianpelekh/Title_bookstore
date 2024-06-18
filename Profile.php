@@ -235,7 +235,8 @@ function formatDateToUkrainian($dateString) {
                                 echo '</a>';
                                 echo '<p>' . $book_row['Name'] . '</p>';
                                 echo '<p>' . $book_row['Author'] . '</p>';
-                                echo '<p>x' . $bookId['quantity'] . '</p>';
+                                echo '<p>' . $book_row['Price'] . ' грн x ' . $bookId['quantity'] . ' од.</p>';
+                                echo '<h5>' . intval($book_row['Price']) * intval($bookId['quantity']) . ' грн</h5>';
                                 echo '</div>';
                             }
                             echo '</div>';

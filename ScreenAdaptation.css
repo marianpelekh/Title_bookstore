@@ -206,16 +206,24 @@
     object-fit: cover;
     object-position: center;
   }
-  .Comment {
-    grid-template-rows: auto;
-    margin: 5px;
-    height: auto;
-    min-height: 60px;
+  .Avatar {
+    margin-right: 10px;
+  }
+  .CommUserName {
+    margin: 0px;
   }
   .CommentText {
     padding: 5px;
-    height: auto;
     min-height: 40px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 30px auto;
+  }
+  .CommentTextItself {
+    height: 100%;
+  }
+  .starsDisplay {
+    text-align: center;
   }
   .undercomms {
     width: 100%;
@@ -716,34 +724,51 @@
     margin-left: 3px;
     max-width: 100vw;
     width: 100vw;
-    min-height: 150px;
-    max-height: 70vw;
+    min-height: 30vh;
+    max-height: 70vh;
     overflow-y: auto;
 }
 #Order {
   width: 100vw;
+  height: 10vh;
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 50%) !important;
+  grid-template-rows: 5vh 5vh 0px;
+  border-bottom: 10px solid var(--soft-shadow);
+}
+#OrderStatus {
+  grid-column: 1;
+  grid-row: 1;
+}
+#OrderDate {
+  grid-column: 2;
+  grid-row: 1;
+}
+#OrderCovers {
+  width: 100% !important;
+  height: 100% !important;
+  grid-column: 1;
+  grid-row: 2;
+}
+#OrderPrice {
+  grid-column: 2;
+  grid-row: 2;
 }
 #Order > p, #Order > div {
-    height: 90px;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid var(--cookie-bg);
     background-color: var(--main-color);
-    width: 20vw;
 }
-#Order #OrderCovers {
-    display: flex;
-    align-items: center;
-  }
-#OrderCovers img {
-    margin: 0px;
-    max-height: 85px;
-}
-#OrderCovers p {
-    display: none;
-    font-size: xx-small;
+#OrdersList {
+  margin: 0px;
+  height: 0px;
+  grid-row: 3 !important;
+  grid-column: 1 / span 2 !important;
 }
 
 }

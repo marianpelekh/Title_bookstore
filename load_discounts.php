@@ -11,7 +11,6 @@ if (isset($_GET['bookId']) && isset($_GET['quantity'])) {
     if ($priceResult && mysqli_num_rows($priceResult) > 0) {
         $originalPrice = (int)mysqli_fetch_assoc($priceResult)['Price'];
         
-        // Отримати знижку з таблиці discounts
         $discountQuery = "SELECT Discount FROM discounts WHERE BookID = '$bookId' AND Expires >= NOW()";
         $discountResult = mysqli_query($conn, $discountQuery);
         
@@ -35,7 +34,8 @@ if (isset($_GET['bookId']) && isset($_GET['quantity'])) {
         echo "Книга не знайдена або неправильний запит.";
     }
 
-    // Видалення прострочених знижок
+    //Видалення знижок
+
     $expiredDiscountsQuery = "SELECT BookID FROM discounts WHERE Expires < NOW()";
     $expiredDiscountsResult = mysqli_query($conn, $expiredDiscountsQuery);
 

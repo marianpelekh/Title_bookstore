@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['id'])) {
-        header('Location: Кабінет.php', true, 302);
+        header('Location: Profile.php', true, 302);
         exit;
     }
 ?>

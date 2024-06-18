@@ -23,3 +23,12 @@ comments.forEach(comment => {
         }
     })
 })
+
+if (window.innerWidth < 1000) {
+    let commentStars = Array.from(document.getElementsByClassName('starsDisplay'));
+    commentStars.forEach(stars => {
+        let starsText = stars.innerText;
+        let starsCount = starsText.replaceAll('☆', '').length;
+        stars.innerText = starsCount + '★';
+    });
+}

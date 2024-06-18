@@ -1,17 +1,14 @@
 const footer = document.querySelector('footer');
 
-// Створення і додавання заголовку
 const footTitle = document.createElement('h1');
 footTitle.id = 'foot-title';
 footTitle.textContent = 'Title';
 footer.appendChild(footTitle);
 
-// Створення і додавання каталогу
 const catalogFooter = document.createElement('span');
 catalogFooter.id = 'catalog-footer';
 footer.appendChild(catalogFooter);
 
-// Додавання елементів в каталог
 const catalogLinks = [
     { id: 'FootCatalog', href: 'Каталог.php', text: 'Каталог', tag: 'h2', className: '' },
     { href: 'Каталог.php', text: 'Фентезі', tag: 'a', className: 'genreLink', genre: 'Fantasy' },
@@ -41,12 +38,10 @@ catalogLinks.forEach(link => {
     }
 });
 
-// Створення і додавання іншої інформації
 const otherFooterInfo = document.createElement('span');
 otherFooterInfo.id = 'other-footer-info';
 footer.appendChild(otherFooterInfo);
 
-// Додавання елементів іншої інформації
 const otherLinks = [
     { id: 'FootAuthors', href: 'Автори.php', text: 'Автори', tag: 'h2' },
     { id: 'FootNews', href: 'Новинки.php', text: 'Новинки', tag: 'h2' },
