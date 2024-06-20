@@ -9,23 +9,15 @@ document.getElementById('ConfirmOrder').addEventListener('click', function(event
     let deliveryTown = document.getElementById('TownPick').value;
     let deliveryAddress = document.getElementById('PostOfficePick').value;
 
-    // Collect payment details
     let payByCard = document.querySelector('input[name="PaymentMethod"]:checked').value === 'CardPayment';
     let cardNumber = document.getElementById('CardNumber').value;
 
-    // Collect books from local storage
     let storedBooks = JSON.parse(localStorage.getItem('books')) || [];
     let bookIds = storedBooks.map(book => ({ code: book.code, quantity: book.quantity }));
-    // Отримати текстовий рядок з елементу p#totalElement
     let totalText = document.querySelector('.totalElement').textContent;
 
-    // Знайти перше число в текстовому рядку (ціле або десяткове)
     let totalPrice = parseFloat(totalText.match(/[\d.]+/));
 
-    // Перевірити, чи отримано правильне значення ціни
-    console.log(totalPrice); // Перевірка у консолі браузера
-
-    // Prepare data to be sent to the server
     let orderData = {
         phoneNumber: phoneNumber,
         userMail: userMail,

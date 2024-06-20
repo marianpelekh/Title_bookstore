@@ -1,6 +1,6 @@
 <?php 
 //Home
-$servername = '192.168.0.198';
+$servername = '192.168.0.197';
 
 //Mobile
 // $servername = '192.168.6.247';

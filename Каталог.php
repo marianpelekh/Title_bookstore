@@ -99,7 +99,6 @@
 
         if (loading) return;
         loading = true;
-        // $('#loading').hide();
 
         $.ajax({
             url: 'lazy_loading_catalog.php',

@@ -4,13 +4,11 @@ include('connect_db.php');
 $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
 $limit = 8;
 
-// Параметри фільтрації
 $minPriceValue = isset($_GET['minPriceValue']) ? floatval($_GET['minPriceValue']) : null;
 $maxPriceValue = isset($_GET['maxPriceValue']) ? floatval($_GET['maxPriceValue']) : null;
 $storedPublFilter = isset($_GET['storedPublishingFilter']) ? $_GET['storedPublishingFilter'] : null;
 $storedGenreFilter = isset($_GET['storedGenreFilter']) ? $_GET['storedGenreFilter'] : null;
 
-// Зміна значення limit залежно від ширини екрану
 if (isset($_GET['screenWidth']) && intval($_GET['screenWidth']) > 1828) {
     $limit = 10;
 }
@@ -62,16 +60,9 @@ if ($groupByGenre && $groupByPublishing) {
     $groupByClause = "ORDER BY DateExact DESC";
 }
 
-// Головний запит з фільтрацією і групуванням
 $query = "SELECT * FROM books $whereClause $groupByClause LIMIT $limit OFFSET $offset";
-
-
-// Друк сформованого запиту для діагностики
-error_log("SQL Query: " . $query);
-
 $result = mysqli_query($conn, $query);
 
-// Перевірка на помилки запиту
 if (!$result) {
     die("Помилка виконання запиту: " . mysqli_error($conn));
 }
